@@ -18,7 +18,7 @@ const ovo = Ovo({
 export const metadata: Metadata = {
   title: "Portfolio | Himanshu Pandey",
   description:
-    "A personal portfolio website developed using React, Next.js, and Tailwind CSS.",
+    "A personal portfolio website developed using React, Next.js, TypeScript and Tailwind CSS.",
 };
 
 export default function RootLayout({
@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body className={`${outfit.className} ${ovo.className} antialiased`}>
         <ThemeProvider>{children}</ThemeProvider>
       </body>

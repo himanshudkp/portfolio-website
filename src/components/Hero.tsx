@@ -1,5 +1,5 @@
 import Lottie from "lottie-react";
-import animation from "../../public/web_dev.json"; // adjust path if needed
+import animation from "@/data/web_dev.json"; // adjust path if needed
 import {
   ArrowDownToLine,
   Github,

@@ -1,12 +1,5 @@
-// contexts/ThemeContext.tsx
 "use client";
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-} from "react";
+import { createContext, useEffect, useState, ReactNode } from "react";
 
 interface ThemeContextType {
   isDark: boolean;
