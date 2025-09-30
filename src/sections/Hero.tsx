@@ -62,7 +62,7 @@ export const Hero = () => {
     <section
       id="home"
       className={cn(
-        "relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-20 transition-colors duration-500 sm:px-6 lg:px-8 xl:px-[8%]",
+        "relative flex min-h-screen items-center justify-center overflow-hidden px-5 py-20 transition-colors duration-500 sm:px-6 lg:px-8 xl:px-[8%]",
         isDark
           ? "bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900"
           : "bg-gradient-to-b from-white via-gray-50 to-white"
@@ -149,7 +149,7 @@ function WelcomeBadge({ isDark, isVisible }: ThemeProps) {
   return (
     <div
       className={cn(
-        "inline-flex items-center justify-center transition-all duration-1000 lg:justify-start",
+        "inline-flex items-center justify-center transition-all duration-1000 lg:justify-start mt-2",
         isVisible ? "translate-y-0 opacity-100" : "-translate-y-10 opacity-0"
       )}
     >
@@ -207,10 +207,18 @@ function MainHeading({ isDark, isVisible }: ThemeProps) {
         )}
       >
         Hi, {"I'm"}{" "}
-        <span className="relative inline-block">
+        <span
+          className={cn(
+            "relative inline-block text-4xl font-bold leading-tight [font-family:var(--font-ovo)] sm:text-5xl lg:text-6xl xl:text-7xl",
+            "bg-gradient-to-r bg-clip-text text-transparent",
+            isDark
+              ? "from-white via-blue-200 to-purple-200"
+              : "from-gray-900 via-blue-800 to-purple-900"
+          )}
+        >
           Himanshu
           {/* Underline decoration */}
-          <span className="absolute -bottom-2 left-0 h-1 w-full rounded-full bg-gradient-to-r from-blue-500 to-purple-500" />
+          <span className="absolute -bottom-0 left-0 h-1 w-full rounded-full bg-gradient-to-r from-blue-500 to-purple-500" />
         </span>
       </h1>
 
