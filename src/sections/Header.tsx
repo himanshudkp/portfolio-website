@@ -20,12 +20,15 @@ import { cn } from "@/utils";
 import { NavLink } from "@/types";
 import { NAV_LINKS, RESUME_PATH } from "@/data/header-data";
 import { ButtonLink } from "@/ui/ButtonLink";
+import { useCommandPalette } from "@/hooks/useCommandPalette";
+import { CommandPaletteButton } from "@/components/CommandPaletteButton";
 
 export default function Header() {
   const { isDark, toggleTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [selectedLink, setSelectedLink] = useState("Home");
   const [scrolled, setScrolled] = useState(false);
+  const {} = useCommandPalette();
 
   // Handle scroll for enhanced header shadow
   useEffect(() => {
@@ -85,6 +88,7 @@ export default function Header() {
 
         {/* Right Actions */}
         <div className="flex items-center gap-2 sm:gap-3">
+          <CommandPaletteButton isDark={isDark} />
           <ThemeToggle isDark={isDark} onToggle={toggleTheme} />
           <ContactButton isDark={isDark} />
           <ResumeButton isDark={isDark} onClick={downloadResume} />

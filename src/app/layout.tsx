@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Outfit, Ovo } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import CommandPalette from "@/components/CommandPalette";
+import CommandPaletteIndicator from "@/components/CommandPaletteIndicator";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -29,7 +31,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${outfit.className} ${ovo.className} antialiased`}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <CommandPalette />
+          <CommandPaletteIndicator />
+
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
