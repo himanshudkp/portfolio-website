@@ -5,7 +5,7 @@ import { ABOUT_SECTION_DATA } from "@/data";
 import { useTheme } from "@/hooks/useTheme";
 import { Stat, Tool } from "@/types";
 import { cn } from "@/utils";
-import { Code2, ArrowRight } from "lucide-react";
+import { Code2, ArrowRight, Sparkles } from "lucide-react";
 import BtnLink from "@/ui/BtnLink";
 
 export const About = () => {
@@ -33,21 +33,37 @@ export const About = () => {
       id="about"
       className={cn(
         "relative flex min-h-screen items-center px-4 py-20 transition-colors duration-300 sm:px-6 lg:px-8 xl:px-[8%]",
-        isDark ? "bg-gray-900" : "bg-white"
+        isDark ? "bg-gray-900" : "bg-gray-50"
       )}
     >
+      {/* Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          className={cn(
+            "absolute top-1/4 -right-40 w-96 h-96 rounded-full blur-3xl opacity-10",
+            isDark ? "bg-blue-500" : "bg-blue-300"
+          )}
+        />
+        <div
+          className={cn(
+            "absolute bottom-1/4 -left-40 w-96 h-96 rounded-full blur-3xl opacity-10",
+            isDark ? "bg-purple-500" : "bg-purple-300"
+          )}
+        />
+      </div>
+
       <div className="relative mx-auto w-full max-w-7xl">
         <SectionHeader isVisible={isVisible} />
 
-        <div className="grid gap-6 lg:grid-cols-12 lg:gap-8">
-          {/* Main Content - 8 columns */}
-          <div className="space-y-6 lg:col-span-8">
+        <div className="grid gap-8 lg:grid-cols-3">
+          {/* Main Content - 2 columns */}
+          <div className="space-y-8 lg:col-span-2">
             <IntroductionCard isVisible={isVisible} />
             <StatsGrid isVisible={isVisible} />
           </div>
 
-          {/* Sidebar - 4 columns */}
-          <div className="lg:col-span-4">
+          {/* Sidebar - 1 column */}
+          <div className="lg:col-span-1">
             <TopToolsSidebar isVisible={isVisible} />
           </div>
         </div>
@@ -65,32 +81,42 @@ function SectionHeader({ isVisible }: ThemeProps) {
   return (
     <div
       className={cn(
-        "mb-12 text-center transition-all duration-700 lg:mb-16",
+        "mb-16 text-center transition-all duration-700",
         isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
       )}
     >
-      <div
-        className={cn(
-          "mb-4 inline-flex items-center gap-2 rounded-full border px-4 py-2 backdrop-blur-sm",
-          isDark
-            ? "border-blue-600/50 bg-blue-600/10"
-            : "border-blue-200 bg-blue-50"
-        )}
-      >
-        <span
+      <div className="flex items-center justify-center gap-2 mb-6">
+        <div
           className={cn(
-            "text-xs font-semibold uppercase tracking-wider",
-            isDark ? "text-blue-400" : "text-blue-600"
+            "inline-flex items-center gap-2 rounded-full border px-5 py-2 backdrop-blur-sm",
+            isDark
+              ? "border-blue-500/30 bg-blue-500/10"
+              : "border-blue-200 bg-blue-50"
           )}
         >
-          Get to know me
-        </span>
+          <Sparkles
+            className={cn(
+              "h-3.5 w-3.5",
+              isDark ? "text-blue-400" : "text-blue-600"
+            )}
+          />
+          <span
+            className={cn(
+              "text-sm font-semibold",
+              isDark ? "text-blue-400" : "text-blue-600"
+            )}
+          >
+            Who I Am
+          </span>
+        </div>
       </div>
 
       <h2
         className={cn(
-          "mb-4 text-4xl font-bold [font-family:var(--font-ovo)] sm:text-5xl lg:text-6xl",
-          isDark ? "text-white" : "text-gray-900"
+          "mb-6 text-4xl font-bold tracking-tight [font-family:var(--font-ovo)] sm:text-5xl lg:text-6xl",
+          isDark
+            ? "bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent"
+            : "text-gray-900"
         )}
       >
         About Me
@@ -98,14 +124,13 @@ function SectionHeader({ isVisible }: ThemeProps) {
 
       <p
         className={cn(
-          "mx-auto max-w-2xl text-sm sm:text-base",
+          "mx-auto max-w-2xl text-base sm:text-lg",
           isDark ? "text-gray-400" : "text-gray-600"
         )}
       >
-        Passionate about creating digital experiences that make a difference
+        Transforming ideas into powerful digital solutions with precision and
+        creativity
       </p>
-
-      <div className="mx-auto mt-6 h-1 w-24 rounded-full bg-blue-600" />
     </div>
   );
 }
@@ -115,14 +140,22 @@ function IntroductionCard({ isVisible }: ThemeProps) {
   return (
     <div
       className={cn(
-        "rounded-2xl transition-all duration-700 delay-100",
+        "group rounded-3xl transition-all duration-700 delay-100 hover:shadow-2xl",
         isDark
-          ? "border border-gray-700 bg-gray-800/80 backdrop-blur-xl"
-          : "border border-gray-200 bg-white shadow-lg backdrop-blur-xl",
+          ? "border border-white/10 bg-gray-800/50 backdrop-blur-xl"
+          : "border border-gray-200 bg-white shadow-xl backdrop-blur-xl",
         isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
       )}
     >
-      <div className="relative p-6 sm:p-8 lg:p-10">
+      <div className="relative p-8 sm:p-10 lg:p-12">
+        {/* Gradient Overlay */}
+        <div
+          className={cn(
+            "absolute top-0 left-0 right-0 h-1 rounded-t-3xl",
+            "bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600"
+          )}
+        />
+
         <CardHeader />
         <CardContent />
         <HighlightsGrid />
@@ -134,32 +167,34 @@ function IntroductionCard({ isVisible }: ThemeProps) {
 function CardHeader() {
   const { isDark } = useTheme();
   return (
-    <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start">
+    <div className="mb-8 flex flex-col gap-6 sm:flex-row sm:items-start">
       <div
         className={cn(
-          "flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl",
-          isDark ? "bg-blue-600" : "bg-blue-700"
+          "flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-2xl shadow-lg",
+          "bg-gradient-to-br from-blue-600 to-purple-600"
         )}
       >
-        <Code2 className="h-7 w-7 text-white" />
+        <Code2 className="h-8 w-8 text-white" />
       </div>
 
       <div className="flex-1">
         <h3
           className={cn(
-            "mb-2 text-2xl font-bold sm:text-3xl",
-            isDark ? "text-white" : "text-gray-900"
+            "mb-3 text-2xl font-bold sm:text-3xl lg:text-4xl",
+            isDark
+              ? "bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
+              : "text-gray-900"
           )}
         >
-          Frontend Developer & UI Enthusiast
+          Full Stack Developer
         </h3>
         <p
           className={cn(
-            "text-sm sm:text-base",
+            "text-base sm:text-lg font-medium",
             isDark ? "text-gray-400" : "text-gray-600"
           )}
         >
-          Crafting exceptional digital experiences
+          Specializing in Web, Mobile & AI Solutions
         </p>
       </div>
     </div>
@@ -169,40 +204,60 @@ function CardHeader() {
 function CardContent() {
   const { isDark } = useTheme();
   return (
-    <div className="space-y-4 sm:space-y-5">
+    <div className="space-y-6">
       <p
         className={cn(
-          "text-sm leading-relaxed sm:text-base lg:text-lg",
+          "text-base leading-relaxed sm:text-lg",
           isDark ? "text-gray-300" : "text-gray-700"
         )}
       >
-        {"I'm"} a dedicated{" "}
-        <span className="font-semibold text-blue-600">Frontend Developer</span>{" "}
-        with expertise in modern web technologies including{" "}
-        <span className="font-semibold text-blue-600">
-          ReactJS, Next.js, and React Native
+        I'm a results-driven developer with{" "}
+        <span
+          className={cn(
+            "font-bold",
+            isDark ? "text-blue-400" : "text-blue-600"
+          )}
+        >
+          2+ years of experience
+        </span>{" "}
+        building scalable applications using{" "}
+        <span
+          className={cn(
+            "font-semibold",
+            isDark ? "text-blue-400" : "text-blue-600"
+          )}
+        >
+          React, Next.js, React Native, and AI technologies
         </span>
-        . With over 2 years of professional experience, I specialize in building
-        responsive, performant applications that deliver exceptional user
-        experiences.
+        . I specialize in creating high-performance solutions that drive
+        business growth and deliver exceptional user experiences.
       </p>
       <p
         className={cn(
-          "text-sm leading-relaxed sm:text-base lg:text-lg",
+          "text-base leading-relaxed sm:text-lg",
           isDark ? "text-gray-300" : "text-gray-700"
         )}
       >
-        My journey in development has been driven by a passion for{" "}
-        <span className="font-semibold text-blue-600">clean code</span>,
-        performance optimization, and creating intuitive user interfaces.{" "}
-        {"I've"} successfully delivered{" "}
-        <span className="font-bold text-blue-600">
-          4+ professional projects
+        With a portfolio of{" "}
+        <span
+          className={cn(
+            "font-bold",
+            isDark ? "text-purple-400" : "text-purple-600"
+          )}
+        >
+          50+ delivered projects
+        </span>
+        , I bring proven expertise in translating complex requirements into
+        elegant, maintainable code. My focus is on{" "}
+        <span
+          className={cn(
+            "font-semibold",
+            isDark ? "text-blue-400" : "text-blue-600"
+          )}
+        >
+          clean architecture, performance optimization,
         </span>{" "}
-        and built{" "}
-        <span className="font-bold text-blue-600">4+ personal projects</span>,
-        continuously learning and staying up-to-date with the latest industry
-        trends.
+        and creating intuitive interfaces that users love.
       </p>
     </div>
   );
@@ -211,33 +266,30 @@ function CardContent() {
 function HighlightsGrid() {
   const { isDark } = useTheme();
   return (
-    <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {ABOUT_SECTION_DATA.highlights.map((highlight, index) => {
         const IconComponent = highlight.icon;
         return (
           <div
             key={`${highlight.text}-${index}`}
             className={cn(
-              "flex items-center gap-3 rounded-xl p-3.5 sm:p-4",
-              isDark ? "bg-gray-900/50" : "bg-gray-50"
+              "flex items-center gap-3 rounded-2xl p-4 transition-all duration-200 hover:scale-105",
+              isDark
+                ? "bg-gray-900/50 border border-white/5"
+                : "bg-gray-50 border border-gray-200"
             )}
           >
             <div
               className={cn(
-                "flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg",
-                isDark ? "bg-blue-600/20" : "bg-blue-100"
+                "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl",
+                "bg-gradient-to-br from-blue-600 to-purple-600"
               )}
             >
-              <IconComponent
-                className={cn(
-                  "h-4 w-4",
-                  isDark ? "text-blue-400" : "text-blue-600"
-                )}
-              />
+              <IconComponent className="h-5 w-5 text-white" />
             </div>
             <span
               className={cn(
-                "text-xs font-medium sm:text-sm",
+                "text-sm font-semibold",
                 isDark ? "text-gray-300" : "text-gray-700"
               )}
             >
@@ -254,7 +306,7 @@ function StatsGrid({ isVisible }: ThemeProps) {
   return (
     <div
       className={cn(
-        "grid grid-cols-2 gap-4 transition-all duration-700 delay-200 sm:gap-5 lg:grid-cols-4",
+        "grid grid-cols-2 gap-6 transition-all duration-700 delay-200 lg:grid-cols-4",
         isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
       )}
     >
@@ -296,60 +348,51 @@ function StatCard({ stat }: StatCardProps) {
     return () => clearInterval(timer);
   }, [targetValue]);
 
-  // Extract gradient colors for solid background
-  const getColorClass = (gradient: string) => {
-    if (gradient.includes("blue")) return "bg-blue-600";
-    if (gradient.includes("purple")) return "bg-purple-600";
-    if (gradient.includes("pink")) return "bg-pink-600";
-    if (gradient.includes("green")) return "bg-green-600";
-    return "bg-blue-600";
-  };
-
-  const getTextColorClass = (gradient: string) => {
-    if (gradient.includes("blue")) return "text-blue-600";
-    if (gradient.includes("purple")) return "text-purple-600";
-    if (gradient.includes("pink")) return "text-pink-600";
-    if (gradient.includes("green")) return "text-green-600";
-    return "text-blue-600";
+  const getGradientClass = (gradient: string) => {
+    if (gradient.includes("blue")) return "from-blue-600 to-blue-700";
+    if (gradient.includes("purple")) return "from-purple-600 to-purple-700";
+    if (gradient.includes("pink")) return "from-pink-600 to-pink-700";
+    if (gradient.includes("green")) return "from-green-600 to-green-700";
+    return "from-blue-600 to-blue-700";
   };
 
   return (
     <div
       className={cn(
-        "rounded-2xl p-5 transition-colors duration-200 sm:p-6",
+        "group rounded-3xl p-6 transition-all duration-300 hover:scale-105 hover:shadow-2xl",
         isDark
-          ? "border border-gray-700 bg-gray-800/50 backdrop-blur-xl"
+          ? "border border-white/10 bg-gray-800/50 backdrop-blur-xl"
           : "border border-gray-200 bg-white shadow-lg"
       )}
     >
-      <div className="relative">
-        <div
-          className={cn(
-            "mb-4 flex h-12 w-12 items-center justify-center rounded-xl",
-            getColorClass(stat.color)
-          )}
-        >
-          <IconComponent className="h-6 w-6 text-white" />
-        </div>
-
-        <h3
-          className={cn(
-            "mb-1 text-3xl font-bold sm:text-4xl",
-            getTextColorClass(stat.color)
-          )}
-        >
-          {isNaN(targetValue) ? stat.value : `${count}+`}
-        </h3>
-
-        <p
-          className={cn(
-            "text-xs font-medium sm:text-sm",
-            isDark ? "text-gray-400" : "text-gray-600"
-          )}
-        >
-          {stat.label}
-        </p>
+      <div
+        className={cn(
+          "mb-4 flex h-14 w-14 items-center justify-center rounded-2xl shadow-lg transition-transform group-hover:scale-110",
+          `bg-gradient-to-br ${getGradientClass(stat.color)}`
+        )}
+      >
+        <IconComponent className="h-7 w-7 text-white" />
       </div>
+
+      <h3
+        className={cn(
+          "mb-2 text-4xl font-bold",
+          isDark
+            ? "bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
+            : "text-gray-900"
+        )}
+      >
+        {isNaN(targetValue) ? stat.value : `${count}+`}
+      </h3>
+
+      <p
+        className={cn(
+          "text-sm font-medium",
+          isDark ? "text-gray-400" : "text-gray-600"
+        )}
+      >
+        {stat.label}
+      </p>
     </div>
   );
 }
@@ -359,14 +402,14 @@ function TopToolsSidebar({ isVisible }: ThemeProps) {
   return (
     <div
       className={cn(
-        "sticky top-24 rounded-2xl transition-all duration-700 delay-300",
+        "sticky top-24 rounded-3xl transition-all duration-700 delay-300",
         isDark
-          ? "border border-gray-700 bg-gray-800/80 backdrop-blur-xl"
-          : "border border-gray-200 bg-white shadow-lg backdrop-blur-xl",
+          ? "border border-white/10 bg-gray-800/50 backdrop-blur-xl"
+          : "border border-gray-200 bg-white shadow-xl backdrop-blur-xl",
         isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
       )}
     >
-      <div className="p-6 sm:p-8">
+      <div className="p-8">
         <SidebarHeader />
         <ToolsList />
         <CTACard />
@@ -378,17 +421,19 @@ function TopToolsSidebar({ isVisible }: ThemeProps) {
 function SidebarHeader() {
   const { isDark } = useTheme();
   return (
-    <div className="mb-6">
+    <div className="mb-8">
       <h3
         className={cn(
-          "mb-1 text-xl font-bold",
-          isDark ? "text-white" : "text-gray-900"
+          "mb-2 text-2xl font-bold",
+          isDark
+            ? "bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
+            : "text-gray-900"
         )}
       >
-        Top 5 Tools
+        Core Technologies
       </h3>
-      <p className={cn("text-xs", isDark ? "text-gray-400" : "text-gray-600")}>
-        Technologies I excel at
+      <p className={cn("text-sm", isDark ? "text-gray-400" : "text-gray-600")}>
+        Expert proficiency levels
       </p>
     </div>
   );
@@ -396,7 +441,7 @@ function SidebarHeader() {
 
 function ToolsList() {
   return (
-    <div className="space-y-5">
+    <div className="space-y-6 mb-8">
       {ABOUT_SECTION_DATA.topTools.map((tool, index) => (
         <ToolItem
           key={`${tool.name}-${index}`}
@@ -415,7 +460,6 @@ interface ToolItemProps extends ThemeProps {
 
 function ToolItem({ tool, delay = 0 }: ToolItemProps) {
   const { isDark } = useTheme();
-  const gradientColor = ABOUT_SECTION_DATA.colorMap[tool.color];
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -426,14 +470,16 @@ function ToolItem({ tool, delay = 0 }: ToolItemProps) {
     return () => clearTimeout(timer);
   }, [tool.level, delay]);
 
-  // Convert gradient to solid color
-  const getSolidColorClass = (gradient: string) => {
-    if (gradient.includes("blue")) return "bg-blue-600";
-    if (gradient.includes("purple")) return "bg-purple-600";
-    if (gradient.includes("orange")) return "bg-orange-600";
-    if (gradient.includes("green")) return "bg-green-600";
-    if (gradient.includes("pink")) return "bg-pink-600";
-    return "bg-blue-600";
+  const getGradientClass = (
+    color: keyof typeof ABOUT_SECTION_DATA.colorMap
+  ) => {
+    const gradient = ABOUT_SECTION_DATA.colorMap[color] || "";
+    if (gradient.includes("blue")) return "from-blue-600 to-blue-700";
+    if (gradient.includes("purple")) return "from-purple-600 to-purple-700";
+    if (gradient.includes("orange")) return "from-orange-600 to-orange-700";
+    if (gradient.includes("green")) return "from-green-600 to-green-700";
+    if (gradient.includes("pink")) return "from-pink-600 to-pink-700";
+    return "from-blue-600 to-blue-700";
   };
 
   return (
@@ -441,7 +487,7 @@ function ToolItem({ tool, delay = 0 }: ToolItemProps) {
       <div className="flex items-center justify-between">
         <span
           className={cn(
-            "text-sm font-semibold sm:text-base",
+            "text-base font-bold",
             isDark ? "text-gray-200" : "text-gray-800"
           )}
         >
@@ -449,8 +495,8 @@ function ToolItem({ tool, delay = 0 }: ToolItemProps) {
         </span>
         <span
           className={cn(
-            "flex h-8 w-12 items-center justify-center rounded-lg text-xs font-bold text-white",
-            getSolidColorClass(gradientColor)
+            "flex h-8 w-14 items-center justify-center rounded-lg text-sm font-bold text-white shadow-md",
+            `bg-gradient-to-r ${getGradientClass(tool.color)}`
           )}
         >
           {tool.level}%
@@ -459,14 +505,14 @@ function ToolItem({ tool, delay = 0 }: ToolItemProps) {
 
       <div
         className={cn(
-          "relative h-2.5 overflow-hidden rounded-full",
+          "relative h-3 overflow-hidden rounded-full",
           isDark ? "bg-gray-900" : "bg-gray-200"
         )}
       >
         <div
           className={cn(
-            "h-full rounded-full transition-all duration-1000 ease-out",
-            getSolidColorClass(gradientColor)
+            "h-full rounded-full transition-all duration-1000 ease-out shadow-lg",
+            `bg-gradient-to-r ${getGradientClass(tool.color)}`
           )}
           style={{ width: `${progress}%` }}
           role="progressbar"
@@ -485,23 +531,28 @@ function CTACard() {
   return (
     <div
       className={cn(
-        "mt-8 rounded-2xl p-6 text-center",
-        isDark
-          ? "border border-blue-600/30 bg-blue-600/10"
-          : "border border-blue-200 bg-blue-50"
+        "relative overflow-hidden rounded-2xl p-6 text-center",
+        "bg-gradient-to-br from-blue-600 to-purple-600"
       )}
     >
-      <p
-        className={cn(
-          "mb-4 text-sm font-medium sm:text-base",
-          isDark ? "text-gray-300" : "text-gray-700"
-        )}
-      >
-        Interested in working together?
-      </p>
-      <BtnLink href="#contact" variant="primary" icon={ArrowRight}>
-        Let's Connect
-      </BtnLink>
+      <div className="relative z-10">
+        <p className="mb-4 text-base font-semibold text-white">
+          Ready to start your next project?
+        </p>
+        <BtnLink
+          href="#contact"
+          variant="secondary"
+          size="md"
+          icon={ArrowRight}
+          className="bg-white text-blue-600 hover:bg-gray-100"
+        >
+          Let's Talk
+        </BtnLink>
+      </div>
+
+      {/* Decorative Elements */}
+      <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
+      <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
     </div>
   );
 }

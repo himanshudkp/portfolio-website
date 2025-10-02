@@ -98,12 +98,12 @@ export const TOP_5_TECH_STACK: string[] = [
   "Next.js",
   "TypeScript",
   "React Native",
-  "Tailwind",
+  "Redux",
 ] as const;
 
 export const SKILL_CATEGORIES: SkillCategory[] = [
   {
-    title: "Frontend",
+    title: "Frontend Development",
     icon: Code2,
     color: "blue",
     skills: [
@@ -113,52 +113,59 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       { name: "TypeScript", level: 88 },
       { name: "JavaScript", level: 92 },
       { name: "HTML/CSS", level: 95 },
-    ],
-  },
-  {
-    title: "Styling",
-    icon: Palette,
-    color: "purple",
-    skills: [
       { name: "Tailwind CSS", level: 95 },
-      { name: "SCSS", level: 85 },
-      { name: "Material UI", level: 80 },
+      { name: "Shadcn UI", level: 88 },
       { name: "Shadcn UI", level: 88 },
     ],
   },
   {
-    title: "State Management",
+    title: "State & Data Management",
     icon: Settings,
-    color: "pink",
+    color: "purple",
     skills: [
-      { name: "Redux", level: 90 },
       { name: "Redux Toolkit", level: 92 },
+      { name: "Redux", level: 90 },
       { name: "TanStack Query", level: 85 },
+      { name: "REST APIs", level: 90 },
+      { name: "Socket.IO", level: 78 },
+      { name: "Socket.IO", level: 78 },
+      { name: "Socket.IO", level: 78 },
+      { name: "Socket.IO", level: 78 },
+      { name: "Socket.IO", level: 78 },
     ],
   },
   {
-    title: "Backend & Tools",
+    title: "Backend & Database",
     icon: Wrench,
     color: "orange",
     skills: [
       { name: "Node.js", level: 82 },
-      { name: "REST APIs", level: 90 },
-      { name: "Socket.IO", level: 78 },
       { name: "PostgreSQL", level: 75 },
       { name: "Git", level: 92 },
       { name: "Postman", level: 88 },
+      { name: "Node.js", level: 82 },
+      { name: "PostgreSQL", level: 75 },
+      { name: "Git", level: 92 },
+      { name: "Postman", level: 88 },
+      { name: "Node.js", level: 82 },
+      { name: "PostgreSQL", level: 75 },
     ],
   },
   {
     title: "AI & Emerging Tech",
-    color: "emerald", // or another color you'd like
-    icon: Brain, // or Cpu, Sparkles, etc.
+    icon: Brain,
+    color: "emerald",
     skills: [
       { name: "ChatGPT/Claude API", level: 85 },
       { name: "Prompt Engineering", level: 80 },
+      { name: "AI Integration", level: 75 },
       { name: "LangChain", level: 70 },
       { name: "Vector Databases", level: 65 },
+      { name: "ChatGPT/Claude API", level: 85 },
+      { name: "Prompt Engineering", level: 80 },
       { name: "AI Integration", level: 75 },
+      { name: "LangChain", level: 70 },
+      { name: "Vector Databases", level: 65 },
     ],
   },
 ];

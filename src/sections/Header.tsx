@@ -14,6 +14,7 @@ import {
   Wrench,
   AppWindow,
   ExternalLink,
+  Download,
 } from "lucide-react";
 import { cn } from "@/utils";
 import { NavLink } from "@/types";
@@ -52,17 +53,17 @@ export const Header = () => {
   return (
     <nav
       className={cn(
-        "fixed top-0 z-50 w-full px-4 py-3 backdrop-blur-xl transition-all duration-300 sm:px-6 lg:px-8 xl:px-[8%]",
+        "fixed top-0 z-50 w-full backdrop-blur-md transition-all duration-300",
         scrolled
           ? isDark
-            ? "border-b border-gray-800/50 bg-gray-900/90 shadow-lg"
-            : "border-b border-gray-200/50 bg-white/90 shadow-lg"
+            ? "border-b border-white/5 bg-gray-900/80 shadow-xl shadow-black/10"
+            : "border-b border-gray-900/5 bg-white/80 shadow-xl shadow-gray-900/5"
           : isDark
-          ? "border-b border-transparent bg-gray-900/60"
-          : "border-b border-transparent bg-white/60"
+          ? "border-b border-transparent bg-gray-900/40"
+          : "border-b border-transparent bg-white/40"
       )}
     >
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8 xl:px-12">
         <LogoBrand name="Himanshu" footer={false} />
 
         <DesktopNav
@@ -71,41 +72,32 @@ export const Header = () => {
           onLinkClick={handleNavClick}
         />
 
-        <div className="flex items-center gap-2 sm:gap-3">
-          <button
-            onClick={toggleTheme}
-            className={cn(
-              "rounded-xl border p-2.5 transition-colors duration-200",
-              isDark
-                ? "border-gray-700/50 bg-gray-800/60 text-yellow-400 hover:bg-gray-700"
-                : "border-gray-200/60 bg-white/60 text-gray-700 hover:bg-gray-100"
-            )}
-            aria-label="Toggle theme"
-          >
-            {isDark ? (
-              <Sun className="h-5 w-5" />
-            ) : (
-              <Moon className="h-5 w-5" />
-            )}
-          </button>
-          <BtnLink
-            href="#contact"
-            variant="primary"
-            icon={Mail}
-            iconPosition="left"
-            className="hidden md:flex"
-          >
-            Contact
-          </BtnLink>
-          <BtnLink
-            href="https://drive.google.com/..."
-            target="_blank"
-            variant="primary"
-            icon={ExternalLink}
-            className="hidden md:flex"
-          >
-            Resume
-          </BtnLink>
+        <div className="flex items-center gap-2">
+          <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} />
+
+          <div className="hidden md:flex items-center gap-2">
+            <BtnLink
+              href={RESUME_LINK}
+              target="_blank"
+              variant="outline"
+              size="sm"
+              icon={Download}
+              iconPosition="left"
+              className="group"
+            >
+              <span>Resume</span>
+            </BtnLink>
+            <BtnLink
+              href="#contact"
+              variant="primary"
+              size="sm"
+              icon={Mail}
+              iconPosition="left"
+            >
+              <span>Hire Me</span>
+            </BtnLink>
+          </div>
+
           <MobileMenuButton
             isOpen={mobileMenuOpen}
             onToggle={toggleMobileMenu}
@@ -124,6 +116,45 @@ export const Header = () => {
   );
 };
 
+interface ThemeToggleProps {
+  isDark: boolean;
+  toggleTheme: () => void;
+}
+
+function ThemeToggle({ isDark, toggleTheme }: ThemeToggleProps) {
+  return (
+    <button
+      onClick={toggleTheme}
+      className={cn(
+        "group relative rounded-xl p-2.5 transition-all duration-300 hover:scale-105",
+        isDark
+          ? "bg-gray-800/60 hover:bg-gray-700/80 border border-gray-700/50"
+          : "bg-white/60 hover:bg-gray-50 border border-gray-200/60"
+      )}
+      aria-label="Toggle theme"
+    >
+      <div className="relative h-5 w-5">
+        <Sun
+          className={cn(
+            "absolute inset-0 transition-all duration-300",
+            isDark
+              ? "rotate-90 scale-0 opacity-0"
+              : "rotate-0 scale-100 opacity-100 text-amber-500"
+          )}
+        />
+        <Moon
+          className={cn(
+            "absolute inset-0 transition-all duration-300",
+            isDark
+              ? "rotate-0 scale-100 opacity-100 text-blue-400"
+              : "-rotate-90 scale-0 opacity-0"
+          )}
+        />
+      </div>
+    </button>
+  );
+}
+
 interface DesktopNavProps {
   links: NavLink[];
   selectedLink: string;
@@ -136,37 +167,39 @@ function DesktopNav({ links, selectedLink, onLinkClick }: DesktopNavProps) {
   return (
     <ul
       className={cn(
-        "hidden items-center gap-2 rounded-xl border px-3 py-2 backdrop-blur-xl lg:flex",
+        "hidden items-center gap-1 rounded-2xl border px-2 py-2 backdrop-blur-xl lg:flex",
         isDark
-          ? "border-gray-700/50 bg-gray-800/40"
-          : "border-gray-200/60 bg-white/60"
+          ? "border-white/5 bg-gray-800/40"
+          : "border-gray-900/5 bg-white/60 shadow-sm"
       )}
     >
-      {links.map((link, i) => {
+      {links.map((link) => {
         const Icon = link.icon;
         const isSelected = selectedLink === link.name;
 
         return (
-          <li key={link.name} className="flex items-center gap-2">
-            <>{console.log(link.href)}</>
-            <BtnLink
+          <li key={link.name}>
+            <Link
               href={link.href}
-              variant="ghost"
-              size="nav"
-              icon={Icon}
-              isSelected={isSelected}
               onClick={() => onLinkClick(link.name)}
+              className={cn(
+                "group relative flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition-all duration-200",
+                isSelected
+                  ? isDark
+                    ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/25"
+                    : "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/25"
+                  : isDark
+                  ? "text-gray-300 hover:bg-gray-700/50 hover:text-white"
+                  : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+              )}
             >
+              <Icon className="h-4 w-4" />
               <span className="hidden xl:inline">{link.name}</span>
-            </BtnLink>
-            {i < links.length - 1 && (
-              <span
-                className={cn(
-                  "h-6 w-px",
-                  isDark ? "bg-gray-700" : "bg-gray-300"
-                )}
-              />
-            )}
+
+              {isSelected && (
+                <span className="absolute inset-x-0 -bottom-2 mx-auto h-1 w-1 rounded-full bg-white" />
+              )}
+            </Link>
           </li>
         );
       })}
@@ -185,14 +218,31 @@ function MobileMenuButton({ isOpen, onToggle }: MobileMenuButtonProps) {
     <button
       onClick={onToggle}
       className={cn(
-        "rounded-xl border p-2.5 transition-colors duration-200 lg:hidden",
+        "rounded-xl border p-2.5 transition-all duration-300 lg:hidden hover:scale-105",
         isDark
-          ? "border-gray-700/50 bg-gray-800/60 text-white hover:bg-gray-700"
-          : "border-gray-200/60 bg-white/60 text-gray-700 hover:bg-gray-100"
+          ? "border-gray-700/50 bg-gray-800/60 text-white hover:bg-gray-700/80"
+          : "border-gray-200/60 bg-white/60 text-gray-700 hover:bg-gray-50"
       )}
       aria-label="Toggle menu"
     >
-      {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+      <div className="relative h-5 w-5">
+        <Menu
+          className={cn(
+            "absolute inset-0 transition-all duration-300",
+            isOpen
+              ? "rotate-90 scale-0 opacity-0"
+              : "rotate-0 scale-100 opacity-100"
+          )}
+        />
+        <X
+          className={cn(
+            "absolute inset-0 transition-all duration-300",
+            isOpen
+              ? "rotate-0 scale-100 opacity-100"
+              : "-rotate-90 scale-0 opacity-0"
+          )}
+        />
+      </div>
     </button>
   );
 }
@@ -233,25 +283,31 @@ function MobileMenu({
         "absolute left-0 right-0 top-full overflow-hidden backdrop-blur-xl transition-all duration-300 lg:hidden",
         isOpen ? "max-h-[calc(100vh-80px)] opacity-100" : "max-h-0 opacity-0",
         isDark
-          ? "border-b border-gray-800/50 bg-gray-900/95"
-          : "border-b border-gray-200/50 bg-white/95"
+          ? "border-b border-white/5 bg-gray-900/95"
+          : "border-b border-gray-900/5 bg-white/95 shadow-xl"
       )}
     >
       <div className="px-4 py-6 sm:px-6">
-        <ul className="mb-6 flex flex-col gap-1.5">
+        <ul className="mb-6 flex flex-col gap-2">
           {links.map((link) => {
             const Icon = iconMap[link.name as keyof typeof iconMap];
             const isSelected = selectedLink === link.name;
 
             return (
               <li key={link.name}>
-                <BtnLink
+                <Link
                   href={link.href}
                   onClick={() => handleLinkClick(link.name)}
-                  variant="ghost"
-                  size="navMobile"
-                  isSelected={isSelected}
-                  className="justify-between w-full"
+                  className={cn(
+                    "flex items-center justify-between rounded-xl px-4 py-3 transition-all duration-200",
+                    isSelected
+                      ? isDark
+                        ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
+                        : "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
+                      : isDark
+                      ? "text-gray-300 hover:bg-gray-800"
+                      : "text-gray-700 hover:bg-gray-50"
+                  )}
                 >
                   <span className="flex items-center gap-3">
                     {Icon && <Icon className="h-5 w-5" />}
@@ -260,37 +316,36 @@ function MobileMenu({
                   {isSelected && (
                     <span className="h-2 w-2 rounded-full bg-white" />
                   )}
-                </BtnLink>
+                </Link>
               </li>
             );
           })}
         </ul>
 
-        <div className="flex flex-col gap-3 sm:flex-row">
+        <div className="flex flex-col gap-3">
           <BtnLink
             href={RESUME_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            variant="primary"
+            variant="outline"
             size="md"
-            icon={ExternalLink}
+            icon={Download}
+            iconPosition="left"
             fullWidth
-            className="flex-1"
           >
-            View Resume
+            Download Resume
           </BtnLink>
 
           <BtnLink
             href="#contact"
             onClick={onClose}
-            variant="outline"
+            variant="primary"
             size="md"
             icon={Mail}
             iconPosition="left"
             fullWidth
-            className="flex-1"
           >
-            Contact Me
+            Hire Me
           </BtnLink>
         </div>
       </div>
