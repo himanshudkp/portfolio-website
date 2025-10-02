@@ -1,19 +1,19 @@
-import { COLOR_CLASSES, SKILL_CATEGORIES } from "@/data/skills-data";
+import { COLOR_CLASSES, SKILL_CATEGORIES } from "@/data";
 import { useTheme } from "@/hooks/useTheme";
 import { ColorClasses, Skill, SkillCategory } from "@/types";
 import { calculateAverage, cn } from "@/utils";
-import { Sparkles, TrendingUp, Award, Zap } from "lucide-react";
+import { TrendingUp, Award } from "lucide-react";
 import { memo, useState, useEffect } from "react";
 
 interface SkillBarProps {
   skill: Skill;
   colors: ColorClasses;
-  isDark: boolean;
   delay?: number;
 }
 
-const SkillBar = memo<SkillBarProps>(({ skill, colors, isDark, delay = 0 }) => {
+const SkillBar = memo<SkillBarProps>(({ skill, colors, delay = 0 }) => {
   const [progress, setProgress] = useState(0);
+  const { isDark } = useTheme();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -23,23 +23,32 @@ const SkillBar = memo<SkillBarProps>(({ skill, colors, isDark, delay = 0 }) => {
     return () => clearTimeout(timer);
   }, [skill.level, delay]);
 
+  // Convert gradient to solid color
+  const getSolidColorClass = (gradient: string) => {
+    if (gradient.includes("blue")) return "bg-blue-600";
+    if (gradient.includes("purple")) return "bg-purple-600";
+    if (gradient.includes("orange")) return "bg-orange-600";
+    if (gradient.includes("green")) return "bg-green-600";
+    if (gradient.includes("pink")) return "bg-pink-600";
+    if (gradient.includes("cyan")) return "bg-cyan-600";
+    return "bg-blue-600";
+  };
+
   return (
     <div className="group/skill">
       <div className="flex items-center justify-between mb-2">
         <span
           className={cn(
-            "text-sm font-semibold transition-colors duration-300",
-            isDark
-              ? "text-gray-300 group-hover/skill:text-white"
-              : "text-gray-700 group-hover/skill:text-gray-900"
+            "text-sm font-semibold",
+            isDark ? "text-gray-300" : "text-gray-700"
           )}
         >
           {skill.name}
         </span>
         <span
           className={cn(
-            "flex h-7 w-12 items-center justify-center rounded-lg bg-gradient-to-r text-xs font-bold text-white transition-transform duration-300 group-hover/skill:scale-110",
-            colors.gradient
+            "flex h-7 w-12 items-center justify-center rounded-lg text-xs font-bold text-white",
+            getSolidColorClass(colors.gradient)
           )}
         >
           {skill.level}%
@@ -51,14 +60,10 @@ const SkillBar = memo<SkillBarProps>(({ skill, colors, isDark, delay = 0 }) => {
           isDark ? "bg-gray-800" : "bg-gray-200"
         )}
       >
-        {/* Shimmer background */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" />
-
-        {/* Progress bar */}
         <div
           className={cn(
-            "h-full rounded-full bg-gradient-to-r shadow-lg transition-all duration-1000 ease-out",
-            colors.gradient
+            "h-full rounded-full transition-all duration-1000 ease-out",
+            getSolidColorClass(colors.gradient)
           )}
           style={{ width: `${progress}%` }}
           role="progressbar"
@@ -76,11 +81,11 @@ SkillBar.displayName = "SkillBar";
 
 interface SkillCardProps {
   category: SkillCategory;
-  isDark: boolean;
   delay?: number;
 }
 
-const SkillCard = memo<SkillCardProps>(({ category, isDark, delay = 0 }) => {
+const SkillCard = memo<SkillCardProps>(({ category, delay = 0 }) => {
+  const { isDark } = useTheme();
   const [isVisible, setIsVisible] = useState(false);
   const colors = COLOR_CLASSES[category.color];
   const Icon = category.icon;
@@ -94,62 +99,52 @@ const SkillCard = memo<SkillCardProps>(({ category, isDark, delay = 0 }) => {
     return () => clearTimeout(timer);
   }, [delay]);
 
+  // Convert gradient to solid color
+  const getSolidColorClass = (gradient: string) => {
+    if (gradient.includes("blue")) return "bg-blue-600";
+    if (gradient.includes("purple")) return "bg-purple-600";
+    if (gradient.includes("orange")) return "bg-orange-600";
+    if (gradient.includes("green")) return "bg-green-600";
+    if (gradient.includes("pink")) return "bg-pink-600";
+    if (gradient.includes("cyan")) return "bg-cyan-600";
+    return "bg-blue-600";
+  };
+
+  const getTextColorClass = (text: string) => {
+    if (text.includes("blue")) return "text-blue-600";
+    if (text.includes("purple")) return "text-purple-600";
+    if (text.includes("orange")) return "text-orange-600";
+    if (text.includes("green")) return "text-green-600";
+    if (text.includes("pink")) return "text-pink-600";
+    if (text.includes("cyan")) return "text-cyan-600";
+    return "text-blue-600";
+  };
+
   return (
     <div
       className={cn(
-        "group relative overflow-hidden rounded-3xl backdrop-blur-xl transition-all duration-700",
-        "hover:-translate-y-2 hover:scale-[1.02]",
+        "rounded-2xl backdrop-blur-xl transition-all duration-700",
         isDark
-          ? "border border-gray-700/50 bg-gradient-to-br from-gray-800/80 to-gray-900/80 shadow-2xl shadow-purple-900/10"
-          : "border border-gray-200/50 bg-white/80 shadow-xl shadow-gray-200/50 hover:shadow-2xl",
+          ? "border border-gray-700 bg-gray-800/80"
+          : "border border-gray-200 bg-white shadow-lg",
         isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
       )}
     >
-      {/* Gradient corner accent */}
-      <div
-        className={cn(
-          "absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gradient-to-br blur-3xl transition-all duration-500",
-          colors.gradient.replace("from-", "from-").replace("to-", "to-") +
-            "/20",
-          "opacity-0 group-hover:opacity-100"
-        )}
-      />
-
-      {/* Decorative line */}
-      <div
-        className={cn(
-          "absolute left-0 top-0 h-1 w-full bg-gradient-to-r transition-transform duration-500",
-          colors.gradient,
-          "scale-x-0 group-hover:scale-x-100"
-        )}
-      />
-
       <div className="relative p-6 sm:p-7">
         {/* Icon Header */}
         <div className="mb-6 flex items-center gap-3">
-          <div className="relative">
-            {/* Glow effect */}
-            <div
-              className={cn(
-                "absolute inset-0 rounded-2xl bg-gradient-to-r opacity-50 blur-lg transition-opacity duration-300 group-hover:opacity-100",
-                colors.gradient
-              )}
-            />
-            <div
-              className={cn(
-                "relative flex h-14 w-14 items-center justify-center rounded-2xl shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3",
-                isDark
-                  ? `bg-gradient-to-br ${colors.gradient}`
-                  : `bg-gradient-to-br ${colors.tag}`
-              )}
-            >
-              <Icon className="h-7 w-7 text-white" />
-            </div>
+          <div
+            className={cn(
+              "flex h-14 w-14 items-center justify-center rounded-xl",
+              getSolidColorClass(colors.gradient)
+            )}
+          >
+            <Icon className="h-7 w-7 text-white" />
           </div>
           <div>
             <h3
               className={cn(
-                "text-xl font-bold transition-colors duration-300",
+                "text-xl font-bold",
                 isDark ? "text-white" : "text-gray-900"
               )}
             >
@@ -173,7 +168,6 @@ const SkillCard = memo<SkillCardProps>(({ category, isDark, delay = 0 }) => {
               key={skill.name}
               skill={skill}
               colors={colors}
-              isDark={isDark}
               delay={delay + index * 100}
             />
           ))}
@@ -182,19 +176,12 @@ const SkillCard = memo<SkillCardProps>(({ category, isDark, delay = 0 }) => {
         {/* Category Stats */}
         <div
           className={cn(
-            "mt-6 flex items-center justify-between rounded-xl p-3 transition-colors duration-300",
-            isDark
-              ? "bg-gray-800/50 group-hover:bg-gray-700/50"
-              : "bg-gradient-to-r from-gray-50 to-gray-100 group-hover:shadow-md"
+            "mt-6 flex items-center justify-between rounded-xl p-3",
+            isDark ? "bg-gray-900/50" : "bg-gray-50"
           )}
         >
           <div className="flex items-center gap-2">
-            <Award
-              className={cn(
-                "h-4 w-4",
-                isDark ? colors.text : colors.text.replace("400", "600")
-              )}
-            />
+            <Award className={cn("h-4 w-4", getTextColorClass(colors.text))} />
             <span
               className={cn(
                 "text-sm font-medium",
@@ -207,7 +194,7 @@ const SkillCard = memo<SkillCardProps>(({ category, isDark, delay = 0 }) => {
           <span
             className={cn(
               "flex items-center gap-1 text-sm font-bold",
-              isDark ? colors.text : colors.text.replace("400", "600")
+              getTextColorClass(colors.text)
             )}
           >
             <TrendingUp className="h-4 w-4" />
@@ -215,15 +202,6 @@ const SkillCard = memo<SkillCardProps>(({ category, isDark, delay = 0 }) => {
           </span>
         </div>
       </div>
-
-      {/* Bottom accent line */}
-      <div
-        className={cn(
-          "h-1 bg-gradient-to-r transition-transform duration-500",
-          colors.gradient,
-          "scale-x-0 group-hover:scale-x-100"
-        )}
-      />
     </div>
   );
 });
@@ -231,7 +209,7 @@ const SkillCard = memo<SkillCardProps>(({ category, isDark, delay = 0 }) => {
 SkillCard.displayName = "SkillCard";
 
 // Main component
-export default function Skills() {
+export const Skills = () => {
   const { isDark } = useTheme();
   const [isVisible, setIsVisible] = useState(false);
 
@@ -255,40 +233,26 @@ export default function Skills() {
     <section
       id="skills"
       className={cn(
-        "relative flex min-h-screen items-center px-4 py-20 transition-colors duration-500 sm:px-6 lg:px-8 xl:px-[8%]",
-        isDark
-          ? "bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900"
-          : "bg-gradient-to-b from-white via-gray-50 to-white"
+        "relative flex min-h-screen items-center px-4 py-20 transition-colors duration-300 sm:px-6 lg:px-8 xl:px-[8%]",
+        isDark ? "bg-gray-900" : "bg-white"
       )}
     >
-      {/* Decorative Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div
-          className={cn(
-            "absolute -left-1/4 top-1/4 h-96 w-96 rounded-full blur-3xl transition-opacity duration-1000",
-            isDark ? "bg-blue-500/10" : "bg-blue-500/5",
-            isVisible ? "opacity-100" : "opacity-0"
-          )}
-        />
-        <div
-          className={cn(
-            "absolute -right-1/4 bottom-1/4 h-96 w-96 rounded-full blur-3xl transition-opacity duration-1000 delay-300",
-            isDark ? "bg-purple-500/10" : "bg-purple-500/5",
-            isVisible ? "opacity-100" : "opacity-0"
-          )}
-        />
-      </div>
-
       <div className="relative z-10 mx-auto w-full max-w-7xl">
         {/* Section Header */}
         <header
           className={cn(
-            "mb-12 text-center transition-all duration-1000 lg:mb-16",
+            "mb-12 text-center transition-all duration-700 lg:mb-16",
             isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           )}
         >
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border px-4 py-2 backdrop-blur-sm">
-            <Sparkles className="h-4 w-4 animate-pulse text-blue-500" />
+          <div
+            className={cn(
+              "mb-4 inline-flex items-center gap-2 rounded-full border px-4 py-2 backdrop-blur-sm",
+              isDark
+                ? "border-blue-600/50 bg-blue-600/10"
+                : "border-blue-200 bg-blue-50"
+            )}
+          >
             <span
               className={cn(
                 "text-xs font-semibold uppercase tracking-wider",
@@ -297,15 +261,12 @@ export default function Skills() {
             >
               What I Do
             </span>
-            <Sparkles className="h-4 w-4 animate-pulse text-purple-500" />
           </div>
 
           <h2
             className={cn(
-              "mb-4 text-4xl font-bold transition-colors duration-300 [font-family:var(--font-ovo)] sm:text-5xl lg:text-6xl",
-              isDark
-                ? "bg-gradient-to-r from-white via-gray-200 to-white bg-clip-text text-transparent"
-                : "bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text text-transparent"
+              "mb-4 text-4xl font-bold [font-family:var(--font-ovo)] sm:text-5xl lg:text-6xl",
+              isDark ? "text-white" : "text-gray-900"
             )}
           >
             My Skills
@@ -321,7 +282,7 @@ export default function Skills() {
             use to build exceptional digital experiences
           </p>
 
-          <div className="mx-auto mt-6 h-1 w-24 rounded-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600" />
+          <div className="mx-auto mt-6 h-1 w-24 rounded-full bg-blue-600" />
         </header>
 
         {/* Skills Grid */}
@@ -330,7 +291,6 @@ export default function Skills() {
             <SkillCard
               key={category.title}
               category={category}
-              isDark={isDark}
               delay={index * 150}
             />
           ))}
@@ -339,43 +299,25 @@ export default function Skills() {
         {/* Additional Info Card */}
         <div
           className={cn(
-            "group relative mt-12 overflow-hidden rounded-3xl p-6 text-center backdrop-blur-xl transition-all duration-1000 delay-700 hover:scale-[1.01] sm:p-8",
+            "mt-12 rounded-2xl p-6 text-center backdrop-blur-xl transition-all duration-700 delay-500 sm:p-8",
             isDark
-              ? "border border-gray-700/50 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10"
-              : "border border-gray-200/50 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 shadow-lg",
+              ? "border border-blue-600/30 bg-blue-600/10"
+              : "border border-blue-200 bg-blue-50",
             isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           )}
         >
-          {/* Decorative background */}
-          <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5" />
-          </div>
-
-          <div className="relative flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <div
-              className={cn(
-                "flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
-              )}
-            >
-              <Zap className="h-6 w-6 text-white" />
-            </div>
-            <div className="text-center sm:text-left">
-              <p
-                className={cn(
-                  "text-sm font-semibold sm:text-base",
-                  isDark ? "text-gray-300" : "text-gray-700"
-                )}
-              >
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text font-bold text-transparent">
-                  Always learning:
-                </span>{" "}
-                I continuously update my skills and explore new technologies to
-                stay at the forefront of web development
-              </p>
-            </div>
-          </div>
+          <p
+            className={cn(
+              "text-sm font-semibold sm:text-base",
+              isDark ? "text-gray-300" : "text-gray-700"
+            )}
+          >
+            <span className="font-bold text-blue-600">Always learning:</span> I
+            continuously update my skills and explore new technologies to stay
+            at the forefront of web development
+          </p>
         </div>
       </div>
     </section>
   );
-}
+};

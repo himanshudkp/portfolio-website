@@ -1,6 +1,13 @@
 import { type LucideIcon } from "lucide-react";
 
-export type ColorKey = "blue" | "purple" | "pink" | "cyan" | "green" | "orange";
+export type ColorKey =
+  | "blue"
+  | "purple"
+  | "pink"
+  | "cyan"
+  | "green"
+  | "orange"
+  | "emerald";
 
 export interface ColorClasses {
   gradient: string;
@@ -23,35 +30,19 @@ export interface Highlight {
   text: string;
 }
 
-export interface QuickLink {
-  name: string;
-  href: string;
-}
-
 export interface NavLink {
   name: string;
   href: string;
-}
-export interface SocialLink {
   icon: LucideIcon;
-  href: string;
+}
+
+export interface Link {
+  icon: LucideIcon;
+  text?: string;
   label: string;
-  color: string;
-}
-
-export interface ContactInfo {
-  icon: LucideIcon;
-  title: string;
-  value: string;
-  href?: string | null;
-  gradient: string;
-}
-
-export interface ContactItem {
-  icon: LucideIcon;
-  text: string;
-  hoverColor: string;
-  href?: string;
+  href: string;
+  title?: string;
+  value?: string;
 }
 
 export interface Tool {

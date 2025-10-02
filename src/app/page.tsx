@@ -1,12 +1,15 @@
 "use client";
-import About from "@/sections/About";
-import Contact from "@/sections/Contact";
-import Footer from "@/sections/Footer";
-import Header from "@/sections/Header";
-import { Hero } from "@/sections/Hero";
-import { Experience } from "@/sections/Experience";
-import Skills from "@/sections/Skills";
-import Projects from "@/sections/Projects";
+
+import {
+  About,
+  Contact,
+  Experience,
+  Footer,
+  Header,
+  Hero,
+  Projects,
+  Skills,
+} from "@/sections";
 
 export default function Home() {
   return (
