@@ -37,7 +37,7 @@ interface Project {
   };
 }
 
-interface ProjectDetailModalProps {
+interface ProjectModalProps {
   project: Project;
   isOpen: boolean;
   onClose: () => void;
@@ -70,7 +70,7 @@ const SectionHeading: FC<{
   );
 };
 
-export const ProjectDetailModal: FC<ProjectDetailModalProps> = ({
+export const ProjectModal: FC<ProjectModalProps> = ({
   project,
   isOpen,
   onClose,

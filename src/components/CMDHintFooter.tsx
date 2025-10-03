@@ -1,21 +1,133 @@
 "use client";
 import { getPlatform } from "@/utils";
-import { Command } from "lucide-react";
+import { Command, Sparkles, Zap } from "lucide-react";
+import { useTheme } from "@/hooks/useTheme";
+import { cn } from "@/utils";
 
 export const CMDHintFooter = () => {
+  const { isDark } = useTheme();
+
   return (
-    <div className="flex items-center gap-2 rounded-xl border backdrop-blur-xl px-4 py-2 border-gray-700/50 bg-gray-800/50">
-      <Command className="h-4 w-4 text-blue-600" />
-      <span className="text-sm text-white">
-        Press{" "}
-        <span className="mx-1 rounded px-1.5 py-0.5 text-xs font-semibold bg-gray-200 text-gray-600">
-          {getPlatform() === "mac" ? "⌘" : "Ctrl"}
-        </span>
-        <span className="mx-1 rounded px-1.5 py-0.5 text-xs font-semibold bg-gray-200 text-gray-600">
-          K
-        </span>{" "}
-        for quick navigation
-      </span>
+    <div className="relative group">
+      {/* Animated glow effect */}
+      <div
+        className={cn(
+          "absolute -inset-0.5 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500",
+          isDark
+            ? "bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600"
+            : "bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400"
+        )}
+      />
+
+      <div
+        className={cn(
+          "relative flex items-center gap-3 rounded-2xl border backdrop-blur-xl px-5 py-3 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl",
+          isDark
+            ? "border-gray-700/50 bg-gradient-to-r from-gray-800/90 to-gray-900/90"
+            : "border-gray-200/50 bg-gradient-to-r from-white/90 to-gray-50/90"
+        )}
+      >
+        {/* Icon with pulse effect */}
+        <div className="relative">
+          <div
+            className={cn(
+              "absolute inset-0 rounded-lg blur-md animate-pulse",
+              isDark ? "bg-blue-500/30" : "bg-blue-400/30"
+            )}
+          />
+          <div
+            className={cn(
+              "relative flex items-center justify-center w-9 h-9 rounded-lg transition-colors",
+              isDark
+                ? "bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-blue-500/30"
+                : "bg-gradient-to-br from-blue-100 to-purple-100 border border-blue-200/50"
+            )}
+          >
+            <Command
+              className={cn(
+                "h-4 w-4",
+                isDark ? "text-blue-400" : "text-blue-600"
+              )}
+            />
+          </div>
+        </div>
+
+        {/* Text content */}
+        <div className="flex items-center gap-2">
+          <span
+            className={cn(
+              "text-sm font-medium",
+              isDark ? "text-gray-300" : "text-gray-700"
+            )}
+          >
+            Press
+          </span>
+
+          {/* Keyboard keys */}
+          <div className="flex items-center gap-1.5">
+            <kbd
+              className={cn(
+                "inline-flex items-center justify-center min-w-[28px] h-7 rounded-lg px-2 text-xs font-bold shadow-md border transition-all duration-200 hover:scale-110",
+                isDark
+                  ? "bg-gradient-to-b from-gray-700 to-gray-800 border-gray-600/50 text-gray-200 shadow-gray-900/50"
+                  : "bg-gradient-to-b from-white to-gray-100 border-gray-300/50 text-gray-700 shadow-gray-300/50"
+              )}
+            >
+              {getPlatform() === "mac" ? "⌘" : "Ctrl"}
+            </kbd>
+
+            <span
+              className={cn(
+                "text-xs font-bold",
+                isDark ? "text-gray-600" : "text-gray-400"
+              )}
+            >
+              +
+            </span>
+
+            <kbd
+              className={cn(
+                "inline-flex items-center justify-center min-w-[28px] h-7 rounded-lg px-2 text-xs font-bold shadow-md border transition-all duration-200 hover:scale-110",
+                isDark
+                  ? "bg-gradient-to-b from-gray-700 to-gray-800 border-gray-600/50 text-gray-200 shadow-gray-900/50"
+                  : "bg-gradient-to-b from-white to-gray-100 border-gray-300/50 text-gray-700 shadow-gray-300/50"
+              )}
+            >
+              K
+            </kbd>
+          </div>
+
+          <span
+            className={cn(
+              "text-sm font-medium",
+              isDark ? "text-gray-300" : "text-gray-700"
+            )}
+          >
+            for
+          </span>
+
+          {/* Highlighted feature */}
+          <span
+            className={cn(
+              "inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-sm font-semibold transition-all",
+              isDark
+                ? "bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-300 border border-blue-500/30"
+                : "bg-gradient-to-r from-blue-100 to-purple-100 text-blue-700 border border-blue-300/50"
+            )}
+          >
+            <Zap className="h-3.5 w-3.5" />
+            Quick Navigation
+          </span>
+        </div>
+
+        {/* Decorative sparkle */}
+        <Sparkles
+          className={cn(
+            "absolute -top-1 -right-1 h-4 w-4 animate-pulse",
+            isDark ? "text-purple-400" : "text-purple-500"
+          )}
+        />
+      </div>
     </div>
   );
 };

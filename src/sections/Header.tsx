@@ -64,7 +64,7 @@ export const Header = () => {
       )}
     >
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8 xl:px-12">
-        <LogoBrand name="Himanshu" footer={false} />
+        <LogoBrand name="Himanshu Pandey" footer={false} />
 
         <DesktopNav
           links={NAV_LINKS.slice(0, 5)}
@@ -133,10 +133,10 @@ function ThemeToggle({ isDark, toggleTheme }: ThemeToggleProps) {
       )}
       aria-label="Toggle theme"
     >
-      <div className="relative h-5 w-5">
+      <div className="relative h-5 w-5 flex items-center justify-center">
         <Sun
           className={cn(
-            "absolute inset-0 transition-all duration-300",
+            "absolute transition-all duration-300",
             isDark
               ? "rotate-90 scale-0 opacity-0"
               : "rotate-0 scale-100 opacity-100 text-amber-500"
@@ -144,7 +144,7 @@ function ThemeToggle({ isDark, toggleTheme }: ThemeToggleProps) {
         />
         <Moon
           className={cn(
-            "absolute inset-0 transition-all duration-300",
+            "absolute transition-all duration-300",
             isDark
               ? "rotate-0 scale-100 opacity-100 text-blue-400"
               : "-rotate-90 scale-0 opacity-0"

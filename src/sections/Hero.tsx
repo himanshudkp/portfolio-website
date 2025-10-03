@@ -38,6 +38,8 @@ export default function Animation() {
       loop={true}
       autoplay={true}
       className="h-auto w-full"
+      // width={10}
+      // height={10}
     />
   );
 }
@@ -89,11 +91,11 @@ export const Hero = () => {
           <Description />
 
           {/* Key Highlights */}
-          <KeyHighlights />
+          {/* <KeyHighlights /> */}
 
-          <TechStack />
+          {/* <TechStack /> */}
 
-          <div className="flex flex-col items-center justify-center gap-3 pt-4 sm:flex-row lg:justify-start">
+          <div className="flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start">
             <BtnLink
               href="#projects"
               variant="primary"
@@ -364,7 +366,7 @@ function AnimationWrapper() {
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-3xl transition-all duration-300 hover:shadow-2xl",
+        "relative overflow-hidden justify-center items-center flex rounded-3xl transition-all duration-300 hover:shadow-2xl w-auto h-115 pt-10",
         isDark
           ? "bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700"
           : "bg-gradient-to-br from-white to-gray-50 border border-gray-200 shadow-lg"
@@ -379,40 +381,48 @@ function ImpactMetrics() {
   const { isDark } = useTheme();
 
   const metrics = [
-    { value: "50+", label: "Projects Delivered" },
-    { value: "100%", label: "Client Satisfaction" },
-    { value: "15+", label: "Technologies" },
+    { value: "Fast Delivery", icon: "⚡" },
+    { value: "User-Focused", icon: "👥" },
+    { value: "Results-Driven", icon: "📈" },
   ];
 
   return (
-    <div className="grid grid-cols-3 gap-3">
+    <div className="grid grid-cols-3 gap-4">
       {metrics.map((metric, index) => (
         <div
           key={index}
           className={cn(
-            "rounded-2xl p-4 text-center transition-all duration-300 hover:scale-105",
+            "group relative rounded-3xl p-4 text-center transition-all duration-500 hover:scale-105 hover:-translate-y-1",
             isDark
-              ? "bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700"
-              : "bg-gradient-to-br from-white to-gray-50 border border-gray-200 shadow-sm"
+              ? "bg-gradient-to-br from-gray-800/50 via-gray-800/30 to-gray-900/50 border border-gray-700/50 backdrop-blur-sm hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/20"
+              : "bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30 border border-gray-200/50 shadow-md hover:shadow-xl hover:border-blue-300/50 hover:shadow-blue-200/30"
           )}
         >
+          {/* Animated background glow */}
           <div
             className={cn(
-              "text-2xl font-bold mb-1",
+              "absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl",
               isDark
-                ? "bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
-                : "text-gray-900"
+                ? "bg-gradient-to-r from-blue-500/10 to-purple-500/10"
+                : "bg-gradient-to-r from-blue-400/20 to-purple-400/20"
             )}
-          >
-            {metric.value}
-          </div>
-          <div
-            className={cn(
-              "text-xs font-medium",
-              isDark ? "text-gray-400" : "text-gray-600"
-            )}
-          >
-            {metric.label}
+          />
+
+          {/* Content */}
+          <div className="relative z-10">
+            <div className="text-3xl mb-3 transform group-hover:scale-110 transition-transform duration-300">
+              {metric.icon}
+            </div>
+            <div
+              className={cn(
+                "text-sm font-semibold tracking-wide",
+                isDark
+                  ? "bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
+                  : "bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent"
+              )}
+            >
+              {metric.value}
+            </div>
           </div>
         </div>
       ))}
@@ -423,7 +433,7 @@ function ImpactMetrics() {
 function SocialLinks() {
   const { isDark } = useTheme();
   return (
-    <div className="flex items-center justify-center gap-3 pt-4 lg:justify-start">
+    <div className="flex items-center justify-center gap-3 lg:justify-start">
       <span
         className={cn(
           "text-sm font-medium",

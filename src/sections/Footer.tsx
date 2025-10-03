@@ -12,22 +12,44 @@ const BrandSection = () => {
     <div className="space-y-6">
       <LogoBrand name="Himanshu Pandey" footer={true} />
 
-      <p className="max-w-md text-base leading-relaxed text-gray-400">
+      <p
+        className={cn(
+          "max-w-md text-base leading-relaxed",
+          isDark ? "text-gray-400" : "text-gray-600"
+        )}
+      >
         Full Stack Developer specializing in building exceptional web and mobile
         applications with cutting-edge technologies.
       </p>
 
       {/* Availability Badge */}
-      <div className="inline-flex items-center gap-2 rounded-full bg-green-600/20 border border-green-600/30 px-4 py-2">
+      <div
+        className={cn(
+          "inline-flex items-center gap-2 rounded-full border px-4 py-2",
+          isDark
+            ? "bg-green-600/20 border-green-600/30"
+            : "bg-green-100 border-green-300"
+        )}
+      >
         <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-        <span className="text-sm font-semibold text-green-400">
+        <span
+          className={cn(
+            "text-sm font-semibold",
+            isDark ? "text-green-400" : "text-green-700"
+          )}
+        >
           Available for Opportunities
         </span>
       </div>
 
       {/* Social Links */}
       <div>
-        <p className="text-sm font-semibold text-gray-400 mb-3">
+        <p
+          className={cn(
+            "text-sm font-semibold mb-3",
+            isDark ? "text-gray-400" : "text-gray-600"
+          )}
+        >
           Connect With Me
         </p>
         <div className="flex flex-wrap gap-3">
@@ -42,10 +64,19 @@ const BrandSection = () => {
                 aria-label={social.label}
                 className={cn(
                   "group flex h-11 w-11 items-center justify-center rounded-xl border transition-all duration-300 hover:scale-110 hover:shadow-lg",
-                  "border-gray-800 bg-gray-900 hover:border-blue-600/50 hover:bg-gray-800"
+                  isDark
+                    ? "border-gray-800 bg-gray-900 hover:border-blue-600/50 hover:bg-gray-800"
+                    : "border-gray-200 bg-white hover:border-blue-500 hover:bg-gray-50"
                 )}
               >
-                <Icon className="h-5 w-5 text-gray-400 transition-colors group-hover:text-blue-400" />
+                <Icon
+                  className={cn(
+                    "h-5 w-5 transition-colors",
+                    isDark
+                      ? "text-gray-400 group-hover:text-blue-400"
+                      : "text-gray-600 group-hover:text-blue-600"
+                  )}
+                />
               </a>
             );
           })}
@@ -55,33 +86,61 @@ const BrandSection = () => {
   );
 };
 
-const NavigationSection = () => (
-  <div>
-    <h4 className="mb-5 text-base font-bold text-white">Quick Links</h4>
-    <nav>
-      <ul className="space-y-3">
-        {NAV_LINKS.map((link) => (
-          <li key={link.name}>
-            <a
-              href={link.href}
-              className="group flex items-center text-sm text-gray-400 transition-colors hover:text-white"
-            >
-              <span className="mr-2 text-blue-600 opacity-0 transition-opacity group-hover:opacity-100">
-                →
-              </span>
-              {link.name}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  </div>
-);
-
-const ContactSection = () => {
+const NavigationSection = () => {
+  const { isDark } = useTheme();
   return (
     <div>
-      <h4 className="mb-5 text-base font-bold text-white">Get in Touch</h4>
+      <h4
+        className={cn(
+          "mb-5 text-base font-bold",
+          isDark ? "text-white" : "text-gray-900"
+        )}
+      >
+        Quick Links
+      </h4>
+      <nav>
+        <ul className="space-y-3">
+          {NAV_LINKS.map((link) => (
+            <li key={link.name}>
+              <a
+                href={link.href}
+                className={cn(
+                  "group flex items-center text-sm transition-colors",
+                  isDark
+                    ? "text-gray-400 hover:text-white"
+                    : "text-gray-600 hover:text-gray-900"
+                )}
+              >
+                <span
+                  className={cn(
+                    "mr-2 opacity-0 transition-opacity group-hover:opacity-100",
+                    isDark ? "text-blue-600" : "text-blue-600"
+                  )}
+                >
+                  →
+                </span>
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  );
+};
+
+const ContactSection = () => {
+  const { isDark } = useTheme();
+  return (
+    <div>
+      <h4
+        className={cn(
+          "mb-5 text-base font-bold",
+          isDark ? "text-white" : "text-gray-900"
+        )}
+      >
+        Get in Touch
+      </h4>
       <ul className="space-y-4">
         {CONTACT_LINKS.map((contact) => {
           const Icon = contact.icon;
@@ -94,14 +153,40 @@ const ContactSection = () => {
                 aria-label={contact.label}
                 className="group flex items-start gap-3 transition-colors"
               >
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl border border-gray-800 bg-gray-900 transition-all group-hover:border-blue-600/50 group-hover:bg-gray-800">
-                  <Icon className="h-4 w-4 text-gray-400 transition-colors group-hover:text-blue-400" />
+                <div
+                  className={cn(
+                    "flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl border transition-all",
+                    isDark
+                      ? "border-gray-800 bg-gray-900 group-hover:border-blue-600/50 group-hover:bg-gray-800"
+                      : "border-gray-200 bg-white group-hover:border-blue-500 group-hover:bg-gray-50"
+                  )}
+                >
+                  <Icon
+                    className={cn(
+                      "h-4 w-4 transition-colors",
+                      isDark
+                        ? "text-gray-400 group-hover:text-blue-400"
+                        : "text-gray-600 group-hover:text-blue-600"
+                    )}
+                  />
                 </div>
                 <div className="flex-1 pt-1">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">
+                  <p
+                    className={cn(
+                      "text-xs font-semibold uppercase tracking-wider mb-1",
+                      isDark ? "text-gray-500" : "text-gray-500"
+                    )}
+                  >
                     {contact.title}
                   </p>
-                  <p className="text-sm font-medium text-gray-300 group-hover:text-white transition-colors">
+                  <p
+                    className={cn(
+                      "text-sm font-medium transition-colors",
+                      isDark
+                        ? "text-gray-300 group-hover:text-white"
+                        : "text-gray-700 group-hover:text-gray-900"
+                    )}
+                  >
                     {contact.text}
                   </p>
                 </div>
@@ -114,58 +199,104 @@ const ContactSection = () => {
   );
 };
 
-const ServicesSection = () => (
-  <div>
-    <h4 className="mb-5 text-base font-bold text-white">Services</h4>
-    <ul className="space-y-3">
-      {[
-        "Web Development",
-        "Mobile Apps",
-        "UI/UX Design",
-        "API Development",
-        "Consulting",
-      ].map((service) => (
-        <li
-          key={service}
-          className="flex items-center gap-2 text-sm text-gray-400"
-        >
-          <Sparkles className="h-3.5 w-3.5 text-blue-600" />
-          {service}
-        </li>
-      ))}
-    </ul>
-  </div>
-);
-
-const BottomBar = ({ year }: { year: number }) => (
-  <div className="flex flex-col items-center justify-between gap-6 lg:flex-row">
-    {/* Copyright */}
-    <div className="flex flex-col items-center gap-2 text-sm text-gray-400 sm:flex-row">
-      <span>© {year} Himanshu Pandey. All rights reserved.</span>
-      <span className="hidden sm:inline text-gray-700">•</span>
-      <span className="text-gray-500">Designed & Built with passion</span>
-    </div>
-
-    {/* Tech Stack */}
-    <div className="flex flex-col items-center gap-3 sm:flex-row">
-      <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
-        Built With
-      </span>
-      <div className="flex items-center gap-2 rounded-xl border border-gray-800 bg-gradient-to-r from-gray-900 to-gray-800 px-5 py-2.5 shadow-lg">
-        {APP_TECH_STACK.map((tech, idx) => (
-          <span key={tech} className="flex items-center gap-2">
-            <span className="text-sm font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              {tech}
-            </span>
-            {idx < APP_TECH_STACK.length - 1 && (
-              <span className="text-gray-700">•</span>
+const ServicesSection = () => {
+  const { isDark } = useTheme();
+  return (
+    <div>
+      <h4
+        className={cn(
+          "mb-5 text-base font-bold",
+          isDark ? "text-white" : "text-gray-900"
+        )}
+      >
+        Services
+      </h4>
+      <ul className="space-y-3">
+        {[
+          "Web Development",
+          "Mobile Apps",
+          "UI/UX Design",
+          "API Development",
+          "Consulting",
+        ].map((service) => (
+          <li
+            key={service}
+            className={cn(
+              "flex items-center gap-2 text-sm",
+              isDark ? "text-gray-400" : "text-gray-600"
             )}
-          </span>
+          >
+            <Sparkles className="h-3.5 w-3.5 text-blue-600" />
+            {service}
+          </li>
         ))}
+      </ul>
+    </div>
+  );
+};
+
+const BottomBar = ({ year }: { year: number }) => {
+  const { isDark } = useTheme();
+  return (
+    <div className="flex flex-col items-center justify-between gap-6 lg:flex-row">
+      {/* Copyright */}
+      <div
+        className={cn(
+          "flex flex-col items-center gap-2 text-sm sm:flex-row",
+          isDark ? "text-gray-400" : "text-gray-600"
+        )}
+      >
+        <span>© {year} Himanshu Pandey. All rights reserved.</span>
+        <span
+          className={cn(
+            "hidden sm:inline",
+            isDark ? "text-gray-700" : "text-gray-400"
+          )}
+        >
+          •
+        </span>
+        <span className={cn(isDark ? "text-gray-500" : "text-gray-500")}>
+          Designed & Built with passion
+        </span>
+      </div>
+
+      {/* Tech Stack */}
+      <div className="flex flex-col items-center gap-3 sm:flex-row">
+        <span
+          className={cn(
+            "text-xs font-semibold uppercase tracking-wider",
+            isDark ? "text-gray-500" : "text-gray-500"
+          )}
+        >
+          Built With
+        </span>
+        <div
+          className={cn(
+            "flex items-center gap-2 rounded-xl border px-5 py-2.5 shadow-lg",
+            isDark
+              ? "border-gray-800 bg-gradient-to-r from-gray-900 to-gray-800"
+              : "border-gray-200 bg-gradient-to-r from-gray-50 to-white"
+          )}
+        >
+          {APP_TECH_STACK.map((tech, idx) => (
+            <span key={tech} className="flex items-center gap-2">
+              <span className="text-sm font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                {tech}
+              </span>
+              {idx < APP_TECH_STACK.length - 1 && (
+                <span
+                  className={cn(isDark ? "text-gray-700" : "text-gray-400")}
+                >
+                  •
+                </span>
+              )}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 // Scroll to Top Button
 const ScrollToTopButton = ({
@@ -192,6 +323,7 @@ const ScrollToTopButton = ({
 
 // Main Footer Component
 export const Footer = () => {
+  const { isDark } = useTheme();
   const currentYear = useMemo(() => new Date().getFullYear(), []);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
@@ -211,14 +343,36 @@ export const Footer = () => {
   return (
     <footer
       id="footer"
-      className="relative border-t border-gray-900 bg-black text-white overflow-hidden"
+      className={cn(
+        "relative border-t overflow-hidden",
+        isDark
+          ? "border-gray-900 bg-black text-white"
+          : "border-gray-200 bg-gray-50 text-gray-900"
+      )}
     >
       {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-900/50 to-black pointer-events-none" />
+      <div
+        className={cn(
+          "absolute inset-0 pointer-events-none",
+          isDark
+            ? "bg-gradient-to-b from-gray-900/50 to-black"
+            : "bg-gradient-to-b from-white/50 to-gray-50"
+        )}
+      />
 
       {/* Decorative Elements */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl" />
+      <div
+        className={cn(
+          "absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl",
+          isDark ? "bg-blue-600/5" : "bg-blue-600/10"
+        )}
+      />
+      <div
+        className={cn(
+          "absolute bottom-0 left-0 w-96 h-96 rounded-full blur-3xl",
+          isDark ? "bg-purple-600/5" : "bg-purple-600/10"
+        )}
+      />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         {/* Main Content */}
@@ -245,14 +399,24 @@ export const Footer = () => {
         </div>
 
         {/* Divider */}
-        <div className="my-10 h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent" />
+        <div
+          className={cn(
+            "my-10 h-px bg-gradient-to-r from-transparent to-transparent",
+            isDark ? "via-gray-800" : "via-gray-300"
+          )}
+        />
 
         {/* Bottom Bar */}
         <BottomBar year={currentYear} />
       </div>
 
       {/* CMD Hint */}
-      <div className="relative border-t border-gray-900 bg-black/50 backdrop-blur-sm">
+      <div
+        className={cn(
+          "relative border-t backdrop-blur-sm",
+          isDark ? "border-gray-900 bg-black/50" : "border-gray-200 bg-white/50"
+        )}
+      >
         <div className="flex items-center justify-center gap-4 py-4">
           <CMDHintFooter />
         </div>

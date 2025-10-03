@@ -1,10 +1,9 @@
 "use client";
 import { useState, useRef, useCallback, ChangeEvent, useEffect } from "react";
-import { Search, X, ChevronRight } from "lucide-react";
+import { Search, X, ChevronRight, Sparkles } from "lucide-react";
 import { useCMDPalette } from "@/hooks/useCMDPalette";
 import { cn } from "@/utils";
 import { useTheme } from "@/hooks/useTheme";
-// import { useTheme } from "@/hooks/useTheme";
 
 export const CMDPalette = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -80,61 +79,88 @@ export const CMDPalette = () => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center p-4 sm:p-8">
-      {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/60" onClick={closeCommand} />
+    <div className="fixed inset-0 z-50 flex items-start justify-center p-4 sm:p-8 animate-in fade-in duration-200">
+      {/* Enhanced Backdrop with Blur */}
+      <div
+        className={cn(
+          "absolute inset-0 backdrop-blur-md transition-all",
+          isDark ? "bg-black/70" : "bg-gray-900/30"
+        )}
+        onClick={closeCommand}
+      />
 
       {/* Command Palette */}
-      <div className="relative mt-[10vh] w-full max-w-2xl">
+      <div className="relative mt-[8vh] w-full max-w-2xl animate-in slide-in-from-top-4 duration-300">
+        {/* Glow Effect */}
         <div
           className={cn(
-            "overflow-hidden rounded-lg border shadow-2xl",
-            isDark ? "border-gray-700 bg-gray-900" : "border-gray-200 bg-white"
+            "absolute -inset-0.5 rounded-2xl blur-2xl opacity-30",
+            isDark
+              ? "bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600"
+              : "bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400"
+          )}
+        />
+
+        <div
+          className={cn(
+            "relative overflow-hidden rounded-2xl border shadow-2xl backdrop-blur-xl",
+            isDark
+              ? "border-gray-700/50 bg-gray-900/95"
+              : "border-gray-200/50 bg-white/95"
           )}
         >
-          {/* Search Input */}
+          {/* Decorative gradient line at top */}
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-50" />
+
+          {/* Search Input Section */}
           <div
             className={cn(
-              "flex items-center gap-3 border-b px-4 py-3",
-              isDark ? "border-gray-800" : "border-gray-200"
+              "flex items-center gap-3 border-b px-5 py-4",
+              isDark ? "border-gray-800/50" : "border-gray-200/50"
             )}
           >
-            <Search
-              className={cn(
-                "h-5 w-5",
-                isDark ? "text-gray-400" : "text-gray-500"
-              )}
-            />
+            <div className="relative flex items-center justify-center">
+              <Search
+                className={cn(
+                  "h-5 w-5 transition-colors",
+                  isDark ? "text-blue-400" : "text-blue-600"
+                )}
+              />
+              <Sparkles className="absolute h-3 w-3 -top-1 -right-1 text-purple-500 animate-pulse" />
+            </div>
+
             <input
               ref={inputRef}
               type="text"
-              placeholder="Search commands..."
+              placeholder="Type a command or search..."
               value={search}
               onChange={handleInputChange}
               className={cn(
-                "flex-1 bg-transparent outline-none",
+                "flex-1 bg-transparent outline-none text-base font-medium placeholder:font-normal",
                 isDark
                   ? "text-white placeholder-gray-500"
                   : "text-gray-900 placeholder-gray-400"
               )}
             />
+
             <kbd
               className={cn(
-                "hidden rounded px-2 py-1 text-xs sm:inline",
+                "hidden rounded-md px-2.5 py-1.5 text-xs font-semibold shadow-sm sm:inline-block transition-colors",
                 isDark
-                  ? "bg-gray-800 text-gray-400"
-                  : "bg-gray-100 text-gray-600"
+                  ? "bg-gray-800/80 text-gray-400 border border-gray-700/50"
+                  : "bg-gray-100/80 text-gray-600 border border-gray-200/50"
               )}
             >
               ESC
             </kbd>
+
             <button
               onClick={closeCommand}
               className={cn(
-                "rounded-lg p-1 transition-colors",
+                "rounded-lg p-2 transition-all duration-200 hover:scale-110",
                 isDark
-                  ? "text-gray-400 hover:bg-gray-800 hover:text-white"
-                  : "text-gray-500 hover:bg-gray-100 hover:text-gray-900"
+                  ? "text-gray-400 hover:bg-gray-800/50 hover:text-white"
+                  : "text-gray-500 hover:bg-gray-100/50 hover:text-gray-900"
               )}
               aria-label="Close command palette"
             >
@@ -143,7 +169,7 @@ export const CMDPalette = () => {
           </div>
 
           {/* Commands List */}
-          <div className="max-h-[60vh] overflow-y-auto p-2">
+          <div className="max-h-[60vh] overflow-y-auto p-3 scrollbar-thin">
             {commands.length > 0 ? (
               <div className="space-y-1">
                 {commands.map((cmd, index) => (
@@ -151,127 +177,191 @@ export const CMDPalette = () => {
                     key={cmd.id}
                     onClick={() => executeCommand(index)}
                     className={cn(
-                      "flex w-full items-center justify-between rounded-lg px-4 py-3 text-left transition-colors",
+                      "group flex w-full items-center justify-between rounded-xl px-4 py-3.5 text-left transition-all duration-200",
                       index === selectedIndex
                         ? isDark
-                          ? "bg-blue-500/20 text-white"
-                          : "bg-blue-100 text-blue-900"
+                          ? "bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-white shadow-lg scale-[1.02] border border-blue-500/30"
+                          : "bg-gradient-to-r from-blue-50 to-purple-50 text-blue-900 shadow-md scale-[1.02] border border-blue-200/50"
                         : isDark
-                        ? "text-gray-300 hover:bg-gray-800"
-                        : "text-gray-700 hover:bg-gray-50"
+                        ? "text-gray-300 hover:bg-gray-800/50 border border-transparent"
+                        : "text-gray-700 hover:bg-gray-50/50 border border-transparent"
                     )}
                   >
-                    <div>
-                      <div className="font-medium">{cmd.label}</div>
+                    <div className="flex-1">
                       <div
                         className={cn(
-                          "text-xs",
-                          isDark ? "text-gray-500" : "text-gray-500"
+                          "font-semibold mb-0.5 transition-colors",
+                          index === selectedIndex &&
+                            "text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600"
+                        )}
+                      >
+                        {cmd.label}
+                      </div>
+                      <div
+                        className={cn(
+                          "text-xs font-medium uppercase tracking-wider",
+                          index === selectedIndex
+                            ? isDark
+                              ? "text-gray-400"
+                              : "text-gray-600"
+                            : isDark
+                            ? "text-gray-500"
+                            : "text-gray-500"
                         )}
                       >
                         {cmd.section}
                       </div>
                     </div>
-                    <ChevronRight
+
+                    <div
                       className={cn(
-                        "h-4 w-4",
-                        isDark ? "text-gray-500" : "text-gray-400"
+                        "flex items-center gap-2 transition-transform duration-200",
+                        index === selectedIndex && "translate-x-1"
                       )}
-                    />
+                    >
+                      <ChevronRight
+                        className={cn(
+                          "h-5 w-5 transition-colors",
+                          index === selectedIndex
+                            ? "text-blue-500"
+                            : isDark
+                            ? "text-gray-600"
+                            : "text-gray-400"
+                        )}
+                      />
+                    </div>
                   </button>
                 ))}
               </div>
             ) : (
-              <div
-                className={cn(
-                  "py-12 text-center",
-                  isDark ? "text-gray-500" : "text-gray-400"
-                )}
-              >
-                No commands found
+              <div className="py-16 text-center">
+                <div
+                  className={cn(
+                    "mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4",
+                    isDark ? "bg-gray-800/50" : "bg-gray-100/50"
+                  )}
+                >
+                  <Search
+                    className={cn(
+                      "h-8 w-8",
+                      isDark ? "text-gray-600" : "text-gray-400"
+                    )}
+                  />
+                </div>
+                <div
+                  className={cn(
+                    "text-sm font-medium mb-1",
+                    isDark ? "text-gray-400" : "text-gray-600"
+                  )}
+                >
+                  No commands found
+                </div>
+                <div
+                  className={cn(
+                    "text-xs",
+                    isDark ? "text-gray-600" : "text-gray-500"
+                  )}
+                >
+                  Try adjusting your search
+                </div>
               </div>
             )}
           </div>
 
-          {/* Footer */}
+          {/* Enhanced Footer */}
           <div
             className={cn(
-              "border-t px-4 py-2",
-              isDark ? "border-gray-800" : "border-gray-200"
+              "border-t px-5 py-3",
+              isDark
+                ? "border-gray-800/50 bg-gray-900/50"
+                : "border-gray-200/50 bg-gray-50/50"
             )}
           >
             <div
               className={cn(
-                "flex items-center gap-4 text-xs",
+                "flex items-center justify-center gap-6 text-xs font-medium",
                 isDark ? "text-gray-500" : "text-gray-600"
               )}
             >
-              <span className="flex items-center gap-1">
+              <span className="flex items-center gap-1.5">
                 <kbd
                   className={cn(
-                    "rounded px-1.5 py-0.5",
-                    isDark ? "bg-gray-800" : "bg-gray-100"
+                    "rounded-md px-2 py-1 font-semibold shadow-sm",
+                    isDark
+                      ? "bg-gray-800 border border-gray-700/50"
+                      : "bg-gray-100 border border-gray-200/50"
                   )}
                 >
                   ↑↓
                 </kbd>
-                Navigate
+                <span className="hidden sm:inline">Navigate</span>
               </span>
-              <span className="flex items-center gap-1">
+              <span className="flex items-center gap-1.5">
                 <kbd
                   className={cn(
-                    "rounded px-1.5 py-0.5",
-                    isDark ? "bg-gray-800" : "bg-gray-100"
+                    "rounded-md px-2 py-1 font-semibold shadow-sm",
+                    isDark
+                      ? "bg-gray-800 border border-gray-700/50"
+                      : "bg-gray-100 border border-gray-200/50"
                   )}
                 >
-                  Enter
+                  ↵
                 </kbd>
-                Select
+                <span className="hidden sm:inline">Select</span>
               </span>
-              <span className="flex items-center gap-1">
+              <span className="flex items-center gap-1.5">
                 <kbd
                   className={cn(
-                    "rounded px-1.5 py-0.5",
-                    isDark ? "bg-gray-800" : "bg-gray-100"
+                    "rounded-md px-2 py-1 font-semibold shadow-sm",
+                    isDark
+                      ? "bg-gray-800 border border-gray-700/50"
+                      : "bg-gray-100 border border-gray-200/50"
                   )}
                 >
                   ESC
                 </kbd>
-                Close
+                <span className="hidden sm:inline">Close</span>
               </span>
             </div>
           </div>
         </div>
 
-        {/* Keyboard Shortcut Hint */}
+        {/* Enhanced Keyboard Shortcut Hint */}
         <div
           className={cn(
-            "mt-4 text-center text-sm",
-            isDark ? "text-gray-500" : "text-gray-600"
+            "mt-6 text-center text-sm font-medium backdrop-blur-sm rounded-full inline-flex items-center gap-2 mx-auto px-4 py-2",
+            isDark
+              ? "text-gray-400 bg-gray-900/30"
+              : "text-gray-600 bg-white/30"
           )}
+          style={{ display: "flex", justifyContent: "center", width: "100%" }}
         >
-          Press{" "}
+          <span>Press</span>
           <kbd
             className={cn(
-              "rounded px-2 py-1",
-              isDark ? "bg-gray-800" : "bg-gray-100"
+              "rounded-md px-2.5 py-1 font-semibold shadow-sm border",
+              isDark
+                ? "bg-gray-800/80 border-gray-700/50 text-gray-300"
+                : "bg-white/80 border-gray-200/50 text-gray-700"
             )}
           >
             {typeof navigator !== "undefined" &&
             navigator.platform.includes("Mac")
               ? "⌘"
               : "Ctrl"}
-          </kbd>{" "}
-          +{" "}
+          </kbd>
+          <span>+</span>
           <kbd
             className={cn(
-              "rounded px-2 py-1",
-              isDark ? "bg-gray-800" : "bg-gray-100"
+              "rounded-md px-2.5 py-1 font-semibold shadow-sm border",
+              isDark
+                ? "bg-gray-800/80 border-gray-700/50 text-gray-300"
+                : "bg-white/80 border-gray-200/50 text-gray-700"
             )}
           >
             K
-          </kbd>{" "}
-          to open command palette
+          </kbd>
+          <span>anytime</span>
         </div>
       </div>
     </div>
