@@ -81,17 +81,17 @@ export const Hero = () => {
         />
       </div>
 
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-2 lg:gap-16">
+      <div className="relative z-10 mt-11 grid w-full max-w-7xl gap-10 lg:grid-cols-2 lg:gap-16">
         {/* Content Section */}
         <div className="flex flex-col justify-center space-y-5 text-center lg:text-left">
-          {/* <WelcomeBadge /> */}
+          <WelcomeBadge />
           <MainHeading />
           <Description />
 
           {/* Key Highlights */}
-          {/* <KeyHighlights /> */}
+          <KeyHighlights />
 
-          {/* <TechStack /> */}
+          <TechStack />
 
           <div className="flex flex-col items-center justify-center gap-3 pt-4 sm:flex-row lg:justify-start">
             <BtnLink
@@ -127,7 +127,7 @@ export const Hero = () => {
         {/* Animation & Stats Section */}
         <div className="flex flex-col gap-6 justify-center">
           <AnimationWrapper />
-          {/* <ImpactMetrics /> */}
+          <ImpactMetrics />
         </div>
       </div>
 
@@ -136,32 +136,32 @@ export const Hero = () => {
   );
 };
 
-// function WelcomeBadge() {
-//   const { isDark } = useTheme();
-//   return (
-//     <div className="inline-flex items-center justify-center lg:justify-start">
-//       <div
-//         className={cn(
-//           "group relative rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 hover:scale-105",
-//           isDark
-//             ? "bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 text-blue-300"
-//             : "bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 text-blue-700"
-//         )}
-//       >
-//         <div className="flex items-center gap-2">
-//           <div
-//             className={cn(
-//               "h-2 w-2 rounded-full animate-pulse",
-//               isDark ? "bg-blue-400" : "bg-blue-600"
-//             )}
-//           />
-//           <span className="font-semibold">Open to Opportunities</span>
-//           <Sparkles className="h-3.5 w-3.5 animate-pulse" />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
+function WelcomeBadge() {
+  const { isDark } = useTheme();
+  return (
+    <div className="inline-flex items-center justify-center lg:justify-start">
+      <div
+        className={cn(
+          "group relative rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 hover:scale-105",
+          isDark
+            ? "bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 text-blue-300"
+            : "bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 text-blue-700"
+        )}
+      >
+        <div className="flex items-center gap-2">
+          <div
+            className={cn(
+              "h-2 w-2 rounded-full animate-pulse",
+              isDark ? "bg-blue-400" : "bg-blue-600"
+            )}
+          />
+          <span className="font-semibold">Open to Opportunities</span>
+          <Sparkles className="h-3.5 w-3.5 animate-pulse" />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function MainHeading() {
   const { isDark } = useTheme();
@@ -284,141 +284,141 @@ function Description() {
   );
 }
 
-// function KeyHighlights() {
-//   const { isDark } = useTheme();
+function KeyHighlights() {
+  const { isDark } = useTheme();
 
-//   const highlights = [
-//     { icon: Rocket, text: "Fast Delivery" },
-//     { icon: Users, text: "Client-Focused" },
-//     { icon: TrendingUp, text: "Results-Driven" },
-//   ];
+  const highlights = [
+    { icon: Rocket, text: "Fast Delivery" },
+    { icon: Users, text: "Client-Focused" },
+    { icon: TrendingUp, text: "Results-Driven" },
+  ];
 
-//   return (
-//     <div className="flex flex-wrap items-center justify-center gap-3 lg:justify-start">
-//       {highlights.map((item) => {
-//         const IconComponent = item.icon;
-//         return (
-//           <div
-//             key={item.text}
-//             className={cn(
-//               "flex items-center gap-2 rounded-xl px-4 py-2 transition-all duration-200 hover:scale-105",
-//               isDark
-//                 ? "bg-gray-800/50 border border-gray-700/50"
-//                 : "bg-white border border-gray-200 shadow-sm"
-//             )}
-//           >
-//             <IconComponent
-//               className={cn(
-//                 "h-4 w-4",
-//                 isDark ? "text-blue-400" : "text-blue-600"
-//               )}
-//             />
-//             <span
-//               className={cn(
-//                 "text-sm font-medium",
-//                 isDark ? "text-gray-300" : "text-gray-700"
-//               )}
-//             >
-//               {item.text}
-//             </span>
-//           </div>
-//         );
-//       })}
-//     </div>
-//   );
-// }
+  return (
+    <div className="flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+      {highlights.map((item) => {
+        const IconComponent = item.icon;
+        return (
+          <div
+            key={item.text}
+            className={cn(
+              "flex items-center gap-2 rounded-xl px-4 py-2 transition-all duration-200 hover:scale-105",
+              isDark
+                ? "bg-gray-800/50 border border-gray-700/50"
+                : "bg-white border border-gray-200 shadow-sm"
+            )}
+          >
+            <IconComponent
+              className={cn(
+                "h-4 w-4",
+                isDark ? "text-blue-400" : "text-blue-600"
+              )}
+            />
+            <span
+              className={cn(
+                "text-sm font-medium",
+                isDark ? "text-gray-300" : "text-gray-700"
+              )}
+            >
+              {item.text}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
-// function TechStack() {
-//   const { isDark } = useTheme();
-//   return (
-//     <div>
-//       <p
-//         className={cn(
-//           "text-xs font-semibold uppercase tracking-wide mb-3 text-center lg:text-left",
-//           isDark ? "text-gray-500" : "text-gray-500"
-//         )}
-//       >
-//         Tech Stack
-//       </p>
-//       <div className="flex flex-wrap items-center justify-center gap-2 lg:justify-start">
-//         {TOP_5_TECH_STACK.map((tech) => (
-//           <span
-//             key={tech}
-//             className={cn(
-//               "rounded-lg px-4 py-2 text-sm font-semibold transition-all duration-200 hover:scale-105",
-//               isDark
-//                 ? "bg-gray-800 border border-gray-700 text-gray-300 hover:border-blue-600/50 hover:bg-gray-700"
-//                 : "bg-white border border-gray-200 text-gray-700 hover:border-blue-600/50 hover:shadow-md"
-//             )}
-//           >
-//             {tech}
-//           </span>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
+function TechStack() {
+  const { isDark } = useTheme();
+  return (
+    <div>
+      <p
+        className={cn(
+          "text-xs font-semibold uppercase tracking-wide mb-3 text-center lg:text-left",
+          isDark ? "text-gray-500" : "text-gray-500"
+        )}
+      >
+        Tech Stack
+      </p>
+      <div className="flex flex-wrap items-center justify-center gap-2 lg:justify-start">
+        {TOP_5_TECH_STACK.map((tech) => (
+          <span
+            key={tech}
+            className={cn(
+              "rounded-lg px-4 py-2 text-sm font-semibold transition-all duration-200 hover:scale-105",
+              isDark
+                ? "bg-gray-800 border border-gray-700 text-gray-300 hover:border-blue-600/50 hover:bg-gray-700"
+                : "bg-white border border-gray-200 text-gray-700 hover:border-blue-600/50 hover:shadow-md"
+            )}
+          >
+            {tech}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function AnimationWrapper() {
   const { isDark } = useTheme();
   return (
-    // <div
-    //   className={cn(
-    //     "relative overflow-hidden rounded-3xl p-6 transition-all duration-300 hover:shadow-2xl",
-    //     isDark
-    //       ? "bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700"
-    //       : "bg-gradient-to-br from-white to-gray-50 border border-gray-200 shadow-lg"
-    //   )}
-    // >
-    <Animation />
-    // </div>
+    <div
+      className={cn(
+        "relative overflow-hidden rounded-3xl transition-all duration-300 hover:shadow-2xl",
+        isDark
+          ? "bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700"
+          : "bg-gradient-to-br from-white to-gray-50 border border-gray-200 shadow-lg"
+      )}
+    >
+      <Animation />
+    </div>
   );
 }
 
-// function ImpactMetrics() {
-//   const { isDark } = useTheme();
+function ImpactMetrics() {
+  const { isDark } = useTheme();
 
-//   const metrics = [
-//     { value: "50+", label: "Projects Delivered" },
-//     { value: "100%", label: "Client Satisfaction" },
-//     { value: "15+", label: "Technologies" },
-//   ];
+  const metrics = [
+    { value: "50+", label: "Projects Delivered" },
+    { value: "100%", label: "Client Satisfaction" },
+    { value: "15+", label: "Technologies" },
+  ];
 
-//   return (
-//     <div className="grid grid-cols-3 gap-3">
-//       {metrics.map((metric, index) => (
-//         <div
-//           key={index}
-//           className={cn(
-//             "rounded-2xl p-4 text-center transition-all duration-300 hover:scale-105",
-//             isDark
-//               ? "bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700"
-//               : "bg-gradient-to-br from-white to-gray-50 border border-gray-200 shadow-sm"
-//           )}
-//         >
-//           <div
-//             className={cn(
-//               "text-2xl font-bold mb-1",
-//               isDark
-//                 ? "bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
-//                 : "text-gray-900"
-//             )}
-//           >
-//             {metric.value}
-//           </div>
-//           <div
-//             className={cn(
-//               "text-xs font-medium",
-//               isDark ? "text-gray-400" : "text-gray-600"
-//             )}
-//           >
-//             {metric.label}
-//           </div>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }
+  return (
+    <div className="grid grid-cols-3 gap-3">
+      {metrics.map((metric, index) => (
+        <div
+          key={index}
+          className={cn(
+            "rounded-2xl p-4 text-center transition-all duration-300 hover:scale-105",
+            isDark
+              ? "bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700"
+              : "bg-gradient-to-br from-white to-gray-50 border border-gray-200 shadow-sm"
+          )}
+        >
+          <div
+            className={cn(
+              "text-2xl font-bold mb-1",
+              isDark
+                ? "bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
+                : "text-gray-900"
+            )}
+          >
+            {metric.value}
+          </div>
+          <div
+            className={cn(
+              "text-xs font-medium",
+              isDark ? "text-gray-400" : "text-gray-600"
+            )}
+          >
+            {metric.label}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 function SocialLinks() {
   const { isDark } = useTheme();
