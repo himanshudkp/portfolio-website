@@ -343,7 +343,7 @@ export const CMDPalette = () => {
         </div>
 
         {/* Enhanced Keyboard Shortcut Hint */}
-        <div
+        {/* <div
           className={cn(
             "mt-6 text-center text-sm font-medium backdrop-blur-sm rounded-full inline-flex items-center gap-2 mx-auto px-4 py-2",
             isDark
@@ -378,7 +378,7 @@ export const CMDPalette = () => {
             K
           </kbd>
           <span>anytime</span>
-        </div>
+        </div> */}
       </div>
     </div>
   );

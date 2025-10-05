@@ -16,10 +16,14 @@ import { SOCIAL_LINKS, TOP_5_TECH_STACK } from "@/data";
 
 const Lottie = dynamic(() => import("lottie-react"), {
   ssr: false,
+  loading: () => (
+    <div className="w-16 h-16 border-4 border-t-transparent border-gray-300 rounded-full animate-spin"></div>
+  ),
 });
 
-export default function Animation() {
+const Animation = () => {
   const [animationData, setAnimationData] = useState<object | null>(null);
+  const { isDark } = useTheme();
 
   useEffect(() => {
     import("@/data/web_dev.json").then((data) => {
@@ -32,16 +36,23 @@ export default function Animation() {
   }
 
   return (
-    <Lottie
-      animationData={animationData}
-      loop={true}
-      autoplay={true}
-      className="h-auto w-full"
-      // width={10}
-      // height={10}
-    />
+    <div
+      className={cn(
+        "relative overflow-hidden justify-center items-center flex rounded-3xl transition-all duration-300 hover:shadow-2xl w-auto h-115 pt-10",
+        isDark
+          ? "bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700"
+          : "bg-gradient-to-br from-white to-gray-50 border border-gray-200 shadow-lg"
+      )}
+    >
+      <Lottie
+        animationData={animationData}
+        loop={true}
+        autoplay={true}
+        className="h-auto w-full"
+      />
+    </div>
   );
-}
+};
 
 export const Hero = () => {
   const { isDark } = useTheme();
@@ -89,15 +100,10 @@ export const Hero = () => {
           <MainHeading />
           <Description />
 
-          {/* Key Highlights */}
-          {/* <KeyHighlights /> */}
-
-          {/* <TechStack /> */}
-
           <div className="flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start">
             <a
               href="#projects"
-              className="group w-full inline-flex items-center justify-center gap-2 font-semibold transition-colors duration-200 rounded-xl px-8 py-4 font-bold bg-blue-600 text-white hover:bg-blue-700"
+              className="group w-full inline-flex items-center justify-center gap-2 font-semibold transition-colors duration-200 rounded-xl px-8 py-4 bg-blue-600 text-white hover:bg-blue-700"
             >
               <span>View My Work</span>
               <Rocket className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -105,7 +111,7 @@ export const Hero = () => {
             <a
               href="#contact"
               className={cn(
-                "w-full inline-flex items-center justify-center gap-2 font-semibold transition-colors duration-200 rounded-xl px-8 py-4 font-bold",
+                "w-full inline-flex items-center justify-center gap-2 font-semibold transition-colors duration-200 rounded-xl px-8 py-4 ",
                 isDark
                   ? "border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white"
                   : "border-2 border-gray-300 bg-white text-gray-700 hover:bg-gray-100"
@@ -117,7 +123,7 @@ export const Hero = () => {
               href="./resume.pdf"
               download
               className={cn(
-                "w-full sm:w-auto inline-flex items-center justify-center gap-2 font-semibold transition-colors duration-200 rounded-xl px-8 py-4 font-bold",
+                "w-full sm:w-auto inline-flex items-center justify-center gap-2 font-semibold transition-colors duration-200 rounded-xl px-8 py-4",
                 isDark
                   ? "border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white"
                   : "border-2 border-gray-300 bg-white text-gray-700 hover:bg-gray-100"
@@ -133,7 +139,7 @@ export const Hero = () => {
 
         {/* Animation & Stats Section */}
         <div className="flex flex-col gap-6 justify-center">
-          <AnimationWrapper />
+          <Animation />
           <ImpactMetrics />
         </div>
       </div>
@@ -362,22 +368,6 @@ function TechStack() {
           </span>
         ))}
       </div>
-    </div>
-  );
-}
-
-function AnimationWrapper() {
-  const { isDark } = useTheme();
-  return (
-    <div
-      className={cn(
-        "relative overflow-hidden justify-center items-center flex rounded-3xl transition-all duration-300 hover:shadow-2xl w-auto h-115 pt-10",
-        isDark
-          ? "bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700"
-          : "bg-gradient-to-br from-white to-gray-50 border border-gray-200 shadow-lg"
-      )}
-    >
-      <Animation />
     </div>
   );
 }

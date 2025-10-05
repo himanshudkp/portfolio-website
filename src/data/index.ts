@@ -563,4 +563,4 @@ export const EDUCATION: Education[] = [
   },
 ];
 
-export const EMAIL = "your.email@example.com"; // Your actual email address
+export const EMAIL = "himanshudkp@gmail.com"; // Your actual email address

@@ -27,3 +27,5 @@ export const getPlatform = (): Platform => {
   }
   return "other";
 };
+
+export const getModifierKey = getPlatform() === "mac" ? "⌘" : "Ctrl";

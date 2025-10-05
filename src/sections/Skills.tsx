@@ -346,26 +346,6 @@ export const Skills = () => {
       )}
     >
       <div className="mx-auto max-w-7xl">
-        {/* Dark Mode Toggle */}
-        <div className="flex justify-end mb-6">
-          <button
-            onClick={toggleTheme}
-            className={cn(
-              "p-2.5 rounded-xl border transition-all duration-300 group shadow-sm",
-              isDark
-                ? "bg-slate-800 border-slate-700 hover:bg-slate-700"
-                : "bg-white border-slate-200 hover:bg-slate-50"
-            )}
-            aria-label="Toggle dark mode"
-          >
-            {isDark ? (
-              <Sun className="h-5 w-5 text-amber-500 group-hover:rotate-180 transition-transform duration-500" />
-            ) : (
-              <Moon className="h-5 w-5 text-slate-600 group-hover:-rotate-12 transition-transform duration-500" />
-            )}
-          </button>
-        </div>
-
         {/* Header */}
         <div
           className={cn(

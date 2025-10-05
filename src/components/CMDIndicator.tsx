@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-import { getPlatform, cn } from "@/utils";
+import { cn, getModifierKey } from "@/utils";
 import { X, Sparkles, Zap, Search, MousePointer } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -141,7 +141,7 @@ export const CMDIndicator = () => {
                   : "bg-gradient-to-b from-white to-gray-100 border-gray-300/50 text-gray-700"
               )}
             >
-              {getPlatform() === "mac" ? "⌘" : "Ctrl"}
+              {getModifierKey}
             </kbd>
             <span
               className={cn(

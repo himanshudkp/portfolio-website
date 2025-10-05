@@ -129,26 +129,13 @@ function ThemeToggle({ isDark, toggleTheme }: ThemeToggleProps) {
           ? "bg-gray-800/60 hover:bg-gray-700/80 border border-gray-700/50"
           : "bg-white/60 hover:bg-gray-50 border border-gray-200/60"
       )}
-      aria-label="Toggle theme"
+      aria-label="Toggle dark mode"
     >
-      <div className="relative h-5 w-5">
-        <Sun
-          className={cn(
-            "absolute inset-0 transition-all duration-300",
-            isDark
-              ? "rotate-90 scale-0 opacity-0"
-              : "rotate-0 scale-100 opacity-100 text-amber-500"
-          )}
-        />
-        <Moon
-          className={cn(
-            "absolute inset-0 transition-all duration-300",
-            isDark
-              ? "rotate-0 scale-100 opacity-100 text-blue-400"
-              : "-rotate-90 scale-0 opacity-0"
-          )}
-        />
-      </div>
+      {isDark ? (
+        <Sun className="h-5 w-5 text-amber-500 group-hover:rotate-180 transition-transform duration-500" />
+      ) : (
+        <Moon className="h-5 w-5 text-slate-600 group-hover:-rotate-12 transition-transform duration-500" />
+      )}
     </button>
   );
 }
@@ -266,15 +253,6 @@ function MobileMenu({
     onLinkClick(linkName);
   };
 
-  const iconMap = {
-    Home: House,
-    About: User,
-    Experience: Briefcase,
-    Skills: Wrench,
-    Projects: AppWindow,
-    Contact: Mail,
-  };
-
   return (
     <div
       className={cn(
@@ -288,7 +266,7 @@ function MobileMenu({
       <div className="px-4 py-6 sm:px-6">
         <ul className="mb-6 flex flex-col gap-2">
           {links.map((link) => {
-            const Icon = iconMap[link.name as keyof typeof iconMap];
+            const Icon = link.icon;
             const isSelected = selectedLink === link.name;
 
             return (

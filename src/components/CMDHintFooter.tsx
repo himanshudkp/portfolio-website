@@ -1,27 +1,16 @@
 "use client";
-import { getPlatform } from "@/utils";
-import { Command, Sparkles, Zap } from "lucide-react";
+import { Command, Zap } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
-import { cn } from "@/utils";
+import { cn, getModifierKey } from "@/utils";
 
 export const CMDHintFooter = () => {
   const { isDark } = useTheme();
 
   return (
     <div className="relative group">
-      {/* Animated glow effect */}
       <div
         className={cn(
-          "absolute -inset-0.5 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500",
-          isDark
-            ? "bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600"
-            : "bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400"
-        )}
-      />
-
-      <div
-        className={cn(
-          "relative flex items-center gap-3 rounded-2xl border backdrop-blur-xl px-5 py-3 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl",
+          "relative flex items-center gap-3 rounded-2xl border backdrop-blur-xl px-5 py-3",
           isDark
             ? "border-gray-700/50 bg-gradient-to-r from-gray-800/90 to-gray-900/90"
             : "border-gray-200/50 bg-gradient-to-r from-white/90 to-gray-50/90"
@@ -29,12 +18,12 @@ export const CMDHintFooter = () => {
       >
         {/* Icon with pulse effect */}
         <div className="relative">
-          <div
+          {/* <div
             className={cn(
               "absolute inset-0 rounded-lg blur-md animate-pulse",
               isDark ? "bg-blue-500/30" : "bg-blue-400/30"
             )}
-          />
+          /> */}
           <div
             className={cn(
               "relative flex items-center justify-center w-9 h-9 rounded-lg transition-colors",
@@ -73,7 +62,7 @@ export const CMDHintFooter = () => {
                   : "bg-gradient-to-b from-white to-gray-100 border-gray-300/50 text-gray-700 shadow-gray-300/50"
               )}
             >
-              {getPlatform() === "mac" ? "⌘" : "Ctrl"}
+              {getModifierKey}
             </kbd>
 
             <span
@@ -119,14 +108,6 @@ export const CMDHintFooter = () => {
             Quick Navigation
           </span>
         </div>
-
-        {/* Decorative sparkle */}
-        <Sparkles
-          className={cn(
-            "absolute -top-1 -right-1 h-4 w-4 animate-pulse",
-            isDark ? "text-purple-400" : "text-purple-500"
-          )}
-        />
       </div>
     </div>
   );
