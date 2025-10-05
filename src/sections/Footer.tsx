@@ -3,7 +3,6 @@ import { useMemo, useCallback, useState, useEffect } from "react";
 import { cn } from "@/utils";
 import { CMDHintFooter, LogoBrand } from "@/components";
 import { APP_TECH_STACK, CONTACT_LINKS, NAV_LINKS, SOCIAL_LINKS } from "@/data";
-import BtnLink from "@/ui/BtnLink";
 import { useTheme } from "@/hooks/useTheme";
 
 const BrandSection = () => {

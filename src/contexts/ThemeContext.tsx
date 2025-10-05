@@ -1,4 +1,5 @@
 "use client";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { createContext, useEffect, useState, ReactNode } from "react";
 
 interface ThemeContextType {
@@ -11,30 +12,18 @@ export const ThemeContext = createContext<ThemeContextType | undefined>(
 );
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useLocalStorage<boolean>("dark-theme", true);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    const savedTheme = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-    setIsDark(savedTheme === "dark" || (!savedTheme && prefersDark));
+    setIsDark(isDark === true ? true : false);
   }, []);
-
-  useEffect(() => {
-    if (mounted) {
-      document.documentElement.classList.toggle("dark", isDark);
-      localStorage.setItem("theme", isDark ? "dark" : "light");
-    }
-  }, [isDark, mounted]);
 
   const toggleTheme = () => {
     setIsDark((prev) => !prev);
   };
 
-  // Prevent flash of unstyled content
   if (!mounted) {
     return null;
   }

@@ -1,4 +1,12 @@
-import { useState, useCallback, memo, useEffect, useMemo } from "react";
+import {
+  useState,
+  useCallback,
+  memo,
+  useEffect,
+  useMemo,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import {
   ExternalLink,
   Github,
@@ -18,134 +26,359 @@ import {
 } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
 import { ProjectModal } from "@/components";
+import { cn } from "@/utils";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 // Types
 interface Project {
   title: string;
-  description: string;
-  category: "frontend" | "backend" | "fullstack" | "mobile" | "ai";
+  description?: string;
+  category?: string;
   tags?: string[];
   gradient?: string;
-  icon: React.ComponentType<{ className?: string }>;
-  links: {
-    demo: string;
-    github: string;
-  };
+  icon?: any;
   stats?: {
     users: string;
     impact: string;
   };
+  links: {
+    demo?: string;
+    github?: string;
+  };
+  caseStudy: {
+    overview: string;
+    problem: string;
+    solution: string;
+    features: string[];
+    screenshots: Array<{
+      title: string;
+      url: string;
+      alt?: string;
+    }>;
+    technologies: string[];
+    challenges: Array<{ title: string; solution: string }>;
+    results: string[];
+  };
 }
 
-// Sample Projects Data
 const PROJECTS_DATA: Project[] = [
   {
     title: "E-Commerce Platform",
-    description:
-      "Full-featured online marketplace with real-time inventory, payment processing, and advanced analytics dashboard.",
+    description: "Full-featured online marketplace with real-time inventory...",
     category: "fullstack",
     tags: ["React", "Node.js", "MongoDB", "Stripe", "WebSocket"],
     gradient: "from-blue-600 to-blue-700",
     icon: Layers,
-    links: {
-      demo: "https://demo.example.com",
-      github: "https://github.com/example",
-    },
     stats: {
       users: "10K+",
       impact: "95% uptime",
     },
-  },
-  {
-    title: "AI Content Generator",
-    description:
-      "Advanced machine learning platform that generates human-like content using GPT models and natural language processing.",
-    category: "ai",
-    tags: ["Python", "TensorFlow", "FastAPI", "NLP", "GPT"],
-    gradient: "from-purple-600 to-purple-700",
-    icon: Brain,
     links: {
       demo: "https://demo.example.com",
       github: "https://github.com/example",
     },
-    stats: {
-      users: "25K+",
-      impact: "90% accuracy",
+    caseStudy: {
+      overview:
+        "Full-featured online marketplace with real-time inventory management...",
+      problem: "Traditional e-commerce platforms struggle with scalability...",
+      solution:
+        "Built a scalable solution using modern microservices architecture...",
+      features: [
+        "Real-time inventory management",
+        "Secure payment processing with Stripe",
+        "Advanced analytics dashboard",
+      ],
+      screenshots: [
+        {
+          title: "Dashboard View",
+          url: "/screenshot1.png",
+          alt: "E-commerce admin dashboard",
+        },
+        {
+          title: "Product Catalog",
+          url: "/screenshot2.png",
+          alt: "Product listing page",
+        },
+        {
+          title: "Checkout Flow",
+          url: "/screenshot3.png",
+          alt: "Multi-step checkout",
+        },
+        {
+          title: "Checkout Flow",
+          url: "/screenshot4.png",
+          alt: "Multi-step checkout",
+        },
+        {
+          title: "Checkout Flow",
+          url: "/screenshot5.png",
+          alt: "Multi-step checkout",
+        },
+      ],
+      technologies: ["React", "Node.js", "MongoDB", "Stripe", "Redis"],
+      challenges: [
+        {
+          title: "Handling high traffic during sales",
+          solution: "Implemented Redis caching and load balancing",
+        },
+      ],
+      results: ["10K+ active users", "95% uptime", "40% faster checkout"],
     },
   },
   {
-    title: "Design System Library",
-    description:
-      "Comprehensive React component library with 100+ customizable components, accessibility features, and dark mode support.",
-    category: "frontend",
-    tags: ["React", "TypeScript", "Tailwind", "Storybook"],
-    gradient: "from-pink-600 to-pink-700",
-    icon: Code2,
+    title: "E-Commerce Platform",
+    description: "Full-featured online marketplace with real-time inventory...",
+    category: "fullstack",
+    tags: ["React", "Node.js", "MongoDB", "Stripe", "WebSocket"],
+    gradient: "from-blue-600 to-blue-700",
+    icon: Layers,
+    stats: {
+      users: "10K+",
+      impact: "95% uptime",
+    },
     links: {
       demo: "https://demo.example.com",
       github: "https://github.com/example",
     },
-    stats: {
-      users: "5K+",
-      impact: "100+ components",
+    caseStudy: {
+      overview:
+        "Full-featured online marketplace with real-time inventory management...",
+      problem: "Traditional e-commerce platforms struggle with scalability...",
+      solution:
+        "Built a scalable solution using modern microservices architecture...",
+      features: [
+        "Real-time inventory management",
+        "Secure payment processing with Stripe",
+        "Advanced analytics dashboard",
+      ],
+      screenshots: [
+        {
+          title: "Dashboard View",
+          url: "/screenshot1.png",
+          alt: "E-commerce admin dashboard",
+        },
+        {
+          title: "Product Catalog",
+          url: "/screenshot2.png",
+          alt: "Product listing page",
+        },
+        {
+          title: "Checkout Flow",
+          url: "/screenshot3.png",
+          alt: "Multi-step checkout",
+        },
+        {
+          title: "Checkout Flow",
+          url: "/screenshot4.png",
+          alt: "Multi-step checkout",
+        },
+        {
+          title: "Checkout Flow",
+          url: "/screenshot5.png",
+          alt: "Multi-step checkout",
+        },
+      ],
+      technologies: ["React", "Node.js", "MongoDB", "Stripe", "Redis"],
+      challenges: [
+        {
+          title: "Handling high traffic during sales",
+          solution: "Implemented Redis caching and load balancing",
+        },
+      ],
+      results: ["10K+ active users", "95% uptime", "40% faster checkout"],
     },
   },
   {
-    title: "Microservices API Gateway",
-    description:
-      "Scalable API gateway handling authentication, rate limiting, and routing for microservices architecture.",
-    category: "backend",
-    tags: ["Node.js", "Redis", "Docker", "Kubernetes", "GraphQL"],
-    gradient: "from-green-600 to-green-700",
-    icon: Server,
+    title: "E-Commerce Platform",
+    description: "Full-featured online marketplace with real-time inventory...",
+    category: "fullstack",
+    tags: ["React", "Node.js", "MongoDB", "Stripe", "WebSocket"],
+    gradient: "from-blue-600 to-blue-700",
+    icon: Layers,
+    stats: {
+      users: "10K+",
+      impact: "95% uptime",
+    },
     links: {
       demo: "https://demo.example.com",
       github: "https://github.com/example",
     },
-    stats: {
-      users: "50K+",
-      impact: "99.9% uptime",
+    caseStudy: {
+      overview:
+        "Full-featured online marketplace with real-time inventory management...",
+      problem: "Traditional e-commerce platforms struggle with scalability...",
+      solution:
+        "Built a scalable solution using modern microservices architecture...",
+      features: [
+        "Real-time inventory management",
+        "Secure payment processing with Stripe",
+        "Advanced analytics dashboard",
+      ],
+      screenshots: [
+        {
+          title: "Dashboard View",
+          url: "/screenshot1.png",
+          alt: "E-commerce admin dashboard",
+        },
+        {
+          title: "Product Catalog",
+          url: "/screenshot2.png",
+          alt: "Product listing page",
+        },
+        {
+          title: "Checkout Flow",
+          url: "/screenshot3.png",
+          alt: "Multi-step checkout",
+        },
+        {
+          title: "Checkout Flow",
+          url: "/screenshot4.png",
+          alt: "Multi-step checkout",
+        },
+        {
+          title: "Checkout Flow",
+          url: "/screenshot5.png",
+          alt: "Multi-step checkout",
+        },
+      ],
+      technologies: ["React", "Node.js", "MongoDB", "Stripe", "Redis"],
+      challenges: [
+        {
+          title: "Handling high traffic during sales",
+          solution: "Implemented Redis caching and load balancing",
+        },
+      ],
+      results: ["10K+ active users", "95% uptime", "40% faster checkout"],
     },
   },
   {
-    title: "Fitness Tracking App",
-    description:
-      "Native mobile application for tracking workouts, nutrition, and health metrics with social features.",
-    category: "mobile",
-    tags: ["React Native", "Firebase", "Redux", "HealthKit"],
-    gradient: "from-orange-600 to-orange-700",
-    icon: Smartphone,
+    title: "E-Commerce Platform",
+    description: "Full-featured online marketplace with real-time inventory...",
+    category: "fullstack",
+    tags: ["React", "Node.js", "MongoDB", "Stripe", "WebSocket"],
+    gradient: "from-blue-600 to-blue-700",
+    icon: Layers,
+    stats: {
+      users: "10K+",
+      impact: "95% uptime",
+    },
     links: {
       demo: "https://demo.example.com",
       github: "https://github.com/example",
     },
-    stats: {
-      users: "15K+",
-      impact: "4.8★ rating",
+    caseStudy: {
+      overview:
+        "Full-featured online marketplace with real-time inventory management...",
+      problem: "Traditional e-commerce platforms struggle with scalability...",
+      solution:
+        "Built a scalable solution using modern microservices architecture...",
+      features: [
+        "Real-time inventory management",
+        "Secure payment processing with Stripe",
+        "Advanced analytics dashboard",
+      ],
+      screenshots: [
+        {
+          title: "Dashboard View",
+          url: "/screenshot1.png",
+          alt: "E-commerce admin dashboard",
+        },
+        {
+          title: "Product Catalog",
+          url: "/screenshot2.png",
+          alt: "Product listing page",
+        },
+        {
+          title: "Checkout Flow",
+          url: "/screenshot3.png",
+          alt: "Multi-step checkout",
+        },
+        {
+          title: "Checkout Flow",
+          url: "/screenshot4.png",
+          alt: "Multi-step checkout",
+        },
+        {
+          title: "Checkout Flow",
+          url: "/screenshot5.png",
+          alt: "Multi-step checkout",
+        },
+      ],
+      technologies: ["React", "Node.js", "MongoDB", "Stripe", "Redis"],
+      challenges: [
+        {
+          title: "Handling high traffic during sales",
+          solution: "Implemented Redis caching and load balancing",
+        },
+      ],
+      results: ["10K+ active users", "95% uptime", "40% faster checkout"],
     },
   },
   {
-    title: "Real-Time Analytics Dashboard",
-    description:
-      "Interactive dashboard with live data visualization, custom reporting, and predictive analytics.",
-    category: "frontend",
-    tags: ["Vue.js", "D3.js", "WebSocket", "Chart.js"],
-    gradient: "from-cyan-600 to-cyan-700",
-    icon: Code2,
+    title: "E-Commerce Platform",
+    description: "Full-featured online marketplace with real-time inventory...",
+    category: "fullstack",
+    tags: ["React", "Node.js", "MongoDB", "Stripe", "WebSocket"],
+    gradient: "from-blue-600 to-blue-700",
+    icon: Layers,
+    stats: {
+      users: "10K+",
+      impact: "95% uptime",
+    },
     links: {
       demo: "https://demo.example.com",
       github: "https://github.com/example",
     },
-    stats: {
-      users: "8K+",
-      impact: "Real-time data",
+    caseStudy: {
+      overview:
+        "Full-featured online marketplace with real-time inventory management...",
+      problem: "Traditional e-commerce platforms struggle with scalability...",
+      solution:
+        "Built a scalable solution using modern microservices architecture...",
+      features: [
+        "Real-time inventory management",
+        "Secure payment processing with Stripe",
+        "Advanced analytics dashboard",
+      ],
+      screenshots: [
+        {
+          title: "Dashboard View",
+          url: "/screenshot1.png",
+          alt: "E-commerce admin dashboard",
+        },
+        {
+          title: "Product Catalog",
+          url: "/screenshot2.png",
+          alt: "Product listing page",
+        },
+        {
+          title: "Checkout Flow",
+          url: "/screenshot3.png",
+          alt: "Multi-step checkout",
+        },
+        {
+          title: "Checkout Flow",
+          url: "/screenshot4.png",
+          alt: "Multi-step checkout",
+        },
+        {
+          title: "Checkout Flow",
+          url: "/screenshot5.png",
+          alt: "Multi-step checkout",
+        },
+      ],
+      technologies: ["React", "Node.js", "MongoDB", "Stripe", "Redis"],
+      challenges: [
+        {
+          title: "Handling high traffic during sales",
+          solution: "Implemented Redis caching and load balancing",
+        },
+      ],
+      results: ["10K+ active users", "95% uptime", "40% faster checkout"],
     },
   },
+  // Add more projects following the same structure
 ];
-
-const cn = (...classes: (string | boolean | undefined)[]) => {
-  return classes.filter(Boolean).join(" ");
-};
 
 // Category configuration
 const CATEGORIES = [
@@ -160,216 +393,215 @@ const CATEGORIES = [
 interface ProjectCardProps {
   project: Project;
   delay?: number;
+  setSelectedProject: Dispatch<SetStateAction<Project>>;
+  onOpen: () => void;
 }
 
-const ProjectCard = memo<ProjectCardProps>(({ project, delay = 0 }) => {
-  const { isDark } = useTheme();
-  const [isVisible, setIsVisible] = useState(false);
-  const [imageError, setImageError] = useState(false);
-  const Icon = project.icon;
-  const displayTags = project.tags && project.tags.slice(0, 3);
-  const remainingTags = project.tags && project.tags.length - 3;
+const ProjectCard = memo<ProjectCardProps>(
+  ({ project, delay = 0, setSelectedProject, onOpen }) => {
+    const { isDark } = useTheme();
+    const [isVisible, setIsVisible] = useState(false);
+    const [imageError, setImageError] = useState(false);
+    const Icon = project.icon;
+    const displayTags = project.tags && project.tags.slice(0, 3);
+    const remainingTags = project.tags && project.tags.length - 3;
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, delay);
-    return () => clearTimeout(timer);
-  }, [delay]);
+    const openProjectDetailModal = useCallback(() => {
+      setSelectedProject(project);
+      onOpen();
+    }, []);
 
-  const getGradientClass = (gradient: string) => {
-    if (gradient.includes("blue")) return "from-blue-600 to-blue-700";
-    if (gradient.includes("purple")) return "from-purple-600 to-purple-700";
-    if (gradient.includes("pink")) return "from-pink-600 to-pink-700";
-    if (gradient.includes("green")) return "from-green-600 to-green-700";
-    if (gradient.includes("orange")) return "from-orange-600 to-orange-700";
-    if (gradient.includes("cyan")) return "from-cyan-600 to-cyan-700";
-    return "from-blue-600 to-blue-700";
-  };
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setIsVisible(true);
+      }, delay);
+      return () => clearTimeout(timer);
+    }, [delay]);
 
-  const getProjectImage = (title: string) => {
-    const seed = title.toLowerCase().replace(/\s+/g, "-");
-    return `https://source.unsplash.com/800x600/?${seed},web,app,technology`;
-  };
+    const getGradientClass = (gradient: string) => {
+      if (gradient.includes("blue")) return "from-blue-600 to-blue-700";
+      if (gradient.includes("purple")) return "from-purple-600 to-purple-700";
+      if (gradient.includes("pink")) return "from-pink-600 to-pink-700";
+      if (gradient.includes("green")) return "from-green-600 to-green-700";
+      if (gradient.includes("orange")) return "from-orange-600 to-orange-700";
+      if (gradient.includes("cyan")) return "from-cyan-600 to-cyan-700";
+      return "from-blue-600 to-blue-700";
+    };
 
-  return (
-    <article
-      className={cn(
-        "group rounded-3xl backdrop-blur-xl transition-all duration-700 hover:shadow-2xl hover:scale-105",
-        isDark
-          ? "border border-white/10 bg-gray-800/50"
-          : "border border-gray-200 bg-white shadow-xl",
-        isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-      )}
-    >
-      {/* Project Image/Banner */}
-      <div className="relative h-56 overflow-hidden rounded-t-3xl">
-        {!imageError ? (
-          <img
-            src={getProjectImage(project.title)}
-            alt={project.title}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-            onError={() => setImageError(true)}
-          />
-        ) : (
-          <div
-            className={cn(
-              "h-full w-full flex items-center justify-center",
-              `bg-gradient-to-br ${getGradientClass(project.gradient || "")}`
-            )}
-          >
-            <div className="rounded-2xl bg-white/20 p-8 backdrop-blur-md">
-              {Icon && <Icon className="h-14 w-14 text-white" />}
-            </div>
-          </div>
+    const getProjectImage = (title: string) => {
+      const seed = title.toLowerCase().replace(/\s+/g, "-");
+      return `https://source.unsplash.com/800x600/?${seed},web,app,technology`;
+    };
+
+    return (
+      <article
+        className={cn(
+          "group rounded-3xl backdrop-blur-xl transition-all duration-700 hover:shadow-2xl hover:scale-105",
+          isDark
+            ? "border border-white/10 bg-gray-800/50"
+            : "border border-gray-200 bg-white shadow-xl",
+          isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
         )}
-
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-
-        <div className="absolute left-4 top-4 flex items-center gap-2">
-          <span className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold backdrop-blur-md bg-white/90 text-gray-800 shadow-lg">
-            <Star className="h-3.5 w-3.5 fill-amber-500 text-amber-500" />
-            Featured
-          </span>
-        </div>
-
-        {project.stats && (
-          <div className="absolute right-4 top-4 flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 text-xs font-bold text-gray-800 shadow-lg backdrop-blur-md">
-            <Users className="h-3.5 w-3.5" />
-            {project.stats.users}
-          </div>
-        )}
-
-        <div className="absolute bottom-0 left-0 right-0 p-4">
-          {project.stats && (
-            <div className="flex items-center gap-2">
-              <span className="flex items-center gap-1.5 rounded-full bg-green-500/90 px-3 py-1.5 text-xs font-bold text-white backdrop-blur-md">
-                <TrendingUp className="h-3.5 w-3.5" />
-                {project.stats.impact}
-              </span>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Project Content */}
-      <div className="p-7">
-        <h3
-          className={cn(
-            "mb-3 text-xl font-bold sm:text-2xl",
-            isDark
-              ? "bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
-              : "text-gray-900"
-          )}
-        >
-          {project.title}
-        </h3>
-
-        <p
-          className={cn(
-            "mb-5 text-sm leading-relaxed sm:text-base line-clamp-3",
-            isDark ? "text-gray-300" : "text-gray-600"
-          )}
-        >
-          {project.description}
-        </p>
-
-        <div className="mb-6 flex flex-wrap gap-2">
-          {displayTags &&
-            displayTags.map((tag) => (
-              <span
-                key={tag}
-                className={cn(
-                  "rounded-lg px-3 py-1.5 text-xs font-semibold backdrop-blur-xl transition-all hover:scale-105",
-                  isDark
-                    ? "border border-gray-700 bg-gray-900/50 text-gray-300 hover:border-blue-600/50"
-                    : "border border-gray-200 bg-gray-50 text-gray-700 hover:border-blue-600/50"
-                )}
-              >
-                {tag}
-              </span>
-            ))}
-          {remainingTags && remainingTags > 0 && (
-            <span
+      >
+        {/* Project Image/Banner */}
+        <div className="relative h-56 overflow-hidden rounded-t-3xl">
+          {!imageError ? (
+            <img
+              src={getProjectImage(project.title)}
+              alt={project.title}
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <div
               className={cn(
-                "rounded-lg px-3 py-1.5 text-xs font-semibold",
-                isDark ? "text-gray-500" : "text-gray-500"
+                "h-full w-full flex items-center justify-center",
+                `bg-gradient-to-br ${getGradientClass(project.gradient || "")}`
               )}
             >
-              +{remainingTags}
-            </span>
+              <div className="rounded-2xl bg-white/20 p-8 backdrop-blur-md">
+                {Icon && <Icon className="h-14 w-14 text-white" />}
+              </div>
+            </div>
           )}
+
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+
+          <div className="absolute left-4 top-4 flex items-center gap-2">
+            <span className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold backdrop-blur-md bg-white/90 text-gray-800 shadow-lg">
+              <Star className="h-3.5 w-3.5 fill-amber-500 text-amber-500" />
+              Featured
+            </span>
+          </div>
+
+          {project.stats && (
+            <div className="absolute right-4 top-4 flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 text-xs font-bold text-gray-800 shadow-lg backdrop-blur-md">
+              <Users className="h-3.5 w-3.5" />
+              {project.stats.users}
+            </div>
+          )}
+
+          <div className="absolute bottom-0 left-0 right-0 p-4">
+            {project.stats && (
+              <div className="flex items-center gap-2">
+                <span className="flex items-center gap-1.5 rounded-full bg-green-500/90 px-3 py-1.5 text-xs font-bold text-white backdrop-blur-md">
+                  <TrendingUp className="h-3.5 w-3.5" />
+                  {project.stats.impact}
+                </span>
+              </div>
+            )}
+          </div>
         </div>
 
-        <div className="flex gap-3">
-          <a
-            href={project.links.demo}
-            target="_blank"
-            rel="noopener noreferrer"
+        {/* Project Content */}
+        <div className="p-7">
+          <h3
             className={cn(
-              "flex-1 flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 font-semibold transition-all hover:scale-105",
-              "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
-            )}
-          >
-            Live Demo
-            <ExternalLink className="h-4 w-4" />
-          </a>
-
-          <a
-            href={project.links.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              "flex items-center justify-center rounded-xl border px-4 backdrop-blur-xl transition-all hover:scale-105",
+              "mb-3 text-xl font-bold sm:text-2xl",
               isDark
-                ? "border-gray-700 bg-gray-900/50 text-white hover:bg-gray-800 hover:border-blue-600/50"
-                : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50 hover:border-blue-600/50 shadow-sm"
+                ? "bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
+                : "text-gray-900"
             )}
-            aria-label="View on GitHub"
           >
-            <Github className="h-5 w-5" />
-          </a>
+            {project.title}
+          </h3>
 
-          <button
+          <p
             className={cn(
-              "flex items-center justify-center rounded-xl border px-4 backdrop-blur-xl transition-all hover:scale-105",
-              isDark
-                ? "border-gray-700 bg-gray-900/50 text-white hover:bg-gray-800 hover:border-blue-600/50"
-                : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50 hover:border-blue-600/50 shadow-sm"
+              "mb-5 text-sm leading-relaxed sm:text-base line-clamp-3",
+              isDark ? "text-gray-300" : "text-gray-600"
             )}
-            aria-label="Read Case Study"
           >
-            <FileText className="h-5 w-5" />
-          </button>
+            {project.description}
+          </p>
+
+          <div className="mb-6 flex flex-wrap gap-2">
+            {displayTags &&
+              displayTags.map((tag) => (
+                <span
+                  key={tag}
+                  className={cn(
+                    "rounded-lg px-3 py-1.5 text-xs font-semibold backdrop-blur-xl transition-all hover:scale-105",
+                    isDark
+                      ? "border border-gray-700 bg-gray-900/50 text-gray-300 hover:border-blue-600/50"
+                      : "border border-gray-200 bg-gray-50 text-gray-700 hover:border-blue-600/50"
+                  )}
+                >
+                  {tag}
+                </span>
+              ))}
+            {remainingTags && remainingTags > 0 && (
+              <span
+                className={cn(
+                  "rounded-lg px-3 py-1.5 text-xs font-semibold",
+                  isDark ? "text-gray-500" : "text-gray-500"
+                )}
+              >
+                +{remainingTags}
+              </span>
+            )}
+          </div>
+
+          <div className="flex gap-3">
+            <a
+              href={project.links.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                "flex-1 flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 font-semibold transition-all hover:scale-105",
+                "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
+              )}
+            >
+              Live Demo
+              <ExternalLink className="h-4 w-4" />
+            </a>
+
+            <a
+              href={project.links.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                "flex items-center justify-center rounded-xl border px-4 backdrop-blur-xl transition-all hover:scale-105",
+                isDark
+                  ? "border-gray-700 bg-gray-900/50 text-white hover:bg-gray-800 hover:border-blue-600/50"
+                  : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50 hover:border-blue-600/50 shadow-sm"
+              )}
+              aria-label="View on GitHub"
+            >
+              <Github className="h-5 w-5" />
+            </a>
+
+            <button
+              onClick={openProjectDetailModal}
+              className={cn(
+                "flex items-center justify-center rounded-xl border px-4 backdrop-blur-xl transition-all hover:scale-105",
+                isDark
+                  ? "border-gray-700 bg-gray-900/50 text-white hover:bg-gray-800 hover:border-blue-600/50"
+                  : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50 hover:border-blue-600/50 shadow-sm"
+              )}
+              aria-label="Read Case Study"
+            >
+              <FileText className="h-5 w-5" />
+            </button>
+          </div>
         </div>
-      </div>
-    </article>
-  );
-});
+      </article>
+    );
+  }
+);
 
 ProjectCard.displayName = "ProjectCard";
 
 // Main component
 export const Projects = () => {
   const { isDark } = useTheme();
-  const [isVisible, setIsVisible] = useState(false);
+  const projectsVisible = useIntersectionObserver("projects");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(PROJECTS_DATA[0]);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    const section = document.getElementById("projects");
-    if (section) observer.observe(section);
-
-    return () => observer.disconnect();
-  }, []);
+  const closeModal = useCallback(() => setIsOpen(false), []);
+  const openModal = useCallback(() => setIsOpen(true), []);
 
   const filteredProjects = useMemo(() => {
     if (selectedCategory === "all") {
@@ -420,7 +652,9 @@ export const Projects = () => {
         <header
           className={cn(
             "mb-16 text-center transition-all duration-700",
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+            projectsVisible
+              ? "translate-y-0 opacity-100"
+              : "translate-y-10 opacity-0"
           )}
         >
           <div className="flex items-center justify-center gap-2 mb-6">
@@ -513,7 +747,9 @@ export const Projects = () => {
         <div
           className={cn(
             "mb-12 transition-all duration-700 delay-200",
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+            projectsVisible
+              ? "translate-y-0 opacity-100"
+              : "translate-y-10 opacity-0"
           )}
         >
           <div
@@ -586,9 +822,11 @@ export const Projects = () => {
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {filteredProjects.map((project, index) => (
               <ProjectCard
-                key={project.title}
+                key={crypto.randomUUID()}
                 project={project}
                 delay={index * 150}
+                onOpen={openModal}
+                setSelectedProject={setSelectedProject}
               />
             ))}
           </div>
@@ -624,7 +862,9 @@ export const Projects = () => {
           className={cn(
             "mt-16 relative overflow-hidden rounded-3xl p-10 text-center transition-all duration-700 delay-500",
             "bg-gradient-to-br from-blue-600 to-purple-600",
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+            projectsVisible
+              ? "translate-y-0 opacity-100"
+              : "translate-y-10 opacity-0"
           )}
         >
           <div className="relative z-10">
@@ -659,70 +899,13 @@ export const Projects = () => {
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
         </div>
       </div>
-      {/* {true && (
+      {selectedProject && (
         <ProjectModal
-          project={{
-            title: "AI-Powered Task Manager",
-            links: {
-              demo: "https://taskmanager.ai/demo",
-              github: "https://github.com/username/taskmanager-ai",
-            },
-            caseStudy: {
-              overview:
-                "An AI-driven task management application that helps teams organize, prioritize, and automate their workflows.",
-              problem:
-                "Traditional task managers lacked intelligent prioritization, often overwhelming users with too many tasks and no clear action plan.",
-              solution:
-                "We integrated machine learning models to analyze task urgency, dependencies, and team workload to automatically suggest an optimal task order.",
-              features: [
-                "AI-based task prioritization",
-                "Smart reminders and notifications",
-                "Collaboration with real-time updates",
-                "Cross-platform support (web, mobile)",
-                "Dark/Light mode with theme persistence",
-              ],
-              screenshots: [
-                { title: "Dashboard Overview", color: "blue" },
-                { title: "Task Details", color: "green" },
-                { title: "Analytics & Insights", color: "purple" },
-              ],
-              technologies: [
-                "Next.js",
-                "TypeScript",
-                "TailwindCSS",
-                "Node.js",
-                "Express",
-                "MongoDB",
-                "OpenAI API",
-              ],
-              challenges: [
-                {
-                  title: "Task Prioritization Algorithm",
-                  solution:
-                    "Implemented a hybrid model combining rule-based logic with machine learning to balance deadlines and importance.",
-                },
-                {
-                  title: "Real-time Collaboration",
-                  solution:
-                    "Used WebSockets with Socket.io to synchronize task updates instantly across multiple clients.",
-                },
-                {
-                  title: "Scalability",
-                  solution:
-                    "Optimized database queries with indexing and caching to handle thousands of concurrent users.",
-                },
-              ],
-              results: [
-                "Improved team productivity by 35%",
-                "Reduced missed deadlines by 50%",
-                "Positive feedback from beta testers with 4.8/5 satisfaction",
-              ],
-            },
-          }}
-          isOpen={true}
-          onClose={() => {}}
+          project={selectedProject} // Use the actual project data
+          isOpen={isOpen}
+          onClose={closeModal}
         />
-      )} */}
+      )}
     </section>
   );
 };

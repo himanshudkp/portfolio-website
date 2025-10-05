@@ -3,26 +3,31 @@ import { useState, useEffect, useCallback } from "react";
 import { getPlatform, cn } from "@/utils";
 import { X, Sparkles, Zap, Search, MousePointer } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 export const CMDIndicator = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [isDismissed, setIsDismissed] = useState(false);
   const { isDark } = useTheme();
+  const [cmdHintDismissed, setCmdHintDismissed] = useLocalStorage(
+    "show-cmd-palette",
+    false
+  );
 
   const handleDismiss = useCallback(() => {
     setIsVisible(false);
-    setTimeout(() => setIsDismissed(true), 300);
-    localStorage.setItem("CMDHint", "true");
-  }, []);
+    setTimeout(() => {
+      setIsDismissed(true);
+      setCmdHintDismissed(true);
+    }, 300);
+  }, [setCmdHintDismissed]);
 
   useEffect(() => {
-    const dismissed = localStorage.getItem("CMDHint") === "true";
-
-    if (dismissed) {
+    if (cmdHintDismissed) {
       setIsVisible(false);
       setIsDismissed(true);
     }
-  }, []);
+  }, [cmdHintDismissed]);
 
   if (isDismissed) return null;
 

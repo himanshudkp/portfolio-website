@@ -15,12 +15,11 @@ import {
   LucideIcon,
   Building2,
   Rocket,
-  Sparkles,
   TrendingUp,
 } from "lucide-react";
 import { memo, useState, useEffect } from "react";
 import { CERTIFICATIONS, EDUCATION, EXPERIENCES } from "@/data";
-import BtnLink from "@/ui/BtnLink";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 interface SectionHeaderProps {
   icon: LucideIcon;
@@ -258,19 +257,16 @@ const ExperienceCard = memo<ExperienceCardProps>(
             </div>
             <div className="flex flex-wrap gap-3">
               {experience.projects.map((project) => (
-                <BtnLink
+                <a
                   key={project.name}
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  variant="primary"
-                  size="md"
-                  icon={ExternalLink}
-                  iconPosition="right"
-                  className="group/btn"
+                  className="group/btn inline-flex items-center justify-center gap-2 font-semibold transition-colors duration-200 rounded-xl px-5 py-2.5 bg-blue-600 text-white hover:bg-blue-700"
                 >
                   {project.name}
-                </BtnLink>
+                  <ExternalLink className="h-4 w-4" />
+                </a>
               ))}
             </div>
           </div>
@@ -531,23 +527,7 @@ CertificationCard.displayName = "CertificationCard";
 // Main component
 export const Experience = () => {
   const { isDark } = useTheme();
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    const section = document.getElementById("experience");
-    if (section) observer.observe(section);
-
-    return () => observer.disconnect();
-  }, []);
+  const experienceVisible = useIntersectionObserver("experience");
 
   return (
     <section
@@ -578,7 +558,9 @@ export const Experience = () => {
         <header
           className={cn(
             "mb-16 text-center transition-all duration-700",
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+            experienceVisible
+              ? "translate-y-0 opacity-100"
+              : "translate-y-10 opacity-0"
           )}
         >
           <div className="flex items-center justify-center gap-2 mb-6">

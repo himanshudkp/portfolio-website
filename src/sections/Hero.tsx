@@ -13,7 +13,6 @@ import {
 import { useTheme } from "@/hooks/useTheme";
 import { cn } from "@/utils";
 import { SOCIAL_LINKS, TOP_5_TECH_STACK } from "@/data";
-import BtnLink from "@/ui/BtnLink";
 
 const Lottie = dynamic(() => import("lottie-react"), {
   ssr: false,
@@ -96,31 +95,37 @@ export const Hero = () => {
           {/* <TechStack /> */}
 
           <div className="flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start">
-            <BtnLink
+            <a
               href="#projects"
-              variant="primary"
-              size="xl"
-              fullWidth
-              className="group"
+              className="group w-full inline-flex items-center justify-center gap-2 font-semibold transition-colors duration-200 rounded-xl px-8 py-4 font-bold bg-blue-600 text-white hover:bg-blue-700"
             >
               <span>View My Work</span>
               <Rocket className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </BtnLink>
-            <BtnLink href="#contact" variant="secondary" size="xl" fullWidth>
+            </a>
+            <a
+              href="#contact"
+              className={cn(
+                "w-full inline-flex items-center justify-center gap-2 font-semibold transition-colors duration-200 rounded-xl px-8 py-4 font-bold",
+                isDark
+                  ? "border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white"
+                  : "border-2 border-gray-300 bg-white text-gray-700 hover:bg-gray-100"
+              )}
+            >
               Get in Touch
-            </BtnLink>
-            <BtnLink
-              href="./Himanshu_Pandey_Resume.pdf"
-              download={true}
-              variant="secondary"
-              size="xl"
-              icon={ArrowDownToLine}
-              iconPosition="right"
-              fullWidth
-              className="sm:w-auto"
+            </a>
+            <a
+              href="./resume.pdf"
+              download
+              className={cn(
+                "w-full sm:w-auto inline-flex items-center justify-center gap-2 font-semibold transition-colors duration-200 rounded-xl px-8 py-4 font-bold",
+                isDark
+                  ? "border-2 border-gray-700 bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white"
+                  : "border-2 border-gray-300 bg-white text-gray-700 hover:bg-gray-100"
+              )}
             >
               Resume
-            </BtnLink>
+              <ArrowDownToLine className="h-5 w-5" />
+            </a>
           </div>
 
           <SocialLinks />
@@ -446,15 +451,18 @@ function SocialLinks() {
       {SOCIAL_LINKS.map((social) => {
         const IconComponent = social.icon;
         return (
-          <BtnLink
+          <a
             key={social.label}
             href={social.href}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={social.label}
-            variant="icon"
-            size="icon"
-            className="hover:scale-110 transition-transform duration-200"
+            className={cn(
+              "inline-flex items-center justify-center gap-2 font-semibold transition-colors duration-200 rounded-xl h-12 w-12 p-0 hover:scale-110 transition-transform duration-200",
+              isDark
+                ? "border border-gray-700 bg-gray-800 hover:bg-gray-700"
+                : "border border-gray-200 bg-white hover:bg-gray-100"
+            )}
           >
             <IconComponent
               className={cn(
@@ -464,7 +472,7 @@ function SocialLinks() {
                   : "text-gray-600 group-hover:text-blue-600"
               )}
             />
-          </BtnLink>
+          </a>
         );
       })}
     </div>

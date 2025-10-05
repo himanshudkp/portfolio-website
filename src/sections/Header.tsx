@@ -13,14 +13,12 @@ import {
   Briefcase,
   Wrench,
   AppWindow,
-  ExternalLink,
   Download,
 } from "lucide-react";
 import { cn } from "@/utils";
 import { NavLink } from "@/types";
 import { NAV_LINKS, RESUME_LINK } from "@/data";
 import { useTheme } from "@/hooks/useTheme";
-import BtnLink from "@/ui/BtnLink";
 import { LogoBrand } from "@/components";
 
 export const Header = () => {
@@ -76,26 +74,26 @@ export const Header = () => {
           <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} />
 
           <div className="hidden md:flex items-center gap-2">
-            <BtnLink
+            <a
               href={RESUME_LINK}
               target="_blank"
-              variant="outline"
-              size="sm"
-              icon={Download}
-              iconPosition="left"
-              className="group"
+              className={cn(
+                "group inline-flex items-center justify-center gap-2 font-semibold transition-colors duration-200 rounded-lg px-4 py-2 text-sm",
+                isDark
+                  ? "border-2 border-gray-700 text-gray-300 hover:border-blue-600 hover:bg-blue-600/10 hover:text-white"
+                  : "border-2 border-gray-300 text-gray-700 hover:border-blue-700 hover:bg-blue-50 hover:text-blue-700"
+              )}
             >
+              <Download className="h-3.5 w-3.5" />
               <span>Resume</span>
-            </BtnLink>
-            <BtnLink
+            </a>
+            <a
               href="#contact"
-              variant="primary"
-              size="sm"
-              icon={Mail}
-              iconPosition="left"
+              className="inline-flex items-center justify-center gap-2 font-semibold transition-colors duration-200 rounded-lg px-4 py-2 text-sm bg-blue-600 text-white hover:bg-blue-700"
             >
+              <Mail className="h-3.5 w-3.5" />
               <span>Hire Me</span>
-            </BtnLink>
+            </a>
           </div>
 
           <MobileMenuButton
@@ -133,10 +131,10 @@ function ThemeToggle({ isDark, toggleTheme }: ThemeToggleProps) {
       )}
       aria-label="Toggle theme"
     >
-      <div className="relative h-5 w-5 flex items-center justify-center">
+      <div className="relative h-5 w-5">
         <Sun
           className={cn(
-            "absolute transition-all duration-300",
+            "absolute inset-0 transition-all duration-300",
             isDark
               ? "rotate-90 scale-0 opacity-0"
               : "rotate-0 scale-100 opacity-100 text-amber-500"
@@ -144,7 +142,7 @@ function ThemeToggle({ isDark, toggleTheme }: ThemeToggleProps) {
         />
         <Moon
           className={cn(
-            "absolute transition-all duration-300",
+            "absolute inset-0 transition-all duration-300",
             isDark
               ? "rotate-0 scale-100 opacity-100 text-blue-400"
               : "-rotate-90 scale-0 opacity-0"
@@ -323,30 +321,29 @@ function MobileMenu({
         </ul>
 
         <div className="flex flex-col gap-3">
-          <BtnLink
+          <a
             href={RESUME_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            variant="outline"
-            size="md"
-            icon={Download}
-            iconPosition="left"
-            fullWidth
+            className={cn(
+              "w-full inline-flex items-center justify-center gap-2 font-semibold transition-colors duration-200 rounded-xl px-5 py-2.5",
+              isDark
+                ? "border-2 border-gray-700 text-gray-300 hover:border-blue-600 hover:bg-blue-600/10 hover:text-white"
+                : "border-2 border-gray-300 text-gray-700 hover:border-blue-700 hover:bg-blue-50 hover:text-blue-700"
+            )}
           >
+            <Download className="h-4 w-4" />
             Download Resume
-          </BtnLink>
+          </a>
 
-          <BtnLink
+          <a
             href="#contact"
             onClick={onClose}
-            variant="primary"
-            size="md"
-            icon={Mail}
-            iconPosition="left"
-            fullWidth
+            className="w-full inline-flex items-center justify-center gap-2 font-semibold transition-colors duration-200 rounded-xl px-5 py-2.5 bg-blue-600 text-white hover:bg-blue-700"
           >
+            <Mail className="h-4 w-4" />
             Hire Me
-          </BtnLink>
+          </a>
         </div>
       </div>
     </div>

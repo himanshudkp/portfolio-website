@@ -8,6 +8,8 @@ import { useTheme } from "@/hooks/useTheme";
 export const CMDPalette = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const selectedItemRef = useRef<HTMLButtonElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
   const { isDark } = useTheme();
   const {
     isOpen,
@@ -18,6 +20,16 @@ export const CMDPalette = () => {
     executeCommand,
     setIsOpen,
   } = useCMDPalette();
+
+  // Scroll selected item into view
+  useEffect(() => {
+    if (selectedItemRef.current && listRef.current) {
+      selectedItemRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }
+  }, [selectedIndex]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -169,12 +181,16 @@ export const CMDPalette = () => {
           </div>
 
           {/* Commands List */}
-          <div className="max-h-[60vh] overflow-y-auto p-3 scrollbar-thin">
+          <div
+            ref={listRef}
+            className="max-h-[60vh] overflow-y-auto p-3 scrollbar-thin"
+          >
             {commands.length > 0 ? (
               <div className="space-y-1">
                 {commands.map((cmd, index) => (
                   <button
                     key={cmd.id}
+                    ref={index === selectedIndex ? selectedItemRef : null}
                     onClick={() => executeCommand(index)}
                     className={cn(
                       "group flex w-full items-center justify-between rounded-xl px-4 py-3.5 text-left transition-all duration-200",

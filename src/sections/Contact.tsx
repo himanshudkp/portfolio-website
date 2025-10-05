@@ -1,7 +1,6 @@
 import { CONTACT_LINKS, SOCIAL_LINKS } from "@/data";
 import { useTheme } from "@/hooks/useTheme";
 import { FormData, Link } from "@/types";
-import BtnLink from "@/ui/BtnLink";
 import { cn } from "@/utils";
 import { Send, Mail, Sparkles, Clock } from "lucide-react";
 import { useState, FormEvent } from "react";
@@ -103,7 +102,7 @@ const ContactInfoCard = ({ info }: { info: Link }) => {
                 : "text-gray-900"
             )}
           >
-            {info.value}
+            {info.text}
           </p>
         </div>
       </div>

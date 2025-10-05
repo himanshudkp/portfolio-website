@@ -1,32 +1,15 @@
 "use client";
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { ABOUT_SECTION_DATA } from "@/data";
 import { useTheme } from "@/hooks/useTheme";
 import { Stat, Tool } from "@/types";
 import { cn } from "@/utils";
 import { Code2, ArrowRight, Sparkles } from "lucide-react";
-import BtnLink from "@/ui/BtnLink";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 export const About = () => {
   const { isDark } = useTheme();
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    const section = document.getElementById("about");
-    if (section) observer.observe(section);
-
-    return () => observer.disconnect();
-  }, []);
+  const isVisible = useIntersectionObserver("about");
 
   return (
     <section
@@ -539,15 +522,13 @@ function CTACard() {
         <p className="mb-4 text-base font-semibold text-white">
           Ready to start your next project?
         </p>
-        <BtnLink
+        <a
           href="#contact"
-          variant="secondary"
-          size="md"
-          icon={ArrowRight}
-          className="bg-white text-blue-600 hover:bg-gray-100"
+          className="inline-flex items-center justify-center gap-2 font-semibold transition-colors duration-200 rounded-xl px-5 py-2.5 bg-white text-blue-600 hover:bg-gray-100"
         >
           Let's Talk
-        </BtnLink>
+          <ArrowRight className="h-4 w-4" />
+        </a>
       </div>
 
       {/* Decorative Elements */}

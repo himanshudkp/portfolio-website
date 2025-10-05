@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useMemo,
-  createContext,
-  useContext,
-} from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   Code2,
   Palette,
@@ -239,10 +233,18 @@ const getColorClasses = (color: ColorKey, isDark: boolean): ColorClasses => {
   return colorMap[color];
 };
 
-const getProficiencyLabel = (level: number): string => {
-  if (level >= 90) return "Expert";
-  if (level >= 75) return "Advanced";
-  return "Intermediate";
+// Helper function to get proficiency label
+const getProficiencyLabel = (level: number) => {
+  if (level >= 80) return "Expert";
+  if (level >= 60) return "Experienced";
+  if (level >= 40) return "Intermediate";
+  return "Familiar";
+};
+
+// Helper function to get experience badge text
+const getExperienceBadge = (level: number) => {
+  if (level >= 60) return "Experienced";
+  return "Familiar";
 };
 
 const getProficiencyColor = (level: number, isDark: boolean): string => {
@@ -664,9 +666,11 @@ export const Skills = () => {
             <div className="flex flex-wrap gap-3">
               {filteredSkills.map((skill, index) => {
                 const colors = getColorClasses(skill.color, isDark);
+                const experienceBadge = getExperienceBadge(skill.level);
+
                 return (
                   <div
-                    key={`${skill.categoryId}-${skill.name}`}
+                    key={skill.name}
                     className={cn(
                       "group relative transition-all duration-500",
                       isVisible
@@ -679,7 +683,7 @@ export const Skills = () => {
                   >
                     <div
                       className={cn(
-                        "relative px-5 py-3 rounded-2xl transition-all duration-300 border shadow-sm hover:shadow-md hover:scale-105 cursor-default",
+                        "relative px-4 py-2.5 rounded-xl transition-all duration-300 border shadow-sm hover:shadow-md hover:scale-105 cursor-default",
                         isDark ? colors.tagDark : colors.tag,
                         colors.hover,
                         skill.hot &&
@@ -688,62 +692,35 @@ export const Skills = () => {
                             : "ring-2 ring-offset-2 ring-amber-400 ring-offset-white")
                       )}
                     >
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2.5">
                         <span className="font-semibold text-sm">
                           {skill.name}
                         </span>
 
-                        {/* Level Badge */}
-                        <div className="flex items-center gap-1.5">
-                          <div
-                            className={cn(
-                              "relative h-1.5 w-12 rounded-full overflow-hidden",
-                              isDark ? "bg-slate-700/50" : "bg-slate-200"
-                            )}
-                          >
-                            <div
-                              className={cn(
-                                "absolute inset-y-0 left-0 bg-gradient-to-r rounded-full transition-all duration-1000",
-                                colors.gradient
-                              )}
-                              style={{ width: `${skill.level}%` }}
-                            />
-                          </div>
-                          <span
-                            className={cn(
-                              "text-xs font-bold",
-                              getProficiencyColor(skill.level, isDark)
-                            )}
-                          >
-                            {skill.level}%
-                          </span>
-                        </div>
+                        {/* Experience Badge */}
+                        <span
+                          className={cn(
+                            "text-xs font-medium px-2 py-0.5 rounded-full",
+                            experienceBadge === "Experienced"
+                              ? isDark
+                                ? "bg-emerald-900/50 text-emerald-300"
+                                : "bg-emerald-100 text-emerald-700"
+                              : isDark
+                              ? "bg-blue-900/50 text-blue-300"
+                              : "bg-blue-100 text-blue-700"
+                          )}
+                        >
+                          {experienceBadge}
+                        </span>
 
                         {/* Hot Badge */}
                         {skill.hot && (
-                          <div
+                          <Star
                             className={cn(
-                              "flex items-center gap-1 px-2 py-0.5 rounded-full border",
-                              isDark
-                                ? "bg-gradient-to-r from-amber-900/40 to-yellow-900/40 border-amber-700/50"
-                                : "bg-gradient-to-r from-amber-100 to-yellow-100 border-amber-200/50"
+                              "h-3.5 w-3.5 fill-current animate-pulse",
+                              isDark ? "text-amber-400" : "text-amber-500"
                             )}
-                          >
-                            <Star
-                              className={cn(
-                                "h-3 w-3 fill-current animate-pulse",
-                                isDark ? "text-amber-400" : "text-amber-600"
-                              )}
-                            />
-                            <span
-                              className={cn(
-                                "text-xs font-medium",
-                                isDark ? "text-amber-300" : "text-amber-700"
-                              )}
-                            >
-                              Hot
-                            </span>
-                          </div>
+                          />
                         )}
                       </div>
 
@@ -763,7 +740,8 @@ export const Skills = () => {
                               isDark ? "text-slate-400" : "text-slate-300"
                             )}
                           >
-                            Proficiency: {getProficiencyLabel(skill.level)}
+                            Proficiency: {getProficiencyLabel(skill.level)} (
+                            {skill.level}%)
                           </div>
                           <div
                             className={cn(

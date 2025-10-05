@@ -71,7 +71,7 @@ export function LogoBrand({ name, size = "md", footer }: LogoBrandProps) {
               isDark ? "text-gray-400" : "text-gray-600"
             )}
           >
-            Software Developer
+            Frontend Developer
           </span>
         </div>
       </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { EMAIL, RESUME_LINK } from "@/data";
 import { useEffect, useState, useCallback, useMemo } from "react";
 
 interface Command {
@@ -58,6 +59,43 @@ export function useCMDPalette() {
         section: "Navigation",
         action: () => scrollIntoView("contact"),
       },
+
+      {
+        id: "view-resume",
+        label: "View Resume",
+        keywords: ["resume", "cv", "view", "open"],
+        section: "Quick Actions",
+        action: () => {
+          window.open(RESUME_LINK, "_blank");
+          setIsOpen(false);
+        },
+      },
+      {
+        id: "download-resume",
+        label: "Download Resume",
+        keywords: ["resume", "cv", "download", "save"],
+        section: "Quick Actions",
+        action: () => {
+          const link = document.createElement("a");
+          link.href = RESUME_LINK;
+          link.download = "resume.pdf";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          setIsOpen(false);
+        },
+      },
+      {
+        id: "send-email",
+        label: "Send an Email",
+        keywords: ["email", "mail", "contact", "message", "reach out"],
+        section: "Quick Actions",
+        action: () => {
+          window.location.href = `mailto:${EMAIL}?subject=Hello!&body=Hi, I would like to get in touch with you.`;
+          window.location.href;
+          setIsOpen(false);
+        },
+      },
     ],
     []
   );
@@ -89,11 +127,11 @@ export function useCMDPalette() {
 
   const executeCommand = useCallback(
     (index: number) => {
-      if (commands[index]) {
-        commands[index].action();
+      if (filteredCommands[index]) {
+        filteredCommands[index].action();
       }
     },
-    [commands]
+    [filteredCommands]
   );
 
   useEffect(() => {
