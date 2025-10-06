@@ -1,9 +1,9 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-import { cn, getModifierKey } from "@/utils";
+import { cn, getModifierKey } from "@/utils/utils";
 import { X, Sparkles, Zap, Search, MousePointer } from "lucide-react";
-import { useTheme } from "@/hooks/useTheme";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { useTheme } from "@/hooks/use-theme";
+import { useLocalStorage } from "@/hooks/use-local-storage";
 
 export const CMDIndicator = () => {
   const [isVisible, setIsVisible] = useState(true);

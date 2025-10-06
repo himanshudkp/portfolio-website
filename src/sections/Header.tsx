@@ -15,11 +15,11 @@ import {
   AppWindow,
   Download,
 } from "lucide-react";
-import { cn } from "@/utils";
-import { NavLink } from "@/types";
-import { NAV_LINKS, RESUME_LINK } from "@/data";
-import { useTheme } from "@/hooks/useTheme";
-import { LogoBrand } from "@/components";
+import { cn } from "@/utils/utils";
+import { NavLink } from "@/types/types";
+import { NAV_LINKS, RESUME_LINK } from "@/data/data";
+import { useTheme } from "@/hooks/use-theme";
+import { LogoBrand } from "@/components/logo-brand";
 
 export const Header = () => {
   const { isDark, toggleTheme } = useTheme();
@@ -61,8 +61,8 @@ export const Header = () => {
           : "border-b border-transparent bg-white/40"
       )}
     >
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8 xl:px-12">
-        <LogoBrand name="Himanshu Pandey" footer={false} />
+      <div className="mx-5 flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8 xl:px-12">
+        <LogoBrand />
 
         <DesktopNav
           links={NAV_LINKS.slice(0, 5)}

@@ -24,10 +24,10 @@ import {
   Brain,
   Filter,
 } from "lucide-react";
-import { useTheme } from "@/hooks/useTheme";
-import { ProjectModal } from "@/components";
-import { cn } from "@/utils";
-import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { useTheme } from "@/hooks/use-theme";
+import { cn } from "@/utils/utils";
+import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
+import { ProjectModal } from "@/components/project-modal";
 
 // Types
 interface Project {
@@ -703,44 +703,6 @@ export const Projects = () => {
             Real-world projects delivering measurable impact and exceptional
             user experiences
           </p>
-
-          <div className="flex items-center justify-center gap-6 text-sm">
-            <div className="flex items-center gap-2">
-              <Sparkles
-                className={cn(
-                  "h-4 w-4",
-                  isDark ? "text-blue-400" : "text-blue-600"
-                )}
-              />
-              <span
-                className={cn(
-                  "font-semibold",
-                  isDark ? "text-gray-300" : "text-gray-700"
-                )}
-              >
-                Production Ready
-              </span>
-            </div>
-            <div
-              className={cn("h-4 w-px", isDark ? "bg-gray-700" : "bg-gray-300")}
-            />
-            <div className="flex items-center gap-2">
-              <TrendingUp
-                className={cn(
-                  "h-4 w-4",
-                  isDark ? "text-green-400" : "text-green-600"
-                )}
-              />
-              <span
-                className={cn(
-                  "font-semibold",
-                  isDark ? "text-gray-300" : "text-gray-700"
-                )}
-              >
-                Proven Impact
-              </span>
-            </div>
-          </div>
         </header>
 
         {/* Category Filter */}
@@ -829,6 +791,46 @@ export const Projects = () => {
                 setSelectedProject={setSelectedProject}
               />
             ))}
+            <div
+              className={cn(
+                "mt-16 relative overflow-hidden rounded-3xl p-10 text-center transition-all duration-700 delay-500",
+                "bg-gradient-to-br from-blue-600 to-purple-600",
+                projectsVisible
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-10 opacity-0"
+              )}
+            >
+              <div className="relative z-10">
+                <h3 className="mb-3 text-3xl font-bold text-white">
+                  Impressed by What You See?
+                </h3>
+                <p className="mb-8 text-lg text-blue-100 max-w-2xl mx-auto">
+                  Explore my complete portfolio on GitHub with 50+ projects,
+                  open-source contributions, and code samples
+                </p>
+                <div className="flex items-center justify-center gap-4 flex-wrap">
+                  <a
+                    href="https://github.com/yourusername"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 font-semibold text-blue-600 shadow-lg transition-all hover:scale-105 hover:bg-gray-100"
+                  >
+                    <Github className="h-5 w-5" />
+                    View GitHub Profile
+                  </a>
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center gap-2 rounded-xl border-2 border-white/30 px-6 py-3 font-semibold text-white transition-all hover:scale-105 hover:bg-white/10"
+                  >
+                    Let's Collaborate
+                    <ArrowRight className="h-5 w-5" />
+                  </a>
+                </div>
+              </div>
+
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
+            </div>
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-20 text-center">
@@ -856,48 +858,6 @@ export const Projects = () => {
             </p>
           </div>
         )}
-
-        {/* CTA Section */}
-        <div
-          className={cn(
-            "mt-16 relative overflow-hidden rounded-3xl p-10 text-center transition-all duration-700 delay-500",
-            "bg-gradient-to-br from-blue-600 to-purple-600",
-            projectsVisible
-              ? "translate-y-0 opacity-100"
-              : "translate-y-10 opacity-0"
-          )}
-        >
-          <div className="relative z-10">
-            <h3 className="mb-3 text-3xl font-bold text-white">
-              Impressed by What You See?
-            </h3>
-            <p className="mb-8 text-lg text-blue-100 max-w-2xl mx-auto">
-              Explore my complete portfolio on GitHub with 50+ projects,
-              open-source contributions, and code samples
-            </p>
-            <div className="flex items-center justify-center gap-4 flex-wrap">
-              <a
-                href="https://github.com/yourusername"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 font-semibold text-blue-600 shadow-lg transition-all hover:scale-105 hover:bg-gray-100"
-              >
-                <Github className="h-5 w-5" />
-                View GitHub Profile
-              </a>
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 rounded-xl border-2 border-white/30 px-6 py-3 font-semibold text-white transition-all hover:scale-105 hover:bg-white/10"
-              >
-                Let's Collaborate
-                <ArrowRight className="h-5 w-5" />
-              </a>
-            </div>
-          </div>
-
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
-        </div>
       </div>
       {selectedProject && (
         <ProjectModal

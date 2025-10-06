@@ -1,9 +1,9 @@
 "use client";
 import { useState, useRef, useCallback, ChangeEvent, useEffect } from "react";
 import { Search, X, ChevronRight, Sparkles } from "lucide-react";
-import { useCMDPalette } from "@/hooks/useCMDPalette";
-import { cn } from "@/utils";
-import { useTheme } from "@/hooks/useTheme";
+import { useCMDPalette } from "@/hooks/use-cmd-palette";
+import { cn } from "@/utils/utils";
+import { useTheme } from "@/hooks/use-theme";
 
 export const CMDPalette = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -20,6 +20,14 @@ export const CMDPalette = () => {
     executeCommand,
     setIsOpen,
   } = useCMDPalette();
+
+  const handleInputChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setSearch(e.target.value);
+      setSelectedIndex(0);
+    },
+    [setSearch]
+  );
 
   // Scroll selected item into view
   useEffect(() => {
@@ -79,14 +87,6 @@ export const CMDPalette = () => {
       inputRef.current.focus();
     }
   }, [isOpen]);
-
-  const handleInputChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setSearch(e.target.value);
-      setSelectedIndex(0);
-    },
-    [setSearch]
-  );
 
   if (!isOpen) return null;
 

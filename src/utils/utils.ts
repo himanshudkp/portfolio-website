@@ -1,4 +1,4 @@
-import { Skill } from "@/types";
+import { Skill } from "@/types/types";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 

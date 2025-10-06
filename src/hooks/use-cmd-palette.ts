@@ -1,6 +1,6 @@
 "use client";
 
-import { EMAIL, RESUME_LINK } from "@/data";
+import { EMAIL, RESUME_LINK } from "@/data/data";
 import { useEffect, useState, useCallback, useMemo } from "react";
 
 interface Command {

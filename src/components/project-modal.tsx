@@ -19,8 +19,8 @@ import {
   ChevronRight,
   Maximize2,
 } from "lucide-react";
-import { cn } from "@/utils";
-import { useTheme } from "@/hooks/useTheme";
+import { cn } from "@/utils/utils";
+import { useTheme } from "@/hooks/use-theme";
 
 // Types
 interface Project {

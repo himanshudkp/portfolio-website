@@ -1,7 +1,8 @@
-import { CONTACT_LINKS, SOCIAL_LINKS } from "@/data";
-import { useTheme } from "@/hooks/useTheme";
-import { FormData, Link } from "@/types";
-import { cn } from "@/utils";
+import { ContactLink } from "@/components/contact-link";
+import { CONTACT_LINKS, SOCIAL_LINKS } from "@/data/data";
+import { useTheme } from "@/hooks/use-theme";
+import { FormData, Link } from "@/types/types";
+import { cn } from "@/utils/utils";
 import { Send, Mail, Sparkles, Clock } from "lucide-react";
 import { useState, FormEvent } from "react";
 
@@ -64,10 +65,7 @@ const ContactInfoCard = ({ info }: { info: Link }) => {
   const Icon = info.icon;
 
   return (
-    <a
-      href={info.href || "#"}
-      target="_blank"
-      rel="noopener noreferrer"
+    <div
       className={cn(
         "group block rounded-3xl border p-6 transition-all duration-300 hover:shadow-2xl hover:scale-105",
         isDark
@@ -75,38 +73,14 @@ const ContactInfoCard = ({ info }: { info: Link }) => {
           : "border-gray-200 bg-white shadow-xl"
       )}
     >
-      <div className="flex items-center gap-5">
-        <div
-          className={cn(
-            "flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-2xl shadow-lg transition-transform group-hover:scale-110",
-            "bg-gradient-to-br from-blue-600 to-purple-600"
-          )}
-        >
-          <Icon className="h-7 w-7 text-white" />
-        </div>
-
-        <div className="min-w-0 flex-1">
-          <h3
-            className={cn(
-              "mb-2 text-xs font-bold uppercase tracking-wider",
-              isDark ? "text-gray-400" : "text-gray-500"
-            )}
-          >
-            {info.title}
-          </h3>
-          <p
-            className={cn(
-              "truncate text-lg font-bold",
-              isDark
-                ? "bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
-                : "text-gray-900"
-            )}
-          >
-            {info.text}
-          </p>
-        </div>
-      </div>
-    </a>
+      <ContactLink
+        href={info.href}
+        label={info.label}
+        icon={info.icon}
+        title={info.title || ""}
+        text={info.text || ""}
+      />
+    </div>
   );
 };
 
@@ -115,35 +89,28 @@ const SocialLinks = () => {
   return (
     <div
       className={cn(
-        "rounded-3xl border p-7 transition-all duration-300",
+        "rounded-3xl border p-7 transition-all duration-300 flex flex-col gap-3",
         isDark
           ? "border-white/10 bg-gray-800/50 backdrop-blur-xl"
           : "border-gray-200 bg-white shadow-xl"
       )}
     >
-      <div className="flex items-center gap-3 mb-5">
-        <div className="p-2 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600">
+      {/* <div className="flex items-center gap-3 mb-5"> */}
+      {/* <div className="p-2 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600">
           <Sparkles className="h-5 w-5 text-white" />
-        </div>
-        <h3
-          className={cn(
-            "text-xl font-bold",
-            isDark
-              ? "bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
-              : "text-gray-900"
-          )}
-        >
-          Connect on Social
-        </h3>
-      </div>
-      <p
+        </div> */}
+      <h3
         className={cn(
-          "text-sm mb-5",
-          isDark ? "text-gray-400" : "text-gray-600"
+          "text-xl font-bold",
+          isDark
+            ? "bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
+            : "text-gray-900"
         )}
       >
-        Follow me for updates, insights, and more
-      </p>
+        Connect With Me
+      </h3>
+      {/* </div> */}
+
       <div className="flex flex-wrap gap-3">
         {SOCIAL_LINKS.map((social) => {
           const IconComponent = social.icon;
@@ -304,30 +271,6 @@ const ContactForm = ({
           <span>Send Message</span>
           <Send className="h-5 w-5 transition-transform group-hover:translate-x-1" />
         </button>
-
-        <div
-          className={cn(
-            "flex items-center justify-center gap-2 rounded-2xl p-4 border",
-            isDark
-              ? "bg-blue-600/10 border-blue-600/30"
-              : "bg-blue-50 border-blue-200"
-          )}
-        >
-          <Clock
-            className={cn(
-              "h-4 w-4",
-              isDark ? "text-blue-400" : "text-blue-600"
-            )}
-          />
-          <p
-            className={cn(
-              "text-sm font-semibold",
-              isDark ? "text-blue-400" : "text-blue-600"
-            )}
-          >
-            Response time: Within 24 hours
-          </p>
-        </div>
       </form>
     </div>
   );

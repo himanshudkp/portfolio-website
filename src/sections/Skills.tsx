@@ -17,8 +17,8 @@ import {
   Sun,
   type LucideIcon,
 } from "lucide-react";
-import { cn } from "@/utils";
-import { useTheme } from "@/hooks/useTheme";
+import { cn } from "@/utils/utils";
+import { useTheme } from "@/hooks/use-theme";
 
 // Type definitions
 export type ColorKey =

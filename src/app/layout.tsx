@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Outfit, Ovo } from "next/font/google";
 import "./globals.css";
-import { CMDIndicator, CMDPalette } from "@/components";
-import { ThemeProvider } from "@/contexts/ThemeContext";
+import { ThemeProvider } from "@/contexts/theme-context";
+import { CMDPalette } from "@/components/cmd-palette";
+import { CMDIndicator } from "@/components/cmd-indicator";
 
 const outfit = Outfit({
   subsets: ["latin"],

@@ -1,6 +1,6 @@
-import { useTheme } from "@/hooks/useTheme";
-import { Certification, Education, WorkExperience } from "@/types";
-import { cn } from "@/utils";
+import { useTheme } from "@/hooks/use-theme";
+import { Certification, Education, WorkExperience } from "@/types/types";
+import { cn } from "@/utils/utils";
 import Link from "next/link";
 import {
   Briefcase,
@@ -18,8 +18,8 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { memo, useState, useEffect } from "react";
-import { CERTIFICATIONS, EDUCATION, EXPERIENCES } from "@/data";
-import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { CERTIFICATIONS, EDUCATION, EXPERIENCES } from "@/data/data";
+import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 
 interface SectionHeaderProps {
   icon: LucideIcon;

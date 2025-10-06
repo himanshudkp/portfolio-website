@@ -1,11 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
-import { ABOUT_SECTION_DATA } from "@/data";
-import { useTheme } from "@/hooks/useTheme";
-import { Stat, Tool } from "@/types";
-import { cn } from "@/utils";
+import { ABOUT_SECTION_DATA } from "@/data/data";
+import { useTheme } from "@/hooks/use-theme";
+import { Stat, Tool } from "@/types/types";
+import { cn } from "@/utils/utils";
 import { Code2, ArrowRight, Sparkles } from "lucide-react";
-import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 
 export const About = () => {
   const { isDark } = useTheme();

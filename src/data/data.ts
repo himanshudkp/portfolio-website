@@ -9,7 +9,7 @@ import {
   Project,
   SkillCategory,
   WorkExperience,
-} from "@/types";
+} from "@/types/types";
 import {
   AppWindow,
   Brain,

@@ -1,15 +1,13 @@
 "use client";
 
-import {
-  About,
-  Contact,
-  Experience,
-  Footer,
-  Header,
-  Hero,
-  Projects,
-  Skills,
-} from "@/sections";
+import { About } from "@/sections/About";
+import { Experience } from "@/sections/Experience";
+import { Footer } from "@/sections/Footer";
+import { Header } from "@/sections/Header";
+import { Hero } from "@/sections/Hero";
+import Projects from "@/sections/Projects";
+import { Skills } from "@/sections/Skills";
+import { Contact } from "lucide-react";
 
 export default function Home() {
   return (

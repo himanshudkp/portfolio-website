@@ -10,9 +10,10 @@ import {
   Users,
   TrendingUp,
 } from "lucide-react";
-import { useTheme } from "@/hooks/useTheme";
-import { cn } from "@/utils";
-import { SOCIAL_LINKS, TOP_5_TECH_STACK } from "@/data";
+import { useTheme } from "@/hooks/use-theme";
+import { cn } from "@/utils/utils";
+import { SOCIAL_LINKS, TOP_5_TECH_STACK } from "@/data/data";
+import { StatusBadge } from "@/components/status-badge";
 
 const Lottie = dynamic(() => import("lottie-react"), {
   ssr: false,
@@ -26,7 +27,7 @@ const Animation = () => {
   const { isDark } = useTheme();
 
   useEffect(() => {
-    import("@/data/web_dev.json").then((data) => {
+    import("../../public/web_dev.json").then((data) => {
       setAnimationData(data.default);
     });
   }, []);
@@ -96,7 +97,14 @@ export const Hero = () => {
       <div className="relative z-10 mt-11 grid w-full max-w-7xl gap-10 lg:grid-cols-2 lg:gap-16">
         {/* Content Section */}
         <div className="flex flex-col justify-center space-y-5 text-center lg:text-left">
-          <WelcomeBadge />
+          <StatusBadge
+            text="Open to Opportunities"
+            color="blue"
+            gradient
+            showSparkle
+            className="px-5 py-2.5 text-sm"
+          />
+
           <MainHeading />
           <Description />
 
@@ -149,32 +157,32 @@ export const Hero = () => {
   );
 };
 
-function WelcomeBadge() {
-  const { isDark } = useTheme();
-  return (
-    <div className="inline-flex items-center justify-center lg:justify-start">
-      <div
-        className={cn(
-          "group relative rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 hover:scale-105",
-          isDark
-            ? "bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 text-blue-300"
-            : "bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 text-blue-700"
-        )}
-      >
-        <div className="flex items-center gap-2">
-          <div
-            className={cn(
-              "h-2 w-2 rounded-full animate-pulse",
-              isDark ? "bg-blue-400" : "bg-blue-600"
-            )}
-          />
-          <span className="font-semibold">Open to Opportunities</span>
-          <Sparkles className="h-3.5 w-3.5 animate-pulse" />
-        </div>
-      </div>
-    </div>
-  );
-}
+// function WelcomeBadge() {
+//   const { isDark } = useTheme();
+//   return (
+//     <div className="inline-flex items-center justify-center lg:justify-start">
+//       <div
+//         className={cn(
+//           "group relative rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 hover:scale-105",
+//           isDark
+//             ? "bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 text-blue-300"
+//             : "bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 text-blue-700"
+//         )}
+//       >
+//         <div className="flex items-center gap-2">
+//           <div
+//             className={cn(
+//               "h-2 w-2 rounded-full animate-pulse",
+//               isDark ? "bg-blue-400" : "bg-blue-600"
+//             )}
+//           />
+//           <span className="font-semibold">Open to Opportunities</span>
+//           <Sparkles className="h-3.5 w-3.5 animate-pulse" />
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 
 function MainHeading() {
   const { isDark } = useTheme();
