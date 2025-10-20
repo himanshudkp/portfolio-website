@@ -1,17 +1,13 @@
 "use client";
 
-import { useTheme } from "next-themes";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
+import { cn } from "@/utils";
+import { useTheme } from "@/hooks";
 
-export default function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+export const ThemeToggle = () => {
+  const { isDark, toggleTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-
-  const toggleTheme = useCallback(
-    () => setTheme(theme === "dark" ? "light" : "dark"),
-    [setTheme, theme]
-  );
 
   useEffect(() => setMounted(true), []);
 
@@ -20,14 +16,32 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition"
+      className={cn(
+        "group relative rounded-xl p-2.5 transition-all duration-300 hover:scale-105",
+        isDark
+          ? "bg-[#1E1E1E] hover:bg-gray-800 border border-gray-700/50"
+          : "bg-white/60 hover:bg-gray-50 border border-gray-200/60"
+      )}
       aria-label="Toggle Dark Mode"
     >
-      {theme === "dark" ? (
-        <Moon className="h-5 w-5 text-gray-800" />
-      ) : (
-        <Sun className="h-5 w-5 text-yellow-400" />
-      )}
+      <div className="relative h-5 w-5">
+        <Sun
+          className={cn(
+            "absolute inset-0 text-yellow-500 transition-all duration-300",
+            isDark
+              ? "rotate-90 scale-0 opacity-0"
+              : "rotate-0 scale-100 opacity-100"
+          )}
+        />
+        <Moon
+          className={cn(
+            "absolute inset-0 text-teal-400 transition-all duration-300",
+            isDark
+              ? "rotate-0 scale-100 opacity-100"
+              : "-rotate-90 scale-0 opacity-0"
+          )}
+        />
+      </div>
     </button>
   );
-}
+};
