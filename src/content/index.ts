@@ -1,5 +1,5 @@
 export const LOGO_CONTENT = {
   full_name: "Himanshu Pandey",
   name_initials: "HP",
-  role: "Frontend Developer",
+  role: "Softeware Developer",
 } as const;
