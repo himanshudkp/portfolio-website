@@ -10,8 +10,6 @@ import {
 } from "@/components";
 import { RESUME_LINK } from "@/data";
 import { useTheme } from "@/hooks";
-import { NavLink } from "@/types";
-import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
 export const Header = () => {
@@ -44,17 +42,11 @@ export const Header = () => {
   return (
     <nav
       className={cn(
-        "fixed top-0 z-50 w-full backdrop-blur-md transition-all duration-300",
-        scrolled
-          ? isDark
-            ? "border-b border-white/5 bg-[#1E1E1E]/80 shadow-xl shadow-black/10"
-            : "border-b border-gray-900/5 bg-white/80 shadow-xl shadow-gray-900/5"
-          : isDark
-          ? "border-b border-transparent bg-[#1E1E1E]/40"
-          : "border-b border-transparent bg-white/40"
+        "fixed top-0 z-50 w-full transition-all duration-300 shadow-xl",
+        isDark ? "bg-[#1E1E1E]":"bg-white"
       )}
     >
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-4 py-4">
           {/* Logo Section*/}
           <div className="flex-shrink-0">
@@ -87,13 +79,6 @@ export const Header = () => {
               >
                 <Download className="h-3.5 w-3.5" />
                 <span>Resume</span>
-              </a>
-              <a
-                href="#contact"
-                className="inline-flex items-center justify-center gap-2 font-semibold transition-colors duration-200 rounded-lg px-4 py-2 text-sm bg-teal-500 text-white hover:bg-teal-600"
-              >
-                <Mail className="h-3.5 w-3.5" />
-                <span>Hire Me</span>
               </a>
             </div>
 

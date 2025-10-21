@@ -14,10 +14,10 @@ export const NavLinkWeb = ({ onLinkClick, selectedLink }: NavLinkWebProps) => {
   return (
     <ul
       className={cn(
-        "hidden items-center gap-1 rounded-2xl border px-2 py-2 backdrop-blur-xl lg:flex",
+        "hidden items-center gap-1 rounded-2xl border px-2 py-2 backdrop-blur-xl lg:flex shadow-sm",
         isDark
-          ? "border-white/5 bg-[#1E1E1E]/60"
-          : "border-gray-900/5 bg-white/60 shadow-sm"
+          ? "border-white/5 bg-[#1E1E1E]/70"
+          : "border-gray-900/5 bg-white/60"
       )}
     >
       {NAV_LINKS.map((link) => {
@@ -34,11 +34,11 @@ export const NavLinkWeb = ({ onLinkClick, selectedLink }: NavLinkWebProps) => {
                 isSelected
                   ? "bg-teal-500 text-white shadow-lg shadow-teal-500/25"
                   : isDark
-                  ? "text-gray-300 hover:bg-gray-800/50 hover:text-white"
-                  : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                  ? "text-gray-300 hover:bg-gray-800/50 hover:text-teal-500"
+                  : "text-gray-700 hover:bg-gray-100 hover:text-teal-500"
               )}
             >
-              <Icon className="h-4 w-4" />
+              <Icon className="h-4 w-4 " />
               <span className="hidden xl:inline">{link.name}</span>
             </Link>
           </li>

@@ -17,7 +17,7 @@ export const ThemeToggle = () => {
     <button
       onClick={toggleTheme}
       className={cn(
-        "group relative rounded-xl p-2.5 transition-all duration-300 hover:scale-105",
+        "group relative rounded-xl p-2.5 transition-all duration-300 hover:scale-105 cursor-pointer",
         isDark
           ? "bg-[#1E1E1E] hover:bg-gray-800 border border-gray-700/50"
           : "bg-white/60 hover:bg-gray-50 border border-gray-200/60"
@@ -27,7 +27,7 @@ export const ThemeToggle = () => {
       <div className="relative h-5 w-5">
         <Sun
           className={cn(
-            "absolute inset-0 text-yellow-500 transition-all duration-300",
+            "absolute inset-0 text-yellow-500 transition-all duration-300 hover:text-teal-500",
             isDark
               ? "rotate-90 scale-0 opacity-0"
               : "rotate-0 scale-100 opacity-100"
@@ -35,7 +35,7 @@ export const ThemeToggle = () => {
         />
         <Moon
           className={cn(
-            "absolute inset-0 text-teal-400 transition-all duration-300",
+            "absolute inset-0 text-gray-400 transition-all duration-300 hover:text-teal-500",
             isDark
               ? "rotate-0 scale-100 opacity-100"
               : "-rotate-90 scale-0 opacity-0"
