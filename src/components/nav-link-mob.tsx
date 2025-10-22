@@ -59,9 +59,6 @@ export const NavLinkMobile = ({
                     {Icon && <Icon className="h-5 w-5" />}
                     <span className="font-medium">{link.name}</span>
                   </span>
-                  {isSelected && (
-                    <span className="h-2 w-2 rounded-full bg-white" />
-                  )}
                 </Link>
               </li>
             );
