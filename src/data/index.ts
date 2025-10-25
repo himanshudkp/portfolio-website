@@ -1,5 +1,13 @@
 import { Link, NavLink } from "@/types";
-import { AppWindow, Github, House, Linkedin, Mail, User, Wrench } from "lucide-react";
+import {
+  AppWindow,
+  Github,
+  House,
+  Linkedin,
+  Mail,
+  User,
+  Wrench,
+} from "lucide-react";
 
 export const NAV_LINKS: NavLink[] = [
   { name: "Home", href: "#home", icon: House },
