@@ -1,5 +1,5 @@
-import { NavLink } from "@/types";
-import { AppWindow, House, Mail, User, Wrench } from "lucide-react";
+import { Link, NavLink } from "@/types";
+import { AppWindow, Github, House, Linkedin, Mail, User, Wrench } from "lucide-react";
 
 export const NAV_LINKS: NavLink[] = [
   { name: "Home", href: "#home", icon: House },
@@ -9,5 +9,20 @@ export const NAV_LINKS: NavLink[] = [
   { name: "Contact", href: "#contact", icon: Mail },
 ] as const;
 
-export const RESUME_LINK =
-  "https://drive.google.com/file/d/1ZuqfZxDznWVRvt970dEjX4bCEdfb3Xew/view?usp=sharing" as const;
+export const SOCIAL_LINKS: Link[] = [
+  {
+    icon: Linkedin,
+    href: "https://linkedin.com/in/himanshudkp",
+    label: "LinkedIn",
+  },
+  {
+    icon: Github,
+    href: "https://github.com/himanshudkp",
+    label: "GitHub",
+  },
+  {
+    icon: Mail,
+    href: "mailto:himanshudkp@gmail.com",
+    label: "Email",
+  },
+] as const;

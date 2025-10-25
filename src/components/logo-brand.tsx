@@ -15,7 +15,7 @@ export const LogoBrand = () => {
 
         <div>
           <div className="flex items-center">
-            <span className="block font-bold text-xl text-gray-900 text-white">
+            <span className="block font-bold text-xl text-white">
               {LOGO_CONTENT.full_name}
             </span>
           </div>

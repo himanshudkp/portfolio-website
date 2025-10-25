@@ -5,3 +5,12 @@ export interface NavLink {
   href: string;
   icon: LucideIcon;
 }
+
+export interface Link {
+  icon: LucideIcon;
+  text?: string;
+  label: string;
+  href: string;
+  title?: string;
+  value?: string;
+}
