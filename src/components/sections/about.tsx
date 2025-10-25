@@ -1,7 +1,5 @@
-// components/About.jsx
 import React from "react";
 import { Code2, Rocket, Users } from "lucide-react";
-import Image from "next/image";
 
 export const About = () => {
   const highlights = [

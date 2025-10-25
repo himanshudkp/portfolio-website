@@ -1,4 +1,3 @@
-"use client";
 import Link from "next/link";
 import { Code2 } from "lucide-react";
 import { LOGO_CONTENT } from "@/content";
