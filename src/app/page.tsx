@@ -1,9 +1,25 @@
 "use client";
 
+import {
+  About,
+  Contact,
+  Footer,
+  Header,
+  Hero,
+  Projects,
+  Skills,
+} from "@/components";
+
 export default function Home() {
   return (
     <>
-      <h1 className="text-2xl font-bold">Hello, world!</h1>
+      <Header />
+      <Hero />
+      <About />
+      <Projects />
+      <Skills />
+      <Contact />
+      <Footer />
     </>
   );
 }

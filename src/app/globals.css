@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+:root {
+    --dark: #1E1E1E;
+    --footer: #000000;
+}
