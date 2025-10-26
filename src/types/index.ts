@@ -14,3 +14,9 @@ export interface Link {
   title?: string;
   value?: string;
 }
+
+export interface Tab {
+  id: string;
+  label: string;
+  icon?: LucideIcon;
+}

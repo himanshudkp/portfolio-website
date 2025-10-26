@@ -11,9 +11,11 @@ export * from "../components/sections/skills";
 export * from "./ui/button";
 export * from "./ui/nav-link";
 export * from "./ui/status-badge";
+export * from "./ui/tabs";
 
 // Components
 export * from "./logo-brand";
 export * from "./desktop-nav";
 export * from "./mobile-nav";
 export * from "./social-links";
+export * from "./section-header";
