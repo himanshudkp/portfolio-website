@@ -1,97 +1,250 @@
-// components/Skills.jsx
-import React from "react";
-import { Code, Database, Palette, Smartphone } from "lucide-react";
+import React, { useState } from "react";
+import { motion, AnimatePresence, easeOut } from "framer-motion";
+import {
+  Smartphone,
+  Palette,
+  Database,
+  Cloud,
+  GitBranch,
+  AppWindow,
+  Code2,
+} from "lucide-react";
+import { Tab } from "@/types";
+import { SectionHeader } from "../section-header";
+import { Tabs } from "../ui/tabs";
+import { BadgeSingle } from "../ui/badge-single";
+import { tabContentVariants } from "@/utils";
+
+interface Skill {
+  category: string[];
+  skill: string;
+}
+
+const badgeContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const TABS: Tab[] = [
+  { id: "all", label: "All", icon: AppWindow },
+  { id: "frontend", label: "Frontend", icon: Code2 },
+  { id: "mobile", label: "Mobile", icon: Smartphone },
+  { id: "styling", label: "Styling", icon: Palette },
+  { id: "state", label: "State Management", icon: Database },
+  { id: "backend", label: "Backend & Database", icon: Cloud },
+  { id: "tools", label: "Tools & DevOps", icon: GitBranch },
+];
+
+const SKILLS: Skill[] = [
+  { category: ["frontend", "all"], skill: "ReactJS" },
+  { category: ["frontend", "all"], skill: "Next.js" },
+  { category: ["frontend", "all"], skill: "TypeScript" },
+  { category: ["frontend", "all"], skill: "JavaScript" },
+  { category: ["frontend", "all"], skill: "HTML/CSS" },
+  { category: ["mobile", "all"], skill: "React Native" },
+  { category: ["mobile", "all"], skill: "Expo" },
+  { category: ["mobile", "all"], skill: "iOS Development" },
+  { category: ["mobile", "all"], skill: "Android Development" },
+  { category: ["styling", "all"], skill: "Tailwind CSS" },
+  { category: ["styling", "all"], skill: "SCSS" },
+  { category: ["styling", "all"], skill: "Material UI" },
+  { category: ["styling", "all"], skill: "Shadcn UI" },
+  { category: ["styling", "all"], skill: "Responsive Design" },
+  { category: ["state", "all"], skill: "Redux Toolkit" },
+  { category: ["state", "all"], skill: "TanStack Query" },
+  { category: ["state", "all"], skill: "Context API" },
+  { category: ["backend", "all"], skill: "Node.js" },
+  { category: ["backend", "all"], skill: "PostgreSQL" },
+  { category: ["backend", "all"], skill: "Supabase" },
+  { category: ["backend", "all"], skill: "REST APIs" },
+  { category: ["backend", "all"], skill: "Socket.IO" },
+  { category: ["tools", "all"], skill: "Git/GitHub" },
+  { category: ["tools", "all"], skill: "VS Code" },
+  { category: ["tools", "all"], skill: "Postman" },
+  { category: ["tools", "all"], skill: "Vercel" },
+  { category: ["tools", "all"], skill: "Performance Optimization" },
+];
+
+const SkillCategory = ({
+  categoryName,
+  count,
+}: {
+  categoryName: string;
+  count: number;
+}) => (
+  <motion.div
+    className="flex items-center justify-between mb-6 pb-4 border-b border-gray-700"
+    initial={{ opacity: 0, y: -10 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.4 }}
+  >
+    <motion.h3
+      className="text-xl font-semibold text-teal-400"
+      whileHover={{ x: 5, color: "#5eead4" }}
+    >
+      {categoryName}
+    </motion.h3>
+    <motion.div
+      className="px-3 py-1 bg-teal-500/10 border border-teal-500/30 rounded-full"
+      whileHover={{ scale: 1.1 }}
+    >
+      <span className="text-sm font-medium text-teal-300">{count} skills</span>
+    </motion.div>
+  </motion.div>
+);
+
+const EmptyState = () => (
+  <motion.div
+    className="text-center py-16"
+    initial={{ opacity: 0, scale: 0.9 }}
+    animate={{ opacity: 1, scale: 1 }}
+    exit={{ opacity: 0, scale: 0.9 }}
+  >
+    <motion.div
+      className="w-24 h-24 mx-auto mb-6 bg-gray-800 rounded-full flex items-center justify-center"
+      animate={{
+        scale: [1, 1.05, 1],
+        rotate: [0, 5, -5, 0],
+      }}
+      transition={{
+        duration: 2,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+    >
+      <Database size={40} className="text-gray-600" />
+    </motion.div>
+    <p className="text-gray-400 text-lg">No skills found in this category</p>
+  </motion.div>
+);
 
 export const Skills = () => {
-  const skills = [
-    {
-      category: "Frontend",
-      icon: <Code className="w-8 h-8" />,
-      items: [
-        "React",
-        "Next.js",
-        "TypeScript",
-        "Tailwind CSS",
-        "Vue.js",
-        "JavaScript ES6+",
-      ],
-    },
-    {
-      category: "Backend",
-      icon: <Database className="w-8 h-8" />,
-      items: [
-        "Node.js",
-        "Express",
-        "PostgreSQL",
-        "MongoDB",
-        "REST APIs",
-        "GraphQL",
-      ],
-    },
-    {
-      category: "Design",
-      icon: <Palette className="w-8 h-8" />,
-      items: [
-        "Figma",
-        "UI/UX",
-        "Responsive Design",
-        "Accessibility",
-        "Design Systems",
-        "Prototyping",
-      ],
-    },
-    {
-      category: "Mobile & Tools",
-      icon: <Smartphone className="w-8 h-8" />,
-      items: ["React Native", "Git", "Docker", "AWS", "CI/CD", "Jest"],
-    },
-  ];
+  const [activeCategory, setActiveCategory] = useState("all");
+
+  const visibleSkills = SKILLS.filter((s) =>
+    s.category.includes(activeCategory)
+  );
+
+  const getCategoryName = () => {
+    const tab = TABS.find((t) => t.id === activeCategory);
+    return tab ? tab.label : "All";
+  };
 
   return (
-    <section id="skills" className="py-20 px-4 bg-slate-900">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
-          <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-            Skills & Technologies
-          </span>
-        </h2>
-        <p className="text-center text-gray-400 mb-16 max-w-2xl mx-auto">
-          Tools and technologies I use to bring ideas to life
-        </p>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {skills.map((skillGroup, index) => (
-            <div
-              key={index}
-              className="bg-slate-800/50 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6 hover:border-purple-500/50 transition hover:transform hover:scale-105"
-            >
-              <div className="text-purple-400 mb-4">{skillGroup.icon}</div>
-              <h3 className="text-xl font-semibold text-white mb-4">
-                {skillGroup.category}
-              </h3>
-              <ul className="space-y-2">
-                {skillGroup.items.map((skill, i) => (
-                  <li key={i} className="text-gray-400 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-purple-400 rounded-full"></span>
-                    {skill}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-[#1E1E1E]">
+      <div className="max-w-7xl mx-auto">
+        <div className="relative mb-16">
+          <SectionHeader
+            title="Skills"
+            description="Mastering modern technologies for exceptional results"
+          />
         </div>
 
-        <div className="mt-16 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/30 rounded-xl p-8 text-center">
-          <h3 className="text-2xl font-semibold text-white mb-4">
-            Always Learning
-          </h3>
-          <p className="text-gray-400 max-w-2xl mx-auto">
-            The tech world never stops evolving, and neither do I. Currently
-            exploring Web3, AI integration, and advanced animation techniques to
-            stay at the cutting edge of web development.
-          </p>
+        <div className="mb-11">
+          <Tabs
+            activeTab={activeCategory}
+            onChange={setActiveCategory}
+            tabs={TABS}
+          />
         </div>
+
+        <motion.div
+          className="relative"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <motion.div
+            className="rounded-2xl p-6 sm:p-8 lg:p-12 shadow-2xl border border-white/5 relative overflow-hidden"
+            whileHover={{
+              boxShadow: "0 25px 50px rgba(20, 184, 166, 0.1)",
+            }}
+          >
+            <motion.div
+              className="absolute inset-0 opacity-5"
+              style={{
+                background:
+                  "radial-gradient(circle at 50% 50%, rgba(20, 184, 166, 0.3) 0%, transparent 50%)",
+              }}
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.05, 0.08, 0.05],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeCategory}
+                variants={tabContentVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="relative z-10"
+              >
+                {visibleSkills.length > 0 ? (
+                  <>
+                    <SkillCategory
+                      categoryName={getCategoryName()}
+                      count={visibleSkills.length}
+                    />
+
+                    <motion.div
+                      className="flex flex-wrap gap-3"
+                      variants={badgeContainerVariants}
+                      initial="hidden"
+                      animate="visible"
+                    >
+                      {visibleSkills.map((s) => (
+                        <BadgeSingle
+                          text={s.skill}
+                          variant="glow"
+                          size="md"
+                          key={s.skill}
+                        />
+                      ))}
+                    </motion.div>
+
+                    <motion.div
+                      className="mt-8 pt-6 border-t border-gray-700 flex justify-center items-center"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.5 }}
+                    >
+                      <motion.div
+                        className="flex justify-center items-center  rounded-lg px-4 py-2"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.8 }}
+                      >
+                        <motion.p
+                          className="text-gray-100 text-sm text-center max-w-xl"
+                          whileHover={{ scale: 1.02 }}
+                        >
+                          Continuously learning and expanding my skill set to
+                          stay at the forefront of technology
+                        </motion.p>
+                      </motion.div>
+                    </motion.div>
+                  </>
+                ) : (
+                  <EmptyState />
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </motion.div>
+        </motion.div>
       </div>
-    </section>
+    </div>
   );
 };

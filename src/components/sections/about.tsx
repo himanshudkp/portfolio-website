@@ -1,11 +1,125 @@
+"use client";
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  ExternalLink,
+  MapPin,
+  User,
+  Briefcase,
+  GraduationCap,
+} from "lucide-react";
+import type { Tab, WorkProject } from "@/types";
+import { ABOUT_CONTENT, EDUCATION_DATA, EXPERIENCE_DATA } from "@/data";
+import { BadgeSingle } from "../ui/badge-single";
 import { SectionHeader } from "../section-header";
 import { Tabs } from "../ui/tabs";
-import { ABOUT_CONTENT, EDUCATION_DATA, EXPERIENCE_DATA, TABS } from "@/data";
-import { ExternalLink, MapPin } from "lucide-react";
-import type { Project } from "@/types";
+import {
+  cardVariants,
+  containerVariants,
+  itemVariants,
+  tabContentVariants,
+} from "@/utils";
 
-const AboutSection: React.FC = () => {
+interface ExperienceCardProps {
+  title: string;
+  company: string;
+  location: string;
+  duration: string;
+  isCurrent: boolean;
+  description: string;
+  projects: WorkProject[];
+  technologies: string[];
+}
+
+interface EducationCardProps {
+  degree: string;
+  institution: string;
+  location: string;
+}
+
+const TABS: Tab[] = [
+  { icon: User, id: "about", label: "About" },
+  { icon: Briefcase, id: "experience", label: "Experience" },
+  { icon: GraduationCap, id: "education", label: "Education" },
+];
+
+const HighlightText = ({ children }: { children: React.ReactNode }) => (
+  <motion.span
+    className="text-teal-400 font-medium"
+    whileHover={{ scale: 1.02, color: "#5eead4" }}
+    style={{ display: "inline-block" }}
+  >
+    {children}
+  </motion.span>
+);
+
+const LocationPin = ({
+  location,
+  className = "",
+}: {
+  location: string;
+  className?: string;
+}) => (
+  <p className={`flex items-center gap-1 ${className}`}>
+    <MapPin className="w-4 h-4" />
+    <span>{location}</span>
+  </p>
+);
+
+const InfoCard = ({
+  children,
+  variant = "default",
+}: {
+  children: React.ReactNode;
+  variant?: "default" | "hover";
+}) => (
+  <motion.div
+    className={`p-6 sm:p-8 rounded-xl border ${
+      variant === "hover" ? "border-gray-700" : "border-gray-700"
+    }`}
+    variants={cardVariants}
+    whileHover={
+      variant === "hover"
+        ? {
+            scale: 1.02,
+            borderColor: "rgba(20, 184, 166, 0.5)",
+            boxShadow: "0 10px 40px rgba(20, 184, 166, 0.1)",
+          }
+        : undefined
+    }
+  >
+    {children}
+  </motion.div>
+);
+
+const SectionContainer = ({
+  children,
+  title,
+}: {
+  children: React.ReactNode;
+  title?: string;
+}) => (
+  <motion.div
+    className="border border-gray-700 rounded-xl p-4 sm:p-6 mt-6"
+    initial={{ opacity: 0, y: 10 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.2 }}
+  >
+    {title && (
+      <motion.h4
+        className="text-teal-400 font-semibold text-lg mb-3"
+        initial={{ opacity: 0, x: -10 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.3 }}
+      >
+        {title}
+      </motion.h4>
+    )}
+    {children}
+  </motion.div>
+);
+
+const AboutSection = () => {
   const { paragraphs } = ABOUT_CONTENT;
 
   const renderParagraphWithHighlights = (text: string) => {
@@ -39,44 +153,221 @@ const AboutSection: React.FC = () => {
   };
 
   return (
-    <div className="space-y-8">
+    <motion.div
+      className="space-y-8"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
       <div className="flex items-start gap-6">
-        <div className="flex-1">
+        <motion.div className="flex-1" variants={itemVariants}>
           {paragraphs.map((paragraph, idx) => (
-            <p
+            <motion.p
               key={idx}
               className={`text-gray-300 leading-relaxed text-base sm:text-lg ${
                 idx < paragraphs.length - 1 ? "mb-4" : ""
               }`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.1 }}
             >
               {renderParagraphWithHighlights(paragraph)}
-            </p>
+            </motion.p>
           ))}
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
-const ExperienceSection = () => {
+const ExperienceCard = ({
+  title,
+  company,
+  location,
+  duration,
+  isCurrent,
+  description,
+  projects,
+  technologies,
+}: ExperienceCardProps) => {
+  const renderDescription = (text: string) => {
+    const highlights = [
+      "ReactJS",
+      "Next.js",
+      "React Native",
+      "Heaptrace Technology",
+    ];
+    return text
+      .split(new RegExp(`(${highlights.join("|")})`, "g"))
+      .map((part, idx) =>
+        highlights.includes(part) ? (
+          <HighlightText key={idx}>{part}</HighlightText>
+        ) : (
+          <React.Fragment key={idx}>{part}</React.Fragment>
+        )
+      );
+  };
+
   return (
-    <div className="space-y-10">
-      {EXPERIENCE_DATA.map((experience) => (
-        <ExperienceCard key={experience.id} {...experience} />
-      ))}
-    </div>
+    <InfoCard variant={isCurrent ? "hover" : "default"}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ staggerChildren: 0.1 }}
+      >
+        <motion.div
+          className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4 mb-4"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <div className="flex-1">
+            <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4 mb-2">
+              <motion.h3
+                className="text-xl sm:text-2xl font-bold text-teal-300"
+                whileHover={{ scale: 1.02, x: 5 }}
+              >
+                {title}
+              </motion.h3>
+              <BadgeSingle text={duration} />
+            </div>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-gray-400 text-sm sm:text-base">
+              <p>{company}</p>
+              <span className="hidden sm:inline text-gray-600">•</span>
+              <LocationPin location={location} />
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.p
+          className="text-gray-300 leading-relaxed mb-6 text-sm sm:text-base"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.1 }}
+        >
+          {renderDescription(description)}
+        </motion.p>
+
+        <SectionContainer title="Key Projects">
+          <motion.ul
+            className="space-y-3 text-gray-300"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {projects.map((project, idx) => (
+              <motion.li
+                key={idx}
+                className="mb-3 leading-relaxed"
+                variants={itemVariants}
+                whileHover={{ x: 5 }}
+              >
+                <span className="font-semibold text-teal-300">
+                  {project.name}{" "}
+                  <motion.a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-teal-300 hover:text-teal-400 transition-colors cursor-pointer"
+                    aria-label={`Open ${project.name} project`}
+                    whileHover={{ scale: 1.2, rotate: 15 }}
+                  >
+                    <ExternalLink className="w-4 h-4 inline-block" />
+                  </motion.a>{" "}
+                  —{" "}
+                </span>
+                <span className="text-gray-300">{project.description}</span>
+              </motion.li>
+            ))}
+          </motion.ul>
+        </SectionContainer>
+
+        <SectionContainer title="Technology Used">
+          <motion.div
+            className="flex flex-wrap gap-2"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {technologies.map((tech, idx) => (
+              <BadgeSingle text={tech} variant="glow" size="md" key={idx} />
+            ))}
+          </motion.div>
+        </SectionContainer>
+      </motion.div>
+    </InfoCard>
   );
 };
 
-const EducationSection = () => {
-  return (
-    <div className="space-y-10">
-      {EDUCATION_DATA.map((education) => (
-        <EducationCard key={education.id} {...education} />
-      ))}
-    </div>
-  );
-};
+const ExperienceSection = () => (
+  <motion.div
+    className="space-y-10"
+    variants={containerVariants}
+    initial="hidden"
+    animate="visible"
+  >
+    {EXPERIENCE_DATA.map((experience) => (
+      <ExperienceCard key={experience.id} {...experience} />
+    ))}
+  </motion.div>
+);
+
+const EducationCard = ({
+  degree,
+  institution,
+  location,
+}: EducationCardProps) => (
+  <InfoCard>
+    <motion.div
+      className="relative"
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <motion.div
+        className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-teal-500 to-cyan-500 rounded-full"
+        initial={{ scaleY: 0 }}
+        animate={{ scaleY: 1 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+      />
+      <div className="pl-6">
+        <motion.h3
+          className="text-xl sm:text-2xl font-bold text-teal-300 mb-2"
+          whileHover={{ scale: 1.02, x: 5 }}
+        >
+          {degree}
+        </motion.h3>
+        <motion.p
+          className="text-gray-300 font-medium mb-1 text-sm sm:text-base"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+        >
+          {institution}
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+        >
+          <LocationPin location={location} className="text-gray-500" />
+        </motion.div>
+      </div>
+    </motion.div>
+  </InfoCard>
+);
+
+const EducationSection = () => (
+  <motion.div
+    className="space-y-10"
+    variants={containerVariants}
+    initial="hidden"
+    animate="visible"
+  >
+    {EDUCATION_DATA.map((education) => (
+      <EducationCard key={education.id} {...education} />
+    ))}
+  </motion.div>
+);
 
 export const About = () => {
   const [activeTab, setActiveTab] = useState("about");
@@ -97,294 +388,40 @@ export const About = () => {
   return (
     <div
       id="about"
-      className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-[var(--dark)]"
+      className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-[#1E1E1E]"
     >
       <div className="max-w-7xl mx-auto">
         <SectionHeader
-          description="Transforming ideas into powerful digital solutions with precision and creativity"
           title="About me"
+          description="Transforming ideas into powerful digital solutions with precision and creativity"
         />
 
-        <Tabs
-          tabs={TABS}
-          activeTab={activeTab}
-          onChange={setActiveTab}
-          variant="simple"
-          className="mb-10"
-        />
+        <Tabs tabs={TABS} activeTab={activeTab} onChange={setActiveTab} />
 
-        <div className="relative">
-          <div className="rounded-2xl p-6 sm:p-8 lg:p-12 shadow-2xl border border-white/5">
-            {renderActiveSection()}
-          </div>
-        </div>
+        <motion.div
+          className="relative"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <motion.div
+            className="rounded-2xl p-6 sm:p-8 lg:p-12 shadow-2xl border border-white/5"
+            whileHover={{ boxShadow: "0 25px 50px rgba(20, 184, 166, 0.1)" }}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                variants={tabContentVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+              >
+                {renderActiveSection()}
+              </motion.div>
+            </AnimatePresence>
+          </motion.div>
+        </motion.div>
       </div>
-    </div>
-  );
-};
-
-interface EducationCardProps {
-  degree: string;
-  institution: string;
-  location: string;
-  duration: string;
-  description: string;
-  highlights: string[];
-}
-
-const EducationCard = ({
-  degree,
-  institution,
-  location,
-  duration,
-  description,
-  highlights,
-}: EducationCardProps) => {
-  const renderDescriptionWithHighlights = () => {
-    const parts = description.split(
-      new RegExp(`(${highlights.join("|")})`, "gi")
-    );
-
-    return parts.map((part, idx) => {
-      const isHighlight = highlights.some(
-        (h) => h.toLowerCase() === part.toLowerCase()
-      );
-      return isHighlight ? (
-        <HighlightText key={idx}>{part}</HighlightText>
-      ) : (
-        <React.Fragment key={idx}>{part}</React.Fragment>
-      );
-    });
-  };
-
-  return (
-    <div className="relative group">
-      <div className="relative p-6 sm:p-8 rounded-2xl border-l-4 border-teal-500 shadow-lg">
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4 gap-3">
-          <div className="flex items-start gap-4">
-            <div>
-              <h3 className="text-xl sm:text-2xl font-bold text-teal-300 mb-2">
-                {degree}
-              </h3>
-              <p className="text-gray-300 font-medium mb-1 text-sm sm:text-base">
-                {institution}
-              </p>
-              <LocationPin location={location} className="text-gray-500" />
-            </div>
-          </div>
-          <Badge variant="education" className="self-start py-2">
-            {duration}
-          </Badge>
-        </div>
-
-        <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
-          {renderDescriptionWithHighlights()}
-        </p>
-      </div>
-    </div>
-  );
-};
-
-interface ExperienceCardProps {
-  title: string;
-  company: string;
-  location: string;
-  duration: string;
-  isCurrent: boolean;
-  description: string;
-  projects: Project[];
-  technologies: string[];
-}
-
-const ExperienceCard = ({
-  title,
-  company,
-  location,
-  duration,
-  isCurrent,
-  description,
-  projects,
-  technologies,
-}: ExperienceCardProps) => {
-  return (
-    <InfoCard variant={isCurrent ? "hover" : "default"}>
-      {/* Header Section */}
-      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4 mb-4">
-        <div className="flex-1">
-          <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4 mb-2">
-            <h3 className="text-xl sm:text-2xl font-bold text-teal-300">
-              {title}
-            </h3>
-            <Badge variant={isCurrent ? "current" : "past"}>{duration}</Badge>
-          </div>
-          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-gray-400 text-sm sm:text-base">
-            <p>{company}</p>
-            <span className="hidden sm:inline text-gray-600">•</span>
-            <LocationPin location={location} />
-          </div>
-        </div>
-      </div>
-
-      {/* Description */}
-      <p className="text-gray-300 leading-relaxed mb-6 text-sm sm:text-base">
-        {description
-          .split(/(ReactJS|Next\.js|React Native|Heaptrace Technology)/g)
-          .map((part, idx) => {
-            const highlights = [
-              "ReactJS",
-              "Next.js",
-              "React Native",
-              "Heaptrace Technology",
-            ];
-            return highlights.includes(part) ? (
-              <HighlightText key={idx}>{part}</HighlightText>
-            ) : (
-              <React.Fragment key={idx}>{part}</React.Fragment>
-            );
-          })}
-      </p>
-
-      {/* Projects Section */}
-      <SectionContainer title="Key Projects">
-        <ul className="space-y-3 text-gray-300">
-          {projects.map((project, idx) => (
-            <li key={idx} className="mb-3 leading-relaxed">
-              <span className="font-semibold text-teal-300">
-                {project.name}{" "}
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center text-teal-300 hover:text-teal-400 transition-colors cursor-pointer"
-                  aria-label={`Open ${project.name} project`}
-                >
-                  <ExternalLink className="w-4 h-4 inline-block" />
-                </a>{" "}
-                —{" "}
-              </span>
-              <span className="text-gray-300">{project.description}</span>
-            </li>
-          ))}
-        </ul>
-      </SectionContainer>
-
-      {/* Technologies Section */}
-      <SectionContainer title="Technology Used">
-        <div className="flex flex-wrap gap-2">
-          {technologies.map((tech, idx) => (
-            <TechBadge key={idx} technology={tech} />
-          ))}
-        </div>
-      </SectionContainer>
-    </InfoCard>
-  );
-};
-
-interface InfoCardProps {
-  children: React.ReactNode;
-  className?: string;
-  variant?: "default" | "hover";
-}
-
-const InfoCard = ({
-  children,
-  className = "",
-  variant = "default",
-}: InfoCardProps) => {
-  const baseStyles = "p-6 sm:p-8 rounded-xl border";
-  const variantStyles = {
-    default: "border-gray-700",
-    hover:
-      "border-gray-700 hover:border-teal-500 transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/10",
-  };
-
-  return (
-    <div className={`${baseStyles} ${variantStyles[variant]} ${className}`}>
-      {children}
-    </div>
-  );
-};
-
-interface BadgeProps {
-  children: React.ReactNode;
-  variant?: "current" | "past" | "education";
-  className?: string;
-}
-
-const Badge = ({
-  children,
-  variant = "current",
-  className = "",
-}: BadgeProps) => {
-  const variants = {
-    current: "bg-teal-500/20 text-teal-400 border-teal-500/30",
-    past: "bg-gray-700 text-gray-400 border-gray-600",
-    education: "bg-teal-500/20 text-teal-400 border-teal-500/30",
-  };
-
-  return (
-    <span
-      className={`px-4 py-1 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap border ${variants[variant]} ${className}`}
-    >
-      {children}
-    </span>
-  );
-};
-
-interface TechBadgeProps {
-  technology: string;
-}
-
-const TechBadge = ({ technology }: TechBadgeProps) => {
-  return (
-    <span className="bg-gray-900 border border-teal-500/30 text-teal-300 px-3 py-1 rounded-full text-xs font-medium">
-      {technology}
-    </span>
-  );
-};
-
-interface HighlightTextProps {
-  children: React.ReactNode;
-  className?: string;
-}
-
-const HighlightText = ({ children, className = "" }: HighlightTextProps) => {
-  return <span className={`text-teal-400 ${className}`}>{children}</span>;
-};
-
-interface LocationPinProps {
-  location: string;
-  className?: string;
-}
-
-const LocationPin = ({ location, className = "" }: LocationPinProps) => {
-  return (
-    <p className={`flex items-center gap-1 ${className}`}>
-      <MapPin className="w-4 h-4" />
-      <span>{location}</span>
-    </p>
-  );
-};
-
-interface SectionContainerProps {
-  children: React.ReactNode;
-  title?: string;
-  className?: string;
-}
-
-const SectionContainer = ({
-  children,
-  title,
-  className = "",
-}: SectionContainerProps) => {
-  return (
-    <div
-      className={`bg-gray-800/30 border border-gray-700 rounded-xl p-4 sm:p-6 mt-6 ${className}`}
-    >
-      {title && (
-        <h4 className="text-teal-400 font-semibold text-lg mb-3">{title}</h4>
-      )}
-      {children}
     </div>
   );
 };

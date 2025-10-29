@@ -1,4 +1,18 @@
+import { containerVariants } from "@/utils";
+import { easeOut, motion } from "framer-motion";
 import React from "react";
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: easeOut,
+    },
+  },
+};
 
 interface SectionHeaderProps {
   title: string;
@@ -7,16 +21,21 @@ interface SectionHeaderProps {
 
 export const SectionHeader = ({ title, description }: SectionHeaderProps) => {
   return (
-    <div className="relative mb-16">
-      <div className="relative">
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-center mb-6 bg-gradient-to-r from-teal-400 via-teal-300 to-teal-500 bg-clip-text text-transparent">
-          {title}
-        </h1>
-
-        <p className="text-xl sm:text-2xl text-center text-teal-200 mb-4 font-light">
-          {description}
-        </p>
-      </div>
-    </div>
+    <motion.div
+      className="text-center mb-12"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
+      <motion.h2
+        className="text-4xl md:text-5xl font-bold text-teal-300 mb-4"
+        variants={itemVariants}
+      >
+        {title}
+      </motion.h2>
+      <motion.p className="text-gray-400 text-lg" variants={itemVariants}>
+        {description}
+      </motion.p>
+    </motion.div>
   );
 };
