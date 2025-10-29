@@ -34,12 +34,6 @@ export interface AboutContent {
   paragraphs: string[];
 }
 
-export interface Project {
-  name: string;
-  description: string;
-  link: string;
-}
-
 export interface Experience {
   id: string;
   title: string;
@@ -48,7 +42,7 @@ export interface Experience {
   duration: string;
   isCurrent: boolean;
   description: string;
-  projects: Project[];
+  projects: WorkProject[];
   technologies: string[];
 }
 
@@ -60,4 +54,34 @@ export interface Education {
   duration: string;
   description: string;
   highlights: string[];
+}
+
+export interface BadgeProps {
+  text: string;
+  variant?: "default" | "primary" | "secondary" | "outline";
+  size?: "sm" | "md" | "lg";
+  className?: string;
+  icon?: React.ReactNode;
+  removable?: boolean;
+  onRemove?: () => void;
+}
+
+export interface Project {
+  id: number;
+  title: string;
+  shortDesc: string;
+  image: string;
+  topTools: string[];
+  fullDescription: string;
+  features: string[];
+  allTech: string[];
+  githubUrl: string;
+  liveUrl: string;
+  categories: string[];
+}
+
+export interface WorkProject {
+  name: string;
+  description: string;
+  link: string;
 }

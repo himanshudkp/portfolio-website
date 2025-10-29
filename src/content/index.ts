@@ -1,17 +1,16 @@
 export const LOGO_CONTENT = {
-  full_name: "Himanshu Pandey",
-  name_initials: "HP",
-  role: "Frontend Developer",
+  name: "Himanshu",
+  initials: "H",
 } as const;
 
 export const BUTTON_TEXT = {
   resume_web: "Resume",
   resume_mobile: "Resume",
   connect: "Connect",
-  work: "Work",
+  work: "My Work",
 };
 
-export const HERO_SECTION_CONTENT = {
+export const HERO_CONTENT = {
   iam: "Hi, I'm ",
   full_name: "Himanshu Pandey",
   role: "Frontend Developer",
