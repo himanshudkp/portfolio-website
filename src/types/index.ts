@@ -85,3 +85,8 @@ export interface WorkProject {
   description: string;
   link: string;
 }
+
+export interface NavigationProps {
+  selectedLink: string;
+  onLinkClick: (linkName: string) => void;
+}

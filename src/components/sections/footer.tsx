@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Phone, MapPin, ArrowUp } from "lucide-react";
 import { containerVariants, itemVariants } from "@/utils";
 import { LogoBrand } from "../logo-brand";
-import { StatusBadge } from "../ui/status-badge";
 import SocialLinks from "../ui/social-links";
 
 const linkVariants = {
@@ -232,7 +231,6 @@ const BrandSection = () => {
         Frontend Developer specializing in building exceptional web and mobile
         applications with modern technologies.
       </motion.p>
-      <StatusBadge text="Available for Opportunities" />
 
       <SocialLinks variant="hero" />
     </motion.div>

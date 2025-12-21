@@ -63,6 +63,7 @@ const ContactInfoCard = ({ info }: { info: ContactInfo }) => {
 
   return (
     <motion.a
+      id="contact"
       href={info.link}
       target={info.link.startsWith("http") ? "_blank" : "_self"}
       rel="noopener noreferrer"

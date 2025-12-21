@@ -66,6 +66,7 @@ export const SocialLinks = ({ variant = "header" }: SocialLinksProps) => {
           <motion.a
             key={social.label}
             href={social.href}
+            target="_blank"
             className={
               isHero
                 ? "p-3 rounded-lg bg-[#252525] border border-gray-700 text-gray-400 hover:text-teal-300 hover:border-teal-500/50 transition-colors duration-300 relative overflow-hidden group"

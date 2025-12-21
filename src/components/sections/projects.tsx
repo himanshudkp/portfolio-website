@@ -252,6 +252,7 @@ const ProjectCard = ({
 }) => {
   return (
     <motion.div
+      id="projects"
       className="group relative rounded-2xl border border-gray-700 overflow-hidden"
       variants={cardVariants}
       whileHover={{

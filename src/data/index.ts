@@ -37,11 +37,6 @@ export const SOCIAL_LINKS: Link[] = [
     href: "https://github.com/himanshudkp",
     label: "GitHub",
   },
-  {
-    icon: Mail,
-    href: "mailto:himanshudkp@gmail.com",
-    label: "Email",
-  },
 ] as const;
 
 export const TABS: Tab[] = [

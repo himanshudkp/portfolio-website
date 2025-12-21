@@ -79,6 +79,7 @@ const SkillCategory = ({
   count: number;
 }) => (
   <motion.div
+    id="skills"
     className="flex items-center justify-between mb-6 pb-4 border-b border-gray-700"
     initial={{ opacity: 0, y: -10 }}
     animate={{ opacity: 1, y: 0 }}
