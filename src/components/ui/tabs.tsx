@@ -42,7 +42,7 @@ export const Tabs: React.FC<{
         className={`flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all duration-300 relative overflow-hidden ${
           activeTab === id
             ? "text-white"
-            : "bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-teal-300"
+            : "bg-[#252525] text-gray-400 hover:bg-[#252525] hover:text-teal-300"
         }`}
         variants={itemVariants}
         whileHover={{ scale: 1.05 }}

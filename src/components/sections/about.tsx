@@ -142,7 +142,7 @@ const AboutSection = () => {
 
     return parts.map((part, idx) => {
       const isHighlight = highlights.some(
-        (h) => h.toLowerCase() === part.toLowerCase()
+        (h) => h.toLowerCase() === part.toLowerCase(),
       );
       return isHighlight ? (
         <HighlightText key={idx}>{part}</HighlightText>
@@ -204,7 +204,7 @@ const ExperienceCard = ({
           <HighlightText key={idx}>{part}</HighlightText>
         ) : (
           <React.Fragment key={idx}>{part}</React.Fragment>
-        )
+        ),
       );
   };
 

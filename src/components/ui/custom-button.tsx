@@ -36,8 +36,7 @@ export const CustomButton = ({
   const variants = {
     primary:
       "bg-gradient-to-r from-teal-600 to-cyan-600 text-white shadow-lg shadow-teal-500/30",
-    secondary:
-      "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600",
+    secondary: "bg-[#252525] text-gray-300 border border-gray-600",
     outline:
       "bg-transparent border border-teal-500/40 text-teal-300 hover:bg-teal-500/10",
   };

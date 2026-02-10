@@ -20,9 +20,15 @@ export const RightAnimation = () => {
   if (!animationData) {
     return null;
   }
+
   return (
-    <motion.div className="relative w-full h-full min-h-[400px] flex items-center justify-center">
-      <div className="relative w-full max-w-md aspect-square">
+    <motion.div
+      className="relative w-full h-full min-h-[350px] lg:min-h-[400px] flex items-center justify-center"
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
+      <div className="relative w-full max-w-sm lg:max-w-md aspect-square">
         <Lottie
           animationData={animationData}
           loop={true}
