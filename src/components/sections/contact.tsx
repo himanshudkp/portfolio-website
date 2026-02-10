@@ -26,12 +26,12 @@ export const Contact = () => {
   return (
     <section
       id="contact"
-      className="bg-[#1E1E1E] px-5 sm:px-6 lg:px-8 xl:px-[8%] py-16"
+      className="bg-[#1E1E1E] px-5 sm:px-6 lg:px-8 xl:px-[8%] py-12"
     >
       <div className="max-w-7xl mx-auto">
         <SectionHeader
           title="Contact"
-          description="Let’s build something meaningful together"
+          description="Let's build something meaningful together"
         />
 
         <motion.div
@@ -39,77 +39,78 @@ export const Contact = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
-          className="grid lg:grid-cols-2 gap-10 items-start"
+          className="grid lg:grid-cols-2 gap-8 items-start"
         >
           {/* LEFT */}
-          <div className="space-y-6">
-            <div className="space-y-4">
+          <div className="space-y-5">
+            <div className="space-y-3">
               {CONTACT_INFO.map(({ icon: Icon, value, href }) => (
                 <a
                   key={value}
                   href={href}
-                  className="flex items-center gap-4 rounded-xl border border-gray-700 bg-[#252525] px-4 py-3 text-gray-300 hover:border-teal-500/50 transition"
+                  className="flex items-center gap-3 rounded-lg border border-gray-700 bg-[#252525] px-4 py-2.5 text-gray-300 hover:border-teal-500/50 transition"
                 >
-                  <Icon size={18} className="text-teal-400" />
-                  <span className="text-sm">{value}</span>
+                  <Icon size={16} className="text-teal-400 flex-shrink-0" />
+                  <span className="text-xs sm:text-sm">{value}</span>
                 </a>
               ))}
             </div>
 
-            <div className="flex gap-3 pt-2">
+            <div className="flex gap-2.5 pt-1">
               {SOCIALS.map(({ icon: Icon, href }, i) => (
                 <a
                   key={i}
                   href={href}
                   target="_blank"
-                  className="rounded-lg border border-gray-700 p-3 text-gray-400 hover:text-teal-400 hover:border-teal-500/50 transition"
+                  className="rounded-lg border border-gray-700 p-2.5 text-gray-400 hover:text-teal-400 hover:border-teal-500/50 transition"
                 >
-                  <Icon size={18} />
+                  <Icon size={16} />
                 </a>
               ))}
             </div>
 
-            <p className="text-sm text-gray-400 leading-relaxed">
+            <p className="text-xs sm:text-sm text-gray-400 leading-relaxed">
               Available for full-time roles, freelance projects, and
               collaborations across{" "}
               <span className="text-teal-400">Web, Mobile & AI</span>.
             </p>
           </div>
 
+          {/* RIGHT - FORM */}
           <form
             onSubmit={(e) => {
               e.preventDefault();
               setSubmitted(true);
               setTimeout(() => setSubmitted(false), 3000);
             }}
-            className="rounded-2xl border border-teal-500/30 bg-[#252525] p-6 space-y-4"
+            className="rounded-xl border border-teal-500/30 bg-[#252525] p-5 space-y-3.5"
           >
             <input
               required
               placeholder="Your Name"
-              className="w-full rounded-xl bg-[#1E1E1E] border border-gray-700 px-4 py-3 text-sm text-gray-200 focus:border-teal-500 focus:outline-none"
+              className="w-full rounded-lg bg-[#1E1E1E] border border-gray-700 px-4 py-2.5 text-sm text-gray-200 focus:border-teal-500 focus:outline-none"
             />
 
             <input
               required
               type="email"
               placeholder="Email Address"
-              className="w-full rounded-xl bg-[#1E1E1E] border border-gray-700 px-4 py-3 text-sm text-gray-200 focus:border-teal-500 focus:outline-none"
+              className="w-full rounded-lg bg-[#1E1E1E] border border-gray-700 px-4 py-2.5 text-sm text-gray-200 focus:border-teal-500 focus:outline-none"
             />
 
             <textarea
               required
               rows={4}
               placeholder="Tell me about your project…"
-              className="w-full rounded-xl bg-[#1E1E1E] border border-gray-700 px-4 py-3 text-sm text-gray-200 focus:border-teal-500 focus:outline-none resize-none"
+              className="w-full rounded-lg bg-[#1E1E1E] border border-gray-700 px-4 py-2.5 text-sm text-gray-200 focus:border-teal-500 focus:outline-none resize-none"
             />
 
             <button
               type="submit"
-              className="w-full rounded-xl bg-gradient-to-r from-teal-600 to-cyan-600 py-3 font-semibold text-white flex items-center justify-center gap-2 hover:opacity-90 transition"
+              className="w-full rounded-lg bg-gradient-to-r from-teal-600 to-cyan-600 py-2.5 font-semibold text-sm text-white flex items-center justify-center gap-2 hover:opacity-90 transition"
             >
               {submitted ? "Message Sent" : "Send Message"}
-              <Send size={16} />
+              <Send size={15} />
             </button>
           </form>
         </motion.div>

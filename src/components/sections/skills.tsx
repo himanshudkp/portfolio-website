@@ -80,35 +80,35 @@ const SkillCategory = ({
 }) => (
   <motion.div
     id="skills"
-    className="flex items-center justify-between mb-6 pb-4 border-b border-gray-700"
+    className="flex items-center justify-between mb-5 pb-3 border-b border-gray-700"
     initial={{ opacity: 0, y: -10 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.4 }}
   >
     <motion.h3
-      className="text-xl font-semibold text-teal-400"
+      className="text-lg font-semibold text-teal-400"
       whileHover={{ x: 5, color: "#5eead4" }}
     >
       {categoryName}
     </motion.h3>
     <motion.div
-      className="px-3 py-1 bg-teal-500/10 border border-teal-500/30 rounded-full"
+      className="px-2.5 py-1 bg-teal-500/10 border border-teal-500/30 rounded-full"
       whileHover={{ scale: 1.1 }}
     >
-      <span className="text-sm font-medium text-teal-300">{count} skills</span>
+      <span className="text-xs font-medium text-teal-300">{count} skills</span>
     </motion.div>
   </motion.div>
 );
 
 const EmptyState = () => (
   <motion.div
-    className="text-center py-16"
+    className="text-center py-12"
     initial={{ opacity: 0, scale: 0.9 }}
     animate={{ opacity: 1, scale: 1 }}
     exit={{ opacity: 0, scale: 0.9 }}
   >
     <motion.div
-      className="w-24 h-24 mx-auto mb-6 bg-gray-800 rounded-full flex items-center justify-center"
+      className="w-20 h-20 mx-auto mb-5 bg-gray-800 rounded-full flex items-center justify-center"
       animate={{
         scale: [1, 1.05, 1],
         rotate: [0, 5, -5, 0],
@@ -119,9 +119,9 @@ const EmptyState = () => (
         ease: "easeInOut",
       }}
     >
-      <Database size={40} className="text-gray-600" />
+      <Database size={36} className="text-gray-600" />
     </motion.div>
-    <p className="text-gray-400 text-lg">No skills found in this category</p>
+    <p className="text-gray-400 text-base">No skills found in this category</p>
   </motion.div>
 );
 
@@ -129,7 +129,7 @@ export const Skills = () => {
   const [activeCategory, setActiveCategory] = useState("all");
 
   const visibleSkills = SKILLS.filter((s) =>
-    s.category.includes(activeCategory)
+    s.category.includes(activeCategory),
   );
 
   const getCategoryName = () => {
@@ -162,7 +162,7 @@ export const Skills = () => {
           transition={{ duration: 0.5 }}
         >
           <motion.div
-            className="rounded-2xl p-6 sm:p-8 lg:p-12 shadow-2xl border border-white/5 relative overflow-hidden"
+            className="rounded-2xl p-5 sm:p-6 lg:p-8 shadow-2xl border border-white/5 relative overflow-hidden"
             whileHover={{
               boxShadow: "0 25px 50px rgba(20, 184, 166, 0.1)",
             }}
@@ -201,7 +201,7 @@ export const Skills = () => {
                     />
 
                     <motion.div
-                      className="flex flex-wrap gap-3"
+                      className="flex flex-wrap gap-2.5"
                       variants={badgeContainerVariants}
                       initial="hidden"
                       animate="visible"
@@ -217,19 +217,19 @@ export const Skills = () => {
                     </motion.div>
 
                     <motion.div
-                      className="mt-8 pt-6 border-t border-gray-700 flex justify-center items-center"
+                      className="mt-6 pt-5 border-t border-gray-700 flex justify-center items-center"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.5 }}
                     >
                       <motion.div
-                        className="flex justify-center items-center  rounded-lg px-4 py-2"
+                        className="flex justify-center items-center rounded-lg px-4 py-2"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.8 }}
                       >
                         <motion.p
-                          className="text-gray-100 text-sm text-center max-w-xl"
+                          className="text-gray-100 text-xs sm:text-sm text-center max-w-xl"
                           whileHover={{ scale: 1.02 }}
                         >
                           Continuously learning and expanding my skill set to

@@ -61,7 +61,7 @@ const LocationPin = ({
   className?: string;
 }) => (
   <p className={`flex items-center gap-1 ${className}`}>
-    <MapPin className="w-4 h-4" />
+    <MapPin className="w-3.5 h-3.5" />
     <span>{location}</span>
   </p>
 );
@@ -74,14 +74,14 @@ const InfoCard = ({
   variant?: "default" | "hover";
 }) => (
   <motion.div
-    className={`p-6 sm:p-8 rounded-xl border ${
+    className={`p-5 sm:p-6 rounded-xl border ${
       variant === "hover" ? "border-gray-700" : "border-gray-700"
     }`}
     variants={cardVariants}
     whileHover={
       variant === "hover"
         ? {
-            scale: 1.02,
+            scale: 1.01,
             borderColor: "rgba(20, 184, 166, 0.5)",
             boxShadow: "0 10px 40px rgba(20, 184, 166, 0.1)",
           }
@@ -100,14 +100,14 @@ const SectionContainer = ({
   title?: string;
 }) => (
   <motion.div
-    className="border border-gray-700 rounded-xl p-4 sm:p-6 mt-6"
+    className="border border-gray-700 rounded-lg p-4 sm:p-5 mt-5"
     initial={{ opacity: 0, y: 10 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay: 0.2 }}
   >
     {title && (
       <motion.h4
-        className="text-teal-400 font-semibold text-lg mb-3"
+        className="text-teal-400 font-semibold text-base mb-3"
         initial={{ opacity: 0, x: -10 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.3 }}
@@ -154,7 +154,7 @@ const AboutSection = () => {
 
   return (
     <motion.div
-      className="space-y-8"
+      className="space-y-6"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -164,8 +164,8 @@ const AboutSection = () => {
           {paragraphs.map((paragraph, idx) => (
             <motion.p
               key={idx}
-              className={`text-gray-300 leading-relaxed text-base sm:text-lg ${
-                idx < paragraphs.length - 1 ? "mb-4" : ""
+              className={`text-gray-300 leading-relaxed text-sm sm:text-base ${
+                idx < paragraphs.length - 1 ? "mb-3.5" : ""
               }`}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -216,21 +216,21 @@ const ExperienceCard = ({
         transition={{ staggerChildren: 0.1 }}
       >
         <motion.div
-          className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4 mb-4"
+          className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4 mb-3"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
         >
           <div className="flex-1">
-            <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4 mb-2">
+            <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4 mb-1.5">
               <motion.h3
-                className="text-xl sm:text-2xl font-bold text-teal-300"
+                className="text-lg sm:text-xl font-bold text-teal-300"
                 whileHover={{ scale: 1.02, x: 5 }}
               >
                 {title}
               </motion.h3>
               <BadgeSingle text={duration} />
             </div>
-            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-gray-400 text-sm sm:text-base">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-gray-400 text-xs sm:text-sm">
               <p>{company}</p>
               <span className="hidden sm:inline text-gray-600">•</span>
               <LocationPin location={location} />
@@ -239,7 +239,7 @@ const ExperienceCard = ({
         </motion.div>
 
         <motion.p
-          className="text-gray-300 leading-relaxed mb-6 text-sm sm:text-base"
+          className="text-gray-300 leading-relaxed mb-5 text-sm sm:text-base"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.1 }}
@@ -249,7 +249,7 @@ const ExperienceCard = ({
 
         <SectionContainer title="Key Projects">
           <motion.ul
-            className="space-y-3 text-gray-300"
+            className="space-y-2.5 text-gray-300"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -257,7 +257,7 @@ const ExperienceCard = ({
             {projects.map((project, idx) => (
               <motion.li
                 key={idx}
-                className="mb-3 leading-relaxed"
+                className="leading-relaxed text-sm sm:text-base"
                 variants={itemVariants}
                 whileHover={{ x: 5 }}
               >
@@ -271,7 +271,7 @@ const ExperienceCard = ({
                     aria-label={`Open ${project.name} project`}
                     whileHover={{ scale: 1.2, rotate: 15 }}
                   >
-                    <ExternalLink className="w-4 h-4 inline-block" />
+                    <ExternalLink className="w-3.5 h-3.5 inline-block" />
                   </motion.a>{" "}
                   —{" "}
                 </span>
@@ -300,7 +300,7 @@ const ExperienceCard = ({
 
 const ExperienceSection = () => (
   <motion.div
-    className="space-y-10"
+    className="space-y-8"
     variants={containerVariants}
     initial="hidden"
     animate="visible"
@@ -329,9 +329,9 @@ const EducationCard = ({
         animate={{ scaleY: 1 }}
         transition={{ duration: 0.6, delay: 0.2 }}
       />
-      <div className="pl-6">
+      <div className="pl-5">
         <motion.h3
-          className="text-xl sm:text-2xl font-bold text-teal-300 mb-2"
+          className="text-lg sm:text-xl font-bold text-teal-300 mb-1.5"
           whileHover={{ scale: 1.02, x: 5 }}
         >
           {degree}
@@ -349,7 +349,10 @@ const EducationCard = ({
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
         >
-          <LocationPin location={location} className="text-gray-500" />
+          <LocationPin
+            location={location}
+            className="text-gray-500 text-xs sm:text-sm"
+          />
         </motion.div>
       </div>
     </motion.div>
@@ -358,7 +361,7 @@ const EducationCard = ({
 
 const EducationSection = () => (
   <motion.div
-    className="space-y-10"
+    className="space-y-8"
     variants={containerVariants}
     initial="hidden"
     animate="visible"
@@ -405,7 +408,7 @@ export const About = () => {
           transition={{ duration: 0.5 }}
         >
           <motion.div
-            className="rounded-2xl p-6 sm:p-8 lg:p-12 shadow-2xl border border-white/5"
+            className="rounded-2xl p-5 sm:p-6 lg:p-8 shadow-2xl border border-white/5"
             whileHover={{ boxShadow: "0 25px 50px rgba(20, 184, 166, 0.1)" }}
           >
             <AnimatePresence mode="wait">

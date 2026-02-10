@@ -253,12 +253,12 @@ const ProjectCard = ({
   return (
     <motion.div
       id="projects"
-      className="group relative rounded-2xl border border-gray-700 overflow-hidden"
+      className="group relative rounded-xl border border-gray-700 overflow-hidden"
       variants={cardVariants}
       whileHover={{
-        y: -8,
+        y: -6,
         borderColor: "rgba(20, 184, 166, 0.5)",
-        boxShadow: "0 20px 40px rgba(20, 184, 166, 0.2)",
+        boxShadow: "0 15px 35px rgba(20, 184, 166, 0.15)",
       }}
       transition={{ duration: 0.3 }}
     >
@@ -270,7 +270,7 @@ const ProjectCard = ({
         transition={{ duration: 0.6, delay: 0.2 }}
       />
 
-      <motion.div className="relative h-48 overflow-hidden">
+      <motion.div className="relative h-44 overflow-hidden">
         <motion.img
           src={project.image}
           alt={project.title}
@@ -285,18 +285,18 @@ const ProjectCard = ({
         />
       </motion.div>
 
-      <div className="p-6">
+      <div className="p-5">
         <motion.h3
-          className="text-2xl font-bold text-teal-300 mb-2"
+          className="text-xl font-bold text-teal-300 mb-1.5"
           whileHover={{ x: 5, color: "#5eead4" }}
         >
           {project.title}
         </motion.h3>
-        <p className="text-gray-400 text-sm mb-4 line-clamp-2">
+        <p className="text-gray-400 text-xs sm:text-sm mb-4 line-clamp-2">
           {project.shortDesc}
         </p>
 
-        <div className="mb-6">
+        <div className="mb-5">
           <p className="text-teal-400 text-xs font-semibold mb-2 uppercase tracking-wide">
             Tech Stack
           </p>
@@ -350,24 +350,26 @@ const ProjectModal = ({
         onClick={onClose}
       >
         <motion.div
-          className="bg-gradient-to-br from-gray-800 via-gray-800 to-gray-900 rounded-3xl border border-teal-500/30 max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+          className="bg-gradient-to-br from-gray-800 via-gray-800 to-gray-900 rounded-2xl border border-teal-500/30 max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
           variants={modalVariants}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="sticky top-0 bg-gray-900/95 backdrop-blur-sm border-b border-gray-700 p-6 flex items-center justify-between z-10">
+          <div className="sticky top-0 bg-gray-900/95 backdrop-blur-sm border-b border-gray-700 p-5 flex items-center justify-between z-10">
             <motion.div
-              className="flex items-center gap-4"
+              className="flex items-center gap-3"
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
             >
-              <div className="w-12 h-12 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center">
-                <Code size={24} className="text-white" />
+              <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                <Code size={20} className="text-white" />
               </div>
               <div>
-                <h2 className="text-3xl font-bold text-teal-300">
+                <h2 className="text-2xl font-bold text-teal-300">
                   {project.title}
                 </h2>
-                <p className="text-gray-400 text-sm">{project.shortDesc}</p>
+                <p className="text-gray-400 text-xs sm:text-sm">
+                  {project.shortDesc}
+                </p>
               </div>
             </motion.div>
             <motion.button
@@ -376,18 +378,18 @@ const ProjectModal = ({
               whileHover={{ scale: 1.1, rotate: 90 }}
               whileTap={{ scale: 0.9 }}
             >
-              <X size={24} className="text-gray-300" />
+              <X size={20} className="text-gray-300" />
             </motion.button>
           </div>
 
           <motion.div
-            className="p-6 sm:p-8"
+            className="p-5 sm:p-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
             <motion.div
-              className="relative h-64 sm:h-80 rounded-2xl overflow-hidden mb-8"
+              className="relative h-56 sm:h-72 rounded-xl overflow-hidden mb-6"
               whileHover={{ scale: 1.02 }}
             >
               <img
@@ -397,48 +399,48 @@ const ProjectModal = ({
               />
             </motion.div>
 
-            <div className="grid lg:grid-cols-3 gap-8">
+            <div className="grid lg:grid-cols-3 gap-6">
               <motion.div
-                className="lg:col-span-2 space-y-8"
+                className="lg:col-span-2 space-y-6"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
               >
                 <motion.div variants={itemVariants}>
-                  <h3 className="text-2xl font-bold text-teal-400 mb-4 flex items-center gap-2">
-                    <div className="w-1 h-6 bg-teal-500 rounded-full" />
+                  <h3 className="text-xl font-bold text-teal-400 mb-3 flex items-center gap-2">
+                    <div className="w-1 h-5 bg-teal-500 rounded-full" />
                     Overview
                   </h3>
-                  <p className="text-gray-300 leading-relaxed text-base sm:text-lg">
+                  <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
                     {project.fullDescription}
                   </p>
                 </motion.div>
 
                 <motion.div variants={itemVariants}>
-                  <h3 className="text-2xl font-bold text-teal-400 mb-4 flex items-center gap-2">
-                    <div className="w-1 h-6 bg-teal-500 rounded-full" />
+                  <h3 className="text-xl font-bold text-teal-400 mb-3 flex items-center gap-2">
+                    <div className="w-1 h-5 bg-teal-500 rounded-full" />
                     Key Features
                   </h3>
-                  <ul className="space-y-3">
+                  <ul className="space-y-2.5">
                     {project.features.map((feature, idx) => (
                       <motion.li
                         key={idx}
-                        className="flex items-start gap-3 text-gray-300"
+                        className="flex items-start gap-2.5 text-gray-300"
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: idx * 0.1 }}
                         whileHover={{ x: 5 }}
                       >
-                        <span className="text-teal-400 mt-1">▸</span>
-                        <span className="text-sm sm:text-base">{feature}</span>
+                        <span className="text-teal-400 mt-0.5">▸</span>
+                        <span className="text-xs sm:text-sm">{feature}</span>
                       </motion.li>
                     ))}
                   </ul>
                 </motion.div>
 
                 <motion.div variants={itemVariants}>
-                  <h3 className="text-2xl font-bold text-teal-400 mb-4 flex items-center gap-2">
-                    <div className="w-1 h-6 bg-teal-500 rounded-full" />
+                  <h3 className="text-xl font-bold text-teal-400 mb-3 flex items-center gap-2">
+                    <div className="w-1 h-5 bg-teal-500 rounded-full" />
                     Technologies Used
                   </h3>
                   <BadgeGroup
@@ -450,12 +452,12 @@ const ProjectModal = ({
               </motion.div>
 
               <motion.aside
-                className="space-y-6"
+                className="space-y-5"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
               >
-                <motion.div className="space-y-3" variants={itemVariants}>
+                <motion.div className="space-y-2.5" variants={itemVariants}>
                   <CustomButton
                     href={project.liveUrl}
                     variant="primary"
@@ -514,7 +516,7 @@ export const Projects = () => {
         <Tabs tabs={TABS} activeTab={activeTab} onChange={handleTabChange} />
 
         <motion.div
-          className="rounded-2xl p-6 sm:p-8 lg:p-12 shadow-2xl border border-white/5 mt-11"
+          className="rounded-2xl p-5 sm:p-6 lg:p-8 shadow-2xl border border-white/5 mt-11"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
@@ -522,7 +524,7 @@ export const Projects = () => {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6"
               variants={containerVariants}
               initial="hidden"
               animate="visible"
@@ -544,7 +546,7 @@ export const Projects = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             >
-              <p className="text-gray-400 text-lg">
+              <p className="text-gray-400 text-base">
                 No projects found in this category.
               </p>
             </motion.div>
@@ -552,14 +554,14 @@ export const Projects = () => {
         </motion.div>
 
         <motion.div
-          className="flex justify-center mt-11"
+          className="flex justify-center mt-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
         >
           <CustomButton
             variant="primary"
-            className="rounded-full px-10 py-4"
+            className="rounded-full px-8 py-3"
             icon={ExternalLink}
           >
             View all projects
