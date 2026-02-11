@@ -1,4 +1,4 @@
-export * from "../components/sections/about";
+export * from "./about";
 export * from "../components/sections/contact";
 export * from "../components/sections/footer";
 export * from "./header";
@@ -12,3 +12,8 @@ export * from "./ui/badge-single";
 
 export * from "./logo-brand";
 export * from "./section-header";
+
+export * from "./highlight-text";
+export * from "./location-pin";
+export * from "./info-card";
+export * from "./section-container";

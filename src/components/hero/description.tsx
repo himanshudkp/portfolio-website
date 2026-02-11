@@ -12,7 +12,7 @@ export const Description = () => (
   >
     I build and ship scalable applications using{" "}
     <span className="font-semibold text-teal-400">
-      React, Next.js, Node.js, and React Native{" "}
+      React, Next.js, Node.js, FastAPI and React Native{" "}
     </span>
     — integrating{" "}
     <span className="font-semibold text-teal-400">LLM-driven features</span>{" "}

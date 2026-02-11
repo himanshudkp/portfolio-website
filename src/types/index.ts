@@ -30,20 +30,8 @@ export interface AboutIntroduction {
 }
 
 export interface AboutContent {
-  introduction: AboutIntroduction;
+  highlights: string[];
   paragraphs: string[];
-}
-
-export interface Experience {
-  id: string;
-  title: string;
-  company: string;
-  location: string;
-  duration: string;
-  isCurrent: boolean;
-  description: string;
-  projects: WorkProject[];
-  technologies: string[];
 }
 
 export interface Education {
@@ -86,7 +74,31 @@ export interface WorkProject {
   link: string;
 }
 
+export interface ExperienceData {
+  id: string;
+  title: string;
+  company: string;
+  location: string;
+  duration: string;
+  isCurrent: boolean;
+  description: string;
+  highlights: string[];
+  projects: WorkProject[];
+  technologies: string[];
+}
+
 export interface NavigationProps {
   selectedLink: string;
   onLinkClick: (linkName: string) => void;
+}
+
+export interface CoursesCertification {
+  id: string;
+  title: string;
+  provider: string;
+  issueDate: string;
+  credentialId: string;
+  credentialUrl: string;
+  skills: readonly string[];
+  description: string;
 }
