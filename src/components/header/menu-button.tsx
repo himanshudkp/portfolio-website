@@ -13,7 +13,7 @@ export const MenuButton = memo(({ isOpen, onToggle }: MenuButtonProps) => {
   return (
     <motion.button
       onClick={onToggle}
-      className="relative lg:hidden rounded-xl border p-2.5 border-gray-700/50 text-white hover:bg-gray-800 cursor-pointer overflow-hidden"
+      className="relative lg:hidden rounded-lg border p-2 border-gray-700/50 text-white hover:bg-gray-800 cursor-pointer overflow-hidden"
       aria-label="Toggle menu"
       whileTap={{ scale: 0.9 }}
       whileHover={{ scale: 1.05 }}

@@ -35,19 +35,19 @@ const sizeStyles: Record<
   { container: string; icon: number; text: string }
 > = {
   sm: {
-    container: "px-3 py-1.5 text-xs",
-    icon: 14,
+    container: "px-2 py-0.5 text-xs",
+    icon: 12,
     text: "text-xs",
   },
   md: {
-    container: "px-4 py-2 text-sm",
-    icon: 16,
-    text: "text-sm",
+    container: "px-2.5 py-1 text-xs",
+    icon: 14,
+    text: "text-xs",
   },
   lg: {
-    container: "px-5 py-2.5 text-base",
-    icon: 18,
-    text: "text-base",
+    container: "px-3 py-1.5 text-sm",
+    icon: 16,
+    text: "text-sm",
   },
 };
 

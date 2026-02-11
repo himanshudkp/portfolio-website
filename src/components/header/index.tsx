@@ -28,7 +28,7 @@ export const Header = () => {
     <>
       <nav className="fixed top-0 z-50 w-full shadow-xl bg-[#1E1E1E] border-b border-teal-500/30 px-5 sm:px-6 lg:px-8 xl:px-[8%]">
         <div className="mx-auto w-full max-w-7xl">
-          <div className="flex items-center justify-between gap-4 py-4">
+          <div className="flex items-center justify-between gap-4 py-3">
             <LogoBrand />
 
             <div className="flex-1 flex justify-center">
@@ -62,7 +62,7 @@ export const Header = () => {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            className="fixed top-[4.5rem] inset-x-0 z-40"
+            className="fixed top-[4rem] inset-x-0 z-40"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}

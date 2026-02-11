@@ -24,19 +24,19 @@ const sizeStyles: Record<
   { container: string; text: string; gap: string }
 > = {
   sm: {
-    container: "px-2.5 py-1",
+    container: "px-2 py-0.5",
     text: "text-xs",
     gap: "gap-1.5",
   },
   md: {
-    container: "px-3 py-1.5",
-    text: "text-sm",
+    container: "px-2.5 py-1",
+    text: "text-xs",
     gap: "gap-2",
   },
   lg: {
-    container: "px-4 py-2",
-    text: "text-base",
-    gap: "gap-2.5",
+    container: "px-3 py-1.5",
+    text: "text-sm",
+    gap: "gap-2",
   },
 };
 

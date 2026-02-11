@@ -9,7 +9,7 @@ export const DesktopNavigation = ({
   onLinkClick,
 }: NavigationProps) => {
   return (
-    <nav className="hidden lg:flex items-center gap-1 bg-[#252525] rounded-full p-1.5 border border-gray-700/50">
+    <nav className="hidden lg:flex items-center gap-1 bg-[#252525] rounded-full p-1 border border-gray-700/50">
       {NAV_LINKS.map((link) => {
         const Icon = link.icon;
         const isActive = selectedLink === link.name;
@@ -19,7 +19,7 @@ export const DesktopNavigation = ({
             key={link.name}
             href={link.href}
             onClick={() => onLinkClick(link.name)}
-            className={`relative px-6 py-2.5 rounded-full font-medium text-sm transition-colors duration-300 flex items-center gap-2 ${
+            className={`relative px-5 py-2 rounded-full font-medium text-sm transition-colors duration-300 flex items-center gap-2 ${
               isActive ? "text-white" : "text-gray-400"
             } hover:scale-105 active:scale-95`}
             layout
@@ -33,7 +33,7 @@ export const DesktopNavigation = ({
               />
             )}
 
-            <Icon size={16} className="relative z-10" />
+            <Icon size={15} className="relative z-10" />
             <span className="relative z-10">{link.name}</span>
           </motion.a>
         );

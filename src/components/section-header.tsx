@@ -22,18 +22,21 @@ interface SectionHeaderProps {
 export const SectionHeader = ({ title, description }: SectionHeaderProps) => {
   return (
     <motion.div
-      className="text-center mb-12"
+      className="text-center mb-10"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
     >
       <motion.h2
-        className="text-4xl md:text-5xl font-bold text-teal-300 mb-4"
+        className="text-3xl md:text-4xl font-bold text-teal-300 mb-3"
         variants={itemVariants}
       >
         {title}
       </motion.h2>
-      <motion.p className="text-gray-400 text-lg" variants={itemVariants}>
+      <motion.p
+        className="text-gray-400 text-sm sm:text-base"
+        variants={itemVariants}
+      >
         {description}
       </motion.p>
     </motion.div>

@@ -42,9 +42,9 @@ export const CustomButton = ({
   };
 
   const sizes = {
-    sm: "px-4 py-2 text-sm",
-    md: "px-6 py-3 text-base",
-    lg: "px-8 py-4 text-lg",
+    sm: "px-3 py-1.5 text-sm",
+    md: "px-5 py-2.5 text-sm",
+    lg: "px-6 py-3 text-base",
   };
 
   const Component = motion[href ? "a" : "button"];
@@ -56,7 +56,7 @@ export const CustomButton = ({
         "inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-colors duration-300",
         variants[variant],
         sizes[size],
-        className
+        className,
       )}
       variants={buttonVariants}
       whileHover={{
@@ -74,7 +74,7 @@ export const CustomButton = ({
           whileHover={{ rotate: 15, scale: 1.2 }}
           transition={{ duration: 0.2 }}
         >
-          <Icon size={18} />
+          <Icon size={16} />
         </motion.div>
       )}
       {children}

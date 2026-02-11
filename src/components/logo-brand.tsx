@@ -14,7 +14,7 @@ export const LogoBrand = () => {
   return (
     <motion.a
       href="#home"
-      className="flex items-center gap-3 group"
+      className="flex items-center gap-2.5 group"
       variants={logoVariants}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
@@ -26,17 +26,17 @@ export const LogoBrand = () => {
           transition={{ duration: 0.3 }}
         />
         <motion.div
-          className="relative w-10 h-10 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-lg flex items-center justify-center"
+          className="relative w-9 h-9 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-lg flex items-center justify-center"
           whileHover={{ rotate: 360 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="text-white font-bold text-xl">
+          <span className="text-white font-bold text-lg">
             {LOGO_CONTENT.initials}
           </span>
         </motion.div>
       </div>
       <motion.span
-        className="text-xl font-bold bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent hidden sm:block"
+        className="text-lg font-bold bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent hidden sm:block"
         whileHover={{ scale: 1.05 }}
       >
         {LOGO_CONTENT.name}

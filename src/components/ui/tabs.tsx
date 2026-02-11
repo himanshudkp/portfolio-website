@@ -30,7 +30,7 @@ export const Tabs: React.FC<{
   onChange: (id: string) => void;
 }> = ({ tabs, activeTab, onChange }) => (
   <motion.div
-    className="flex flex-wrap justify-center gap-3 mb-10"
+    className="flex flex-wrap justify-center gap-2.5 mb-10"
     initial="hidden"
     animate="visible"
     variants={containerVariants}
@@ -39,7 +39,7 @@ export const Tabs: React.FC<{
       <motion.button
         key={id}
         onClick={() => onChange(id)}
-        className={`flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all duration-300 relative overflow-hidden ${
+        className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300 relative overflow-hidden ${
           activeTab === id
             ? "text-white"
             : "bg-[#252525] text-gray-400 hover:bg-[#252525] hover:text-teal-300"

@@ -55,7 +55,7 @@ export const SocialLinks = ({ variant = "header" }: SocialLinksProps) => {
 
   return (
     <motion.div
-      className={`flex items-center ${isHero ? "gap-3" : "gap-2"}`}
+      className={`flex items-center ${isHero ? "gap-2.5" : "gap-1.5"}`}
       initial="hidden"
       animate="visible"
       variants={containerVariants[variant]}
@@ -69,8 +69,8 @@ export const SocialLinks = ({ variant = "header" }: SocialLinksProps) => {
             target="_blank"
             className={
               isHero
-                ? "p-3 rounded-lg bg-[#252525] border border-gray-700 text-gray-400 hover:text-teal-300 hover:border-teal-500/50 transition-colors duration-300 relative overflow-hidden group"
-                : "p-2 rounded-lg text-gray-400 hover:text-teal-300 transition-colors duration-300 relative overflow-hidden"
+                ? "p-2.5 rounded-lg bg-[#252525] border border-gray-700 text-gray-400 hover:text-teal-300 hover:border-teal-500/50 transition-colors duration-300 relative overflow-hidden group"
+                : "p-1.5 rounded-lg text-gray-400 hover:text-teal-300 transition-colors duration-300 relative overflow-hidden"
             }
             aria-label={social.label}
             variants={itemVariants[variant]}
@@ -94,10 +94,10 @@ export const SocialLinks = ({ variant = "header" }: SocialLinksProps) => {
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.6 }}
               >
-                <Icon size={20} className="relative z-10" />
+                <Icon size={18} className="relative z-10" />
               </motion.div>
             ) : (
-              <Icon size={18} className="relative z-10" />
+              <Icon size={16} className="relative z-10" />
             )}
           </motion.a>
         );
