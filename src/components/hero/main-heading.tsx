@@ -24,14 +24,14 @@ export const MainHeading = () => {
         variants={itemVariants}
         className="text-base sm:text-lg lg:text-xl font-medium text-teal-300/80"
       >
-        Full-Stack Engineer • Web, Mobile & Generative AI
+        Full-Stack Engineer • Web, Mobile & AI
       </motion.h2>
 
       <motion.p
         variants={itemVariants}
         className="text-sm sm:text-base text-gray-400/90 pt-1"
       >
-        Building scalable systems serving{" "}
+        Building AI-powered products serving{" "}
         <span className="text-teal-400 font-semibold">30,000+ users</span>
       </motion.p>
     </div>
