@@ -39,6 +39,7 @@ export const ContactForm = () => {
         }, 5000);
       }
     } catch (error) {
+      console.log("Error sending email:", error);
       setStatus("error");
       setErrorMessage("An unexpected error occurred. Please try again.");
 

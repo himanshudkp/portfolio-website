@@ -9,7 +9,7 @@ interface MenuButtonProps {
   onToggle: () => void;
 }
 
-export const MenuButton = memo(({ isOpen, onToggle }: MenuButtonProps) => {
+const MenuButton = memo(({ isOpen, onToggle }: MenuButtonProps) => {
   return (
     <motion.button
       onClick={onToggle}
@@ -51,3 +51,6 @@ export const MenuButton = memo(({ isOpen, onToggle }: MenuButtonProps) => {
     </motion.button>
   );
 });
+
+MenuButton.displayName = "MenuButton";
+export default MenuButton;

@@ -1,5 +1,4 @@
 import type { LucideIcon } from "lucide-react";
-import { ComponentType } from "react";
 
 export interface NavLink {
   name: string;

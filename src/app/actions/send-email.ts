@@ -26,7 +26,7 @@ export async function sendContactEmail(
       };
     }
 
-    const { data, error } = await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: "Contact Form <onboarding@resend.dev>",
       to: [process.env.CONTACT_EMAIL || "himanshudkp@gmail.com"],
       replyTo: formData.email,

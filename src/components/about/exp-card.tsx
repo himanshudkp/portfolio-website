@@ -21,20 +21,6 @@ interface ExperienceCardProps {
   technologies: string[];
 }
 
-const DESCRIPTION_HIGHLIGHTS = [
-  "React",
-  "Next.js",
-  "React Native",
-  "Heaptrace Technology",
-  "AI-powered features",
-  "TypeScript",
-  "modern state management",
-  "production-ready solutions",
-  "healthcare",
-  "recruitment",
-  "energy management platforms",
-];
-
 export const ExperienceCard = ({
   title,
   company,

@@ -4,6 +4,7 @@ import { backdropVariants, modalVariants } from "@/lib/utils";
 import { ProjectModalHeader } from "./modal-header";
 import { ProjectModalContent } from "./modal-content";
 import { ProjectModalSidebar } from "./modal-sidebar";
+import Image from "next/image";
 
 interface ProjectModalProps {
   project: Project;
@@ -38,10 +39,12 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
               className="relative h-56 sm:h-72 rounded-xl overflow-hidden mb-6"
               whileHover={{ scale: 1.02 }}
             >
-              <img
+              <Image
                 src={project.image}
                 alt={project.title}
                 className="w-full h-full object-cover"
+                width={100}
+                height={100}
               />
             </motion.div>
 

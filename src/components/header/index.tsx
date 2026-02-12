@@ -7,9 +7,9 @@ import { LogoBrand } from "../ui/logo-brand";
 import { CustomButton } from "../ui/custom-button";
 import SocialLinks from "../ui/social-links";
 import { DesktopNavigation } from "./desk-top-nav";
-import { MenuButton } from "./menu-button";
 import { MobileNavigation } from "./mobile-nav";
 import { BUTTON_TEXT } from "@/lib/constants";
+import MenuButton from "./menu-button";
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
