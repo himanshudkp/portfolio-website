@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { EXPERIENCE_DATA } from "@/data";
-import { containerVariants } from "@/utils";
+import { EXPERIENCE_DATA } from "@/lib/constants";
+import { containerVariants } from "@/lib/utils";
 import { ExperienceCard } from "./exp-card";
 
 export const ExperienceSection = () => (

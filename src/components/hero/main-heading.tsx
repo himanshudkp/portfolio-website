@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { itemVariants } from "@/utils";
+import { itemVariants } from "@/lib/utils";
 
 export const MainHeading = () => {
   return (

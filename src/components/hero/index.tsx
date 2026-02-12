@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Download } from "lucide-react";
-import { containerVariants, itemVariants } from "@/utils";
+import { containerVariants, itemVariants } from "@/lib/utils";
 import { CustomButton } from "../ui/custom-button";
 import { SocialLinks } from "../ui/social-links";
 import { MainHeading } from "./main-heading";

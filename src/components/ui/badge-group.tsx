@@ -1,4 +1,4 @@
-import { containerVariants, itemVariants } from "@/utils";
+import { containerVariants, itemVariants } from "@/lib/utils";
 import { motion } from "framer-motion";
 
 type BadgeVariant = "default" | "outline" | "glow";

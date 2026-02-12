@@ -1,7 +1,7 @@
 "use client";
 
-import { NAV_LINKS, SOCIAL_LINKS } from "@/data";
-import type { NavigationProps } from "@/types";
+import { NAV_LINKS, SOCIAL_LINKS } from "@/lib/constants";
+import type { NavigationProps } from "@/lib/types";
 import { Download } from "lucide-react";
 
 export const MobileNavigation = ({

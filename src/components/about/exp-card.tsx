@@ -1,14 +1,14 @@
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
-import type { WorkProject } from "@/types";
-import { containerVariants, itemVariants } from "@/utils";
+import type { WorkProject } from "@/lib/types";
+import { containerVariants, itemVariants } from "@/lib/utils";
 import { BadgeSingle } from "../ui/badge-single";
-import { HighlightText } from "../highlight-text";
-import { LocationPin } from "../location-pin";
-import { InfoCard } from "../info-card";
-import { SectionContainer } from "../section-container";
+import { HighlightText } from "../ui/highlight-text";
+import { LocationPin } from "../ui/location-pin";
+import { InfoCard } from "../ui/info-card";
+import { SectionContainer } from "../ui/section-container";
 import { Fragment } from "react";
-import { EXPERIENCE_DATA } from "@/data";
+import { EXPERIENCE_DATA } from "@/lib/constants";
 
 interface ExperienceCardProps {
   title: string;

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Award, ExternalLink, Calendar } from "lucide-react";
-import { containerVariants, itemVariants } from "@/utils";
-import { InfoCard } from "../info-card";
+import { containerVariants } from "@/lib/utils";
+import { InfoCard } from "../ui/info-card";
 import { BadgeSingle } from "../ui/badge-single";
 
 interface CoursesCertificationsCardProps {

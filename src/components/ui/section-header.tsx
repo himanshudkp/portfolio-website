@@ -1,4 +1,4 @@
-import { containerVariants } from "@/utils";
+import { containerVariants } from "@/lib/utils";
 import { easeOut, motion } from "framer-motion";
 import React from "react";
 

@@ -1,9 +1,5 @@
-"use client";
-
-import { itemVariants } from "@/utils";
+import { itemVariants } from "@/lib/utils";
 import { motion } from "framer-motion";
-
-// I build and ship scalable applications using React, Next.js, Node.js, and React Native — integrating LLM-driven features into secure, high-performance systems across healthcare, energy, and recruitment platforms.
 
 export const Description = () => (
   <motion.p

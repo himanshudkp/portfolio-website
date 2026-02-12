@@ -1,4 +1,4 @@
-import { LOGO_CONTENT } from "@/content";
+import { LOGO_CONTENT } from "@/lib/constants";
 import { motion } from "framer-motion";
 
 const logoVariants = {

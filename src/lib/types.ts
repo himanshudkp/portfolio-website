@@ -1,4 +1,5 @@
 import type { LucideIcon } from "lucide-react";
+import { ComponentType } from "react";
 
 export interface NavLink {
   name: string;
@@ -101,4 +102,43 @@ export interface CoursesCertification {
   credentialUrl: string;
   skills: readonly string[];
   description: string;
+}
+
+export interface ContactInfo {
+  icon: LucideIcon;
+  text: string;
+  href: string;
+}
+
+export interface ContactSocial {
+  icon: LucideIcon;
+  href: string;
+}
+
+export interface LogoContent {
+  name: string;
+  initials: string;
+}
+export interface ButtonText {
+  resume_web: string;
+  resume_mobile: string;
+  connect: string;
+  work: string;
+}
+
+export interface ContactFormData {
+  name: string;
+  email: string;
+  message: string;
+}
+
+export interface EmailResponse {
+  success: boolean;
+  message: string;
+  error?: string;
+}
+
+export interface Skill {
+  category: string[];
+  skill: string;
 }

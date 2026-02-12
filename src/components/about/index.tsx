@@ -2,22 +2,14 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { User, Briefcase, GraduationCap, Award } from "lucide-react";
-import type { Tab } from "@/types";
-import { SectionHeader } from "../section-header";
+import { SectionHeader } from "../ui/section-header";
 import { Tabs } from "../ui/tabs";
-import { tabContentVariants } from "@/utils";
+import { tabContentVariants } from "@/lib/utils";
 import { AboutSection } from "./about-section";
 import { ExperienceSection } from "./exp-section";
 import { EducationSection } from "./edu-section";
 import { CoursesCertificationsSection } from "./course-section";
-
-const TABS: Tab[] = [
-  { icon: User, id: "about", label: "About" },
-  { icon: Briefcase, id: "experience", label: "Experience" },
-  { icon: GraduationCap, id: "education", label: "Education" },
-  { icon: Award, id: "courses", label: "Courses & Certifications" },
-];
+import { ABOUT_TABS } from "@/lib/constants";
 
 export const About = () => {
   const [activeTab, setActiveTab] = useState("about");
@@ -48,7 +40,7 @@ export const About = () => {
           description="Transforming ideas into powerful digital solutions with precision and creativity"
         />
 
-        <Tabs tabs={TABS} activeTab={activeTab} onChange={setActiveTab} />
+        <Tabs tabs={ABOUT_TABS} activeTab={activeTab} onChange={setActiveTab} />
 
         <motion.div
           className="relative"

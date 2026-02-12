@@ -1,4 +1,4 @@
-import { SOCIAL_LINKS } from "@/data";
+import { SOCIAL_LINKS } from "@/lib/constants";
 import { easeOut, motion } from "framer-motion";
 
 const containerVariants = {

@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { Calendar } from "lucide-react";
-import { LocationPin } from "../location-pin";
-import { InfoCard } from "../info-card";
-import { HighlightText } from "../highlight-text";
+import { LocationPin } from "../ui/location-pin";
+import { InfoCard } from "../ui/info-card";
+import { HighlightText } from "../ui/highlight-text";
 import { Fragment } from "react";
 
 interface EducationCardProps {

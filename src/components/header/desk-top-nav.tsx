@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { NavigationProps } from "@/types";
-import { NAV_LINKS } from "@/data";
+import type { NavigationProps } from "@/lib/types";
+import { NAV_LINKS } from "@/lib/constants";
 
 export const DesktopNavigation = ({
   selectedLink,

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import { ABOUT_CONTENT } from "@/data";
-import { containerVariants, itemVariants } from "@/utils";
-import { HighlightText } from "../highlight-text";
+import { ABOUT_CONTENT } from "@/lib/constants";
+import { containerVariants, itemVariants } from "@/lib/utils";
+import { HighlightText } from "../ui/highlight-text";
 import { Fragment } from "react";
 
 export const AboutSection = () => {

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { cardVariants } from "@/utils";
+import { cardVariants } from "@/lib/utils";
 
 export const InfoCard = ({
   children,

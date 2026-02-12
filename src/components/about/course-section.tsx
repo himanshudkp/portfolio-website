@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { COURSES_CERTIFICATIONS_DATA } from "@/data";
-import { containerVariants } from "@/utils";
+import { COURSES_CERTIFICATIONS_DATA } from "@/lib/constants";
+import { containerVariants } from "@/lib/utils";
 import { CoursesCertificationsCard } from "./course-card";
 
 export const CoursesCertificationsSection = () => (

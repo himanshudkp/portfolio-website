@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { EDUCATION_DATA } from "@/data";
-import { containerVariants } from "@/utils";
+import { EDUCATION_DATA } from "@/lib/constants";
+import { containerVariants } from "@/lib/utils";
 import { EducationCard } from "./edu-card";
 
 export const EducationSection = () => (

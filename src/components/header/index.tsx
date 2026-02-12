@@ -3,13 +3,13 @@
 import { useState, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Download } from "lucide-react";
-import { LogoBrand } from "../logo-brand";
+import { LogoBrand } from "../ui/logo-brand";
 import { CustomButton } from "../ui/custom-button";
-import { BUTTON_TEXT } from "@/content";
 import SocialLinks from "../ui/social-links";
 import { DesktopNavigation } from "./desk-top-nav";
 import { MenuButton } from "./menu-button";
 import { MobileNavigation } from "./mobile-nav";
+import { BUTTON_TEXT } from "@/lib/constants";
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

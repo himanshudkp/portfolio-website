@@ -9,11 +9,11 @@ import {
   AppWindow,
   Code2,
 } from "lucide-react";
-import { Tab } from "@/types";
-import { SectionHeader } from "../section-header";
+import { Tab } from "@/lib/types";
+import { SectionHeader } from "../ui/section-header";
 import { Tabs } from "../ui/tabs";
 import { BadgeSingle } from "../ui/badge-single";
-import { tabContentVariants } from "@/utils";
+import { tabContentVariants } from "@/lib/utils";
 
 interface Skill {
   category: string[];
