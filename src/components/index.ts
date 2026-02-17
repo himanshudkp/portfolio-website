@@ -9,7 +9,7 @@ export * from "./skills";
 export * from "./ui/tabs";
 export * from "./ui/badge-group";
 export * from "./ui/badge-single";
-export * from "./ui/logo-brand";
+export * from "./ui/portfolio-logo";
 export * from "./ui/section-header";
 export * from "./ui/highlight-text";
 export * from "./ui/location-pin";

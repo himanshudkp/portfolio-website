@@ -1,10 +1,14 @@
 "use client";
 
 import { NAV_LINKS, SOCIAL_LINKS } from "@/lib/constants";
-import type { NavigationProps } from "@/lib/types";
 import { Download } from "lucide-react";
 
-export const MobileNavigation = ({
+interface NavigationProps {
+  selectedLink: string;
+  onLinkClick: (linkName: string) => void;
+}
+
+const MobileNavigation = ({
   isOpen,
   selectedLink,
   onLinkClick,
@@ -68,3 +72,6 @@ export const MobileNavigation = ({
     </>
   );
 };
+
+MobileNavigation.displayName = "MobileNavigation";
+export default MobileNavigation;

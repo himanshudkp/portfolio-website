@@ -1,10 +1,10 @@
-import { LogoBrand } from "../ui/logo-brand";
+import { PortfolioLogo } from "../ui/portfolio-logo";
 import SocialLinks from "../ui/social-links";
 
 export const FooterAbout = () => {
   return (
     <div className="space-y-4">
-      <LogoBrand />
+      <PortfolioLogo />
 
       <p className="max-w-sm text-xs sm:text-sm leading-relaxed text-gray-400">
         Full-Stack Developer crafting scalable Web, Mobile & AI-powered products

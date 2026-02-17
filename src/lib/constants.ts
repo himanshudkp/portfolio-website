@@ -6,7 +6,6 @@ import {
   CoursesCertification,
   ExperienceData,
   Link,
-  LogoContent,
   NavLink,
   Project,
   Skill,
@@ -486,11 +485,6 @@ export const SOCIALS: ContactSocial[] = [
   { icon: Github, href: "#" },
   { icon: Linkedin, href: "https://linkedin.com/in/himanshudkp" },
 ];
-
-export const LOGO_CONTENT: LogoContent = {
-  name: "Himanshu",
-  initials: "H",
-} as const;
 
 export const BUTTON_TEXT: ButtonText = {
   resume_web: "Resume",

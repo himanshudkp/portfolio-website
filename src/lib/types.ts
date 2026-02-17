@@ -87,11 +87,6 @@ export interface ExperienceData {
   technologies: string[];
 }
 
-export interface NavigationProps {
-  selectedLink: string;
-  onLinkClick: (linkName: string) => void;
-}
-
 export interface CoursesCertification {
   id: string;
   title: string;
@@ -114,10 +109,6 @@ export interface ContactSocial {
   href: string;
 }
 
-export interface LogoContent {
-  name: string;
-  initials: string;
-}
 export interface ButtonText {
   resume_web: string;
   resume_mobile: string;

@@ -1,13 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { NavigationProps } from "@/lib/types";
 import { NAV_LINKS } from "@/lib/constants";
 
-export const DesktopNavigation = ({
-  selectedLink,
-  onLinkClick,
-}: NavigationProps) => {
+interface NavigationProps {
+  selectedLink: string;
+  onLinkClick: (linkName: string) => void;
+}
+
+const DesktopNavigation = ({ selectedLink, onLinkClick }: NavigationProps) => {
   return (
     <nav className="hidden lg:flex items-center gap-1 bg-[#252525] rounded-full p-1 border border-gray-700/50">
       {NAV_LINKS.map((link) => {
@@ -41,3 +42,6 @@ export const DesktopNavigation = ({
     </nav>
   );
 };
+
+DesktopNavigation.displayName = "DesktopNavigation";
+export default DesktopNavigation;
