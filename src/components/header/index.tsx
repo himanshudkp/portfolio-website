@@ -5,11 +5,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Download } from "lucide-react";
 import { CustomButton } from "../ui/custom-button";
 import SocialLinks from "../ui/social-links";
-import { BUTTON_TEXT } from "@/lib/constants";
 import MenuButton from "./menu-button";
 import { PortfolioLogo } from "../ui/portfolio-logo";
 import DesktopNavigation from "./desk-top-nav";
 import MobileNavigation from "./mobile-nav";
+import { BUTTON_TEXT } from "@/lib/constants";
 
 const MOBILE_NAV_ANIMATION = {
   initial: { opacity: 0, y: -20 },

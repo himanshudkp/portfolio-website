@@ -1,8 +1,8 @@
 "use client";
 
+import { memo } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { memo } from "react";
 
 interface MenuButtonProps {
   isOpen: boolean;

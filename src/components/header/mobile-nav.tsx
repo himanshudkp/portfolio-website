@@ -1,7 +1,7 @@
 "use client";
 
-import { NAV_LINKS, SOCIAL_LINKS } from "@/lib/constants";
 import { Download } from "lucide-react";
+import { NAV_LINKS, SOCIAL_LINKS } from "@/lib/constants";
 
 interface NavigationProps {
   selectedLink: string;
