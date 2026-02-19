@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { easeOut } from "framer-motion";
 import { twMerge } from "tailwind-merge";
+import { CENTER } from "./constants";
 
 export const cn = (...inputs: ClassValue[]): string => {
   return twMerge(clsx(inputs));
@@ -84,4 +85,17 @@ export const backdropVariants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
   exit: { opacity: 0 },
+};
+
+export const polarToXY = (
+  index: number,
+  total: number,
+  radius: number,
+): { x: number; y: number } => {
+  const angle = (index / total) * 2 * Math.PI - Math.PI / 2;
+
+  return {
+    x: CENTER + Math.cos(angle) * radius,
+    y: CENTER + Math.sin(angle) * radius,
+  };
 };

@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { itemVariants } from "@/lib/utils";
 
-export const MainHeading = () => {
+const MainHeading = () => {
   return (
     <div className="space-y-2.5">
       <motion.h1
@@ -37,3 +37,6 @@ export const MainHeading = () => {
     </div>
   );
 };
+
+MainHeading.displayName = "MainHeading";
+export default MainHeading;

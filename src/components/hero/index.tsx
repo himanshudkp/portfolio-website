@@ -2,74 +2,82 @@
 
 import { motion } from "framer-motion";
 import { Download } from "lucide-react";
-import { containerVariants, itemVariants } from "@/lib/utils";
 import { CustomButton } from "../ui/custom-button";
 import { SocialLinks } from "../ui/social-links";
-import { MainHeading } from "./main-heading";
-import { Description } from "./description";
-import { RightAnimation } from "./right-animation";
+import Description from "./description";
+import MainHeading from "./main-heading";
+import RightAnimation from "./right-animation";
+import { containerVariants, itemVariants } from "@/lib/utils";
 
-export const Hero = () => {
+const Hero = () => {
   return (
     <motion.section
       id="home"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="relative flex min-h-screen items-center justify-center bg-[#1E1E1E] px-5 sm:px-6 lg:px-8 xl:px-[8%] pt-20 sm:pt-24 lg:pt-28 scroll-mt-20 sm:scroll-mt-24 lg:scroll-mt-28"
+      className="relative flex min-h-screen items-center bg-[#1E1E1E] px-5 sm:px-6 lg:px-[8%] pt-20 sm:pt-24 lg:pt-28 overflow-hidden"
     >
-      <div className="relative z-10 grid w-full max-w-7xl gap-8 lg:grid-cols-2 lg:gap-12 items-center">
-        <motion.div
-          className="flex flex-col justify-center space-y-4 text-center lg:text-left"
-          variants={containerVariants}
-        >
-          <MainHeading />
-          <Description />
+      <div className="relative z-10 mx-auto w-full max-w-7xl">
+        <div className="grid items-center gap-14 lg:gap-12 lg:grid-cols-2">
           <motion.div
-            variants={itemVariants}
-            className="flex flex-col items-center gap-4 lg:items-start w-full pt-2"
+            variants={containerVariants}
+            className="flex flex-col justify-center space-y-6 text-center lg:text-left max-w-xl mx-auto lg:mx-0"
           >
-            <div className="flex w-full flex-col gap-2.5 sm:flex-row sm:gap-3">
-              <CustomButton
-                href={"#projects"}
-                variant={"primary"}
-                size="md"
-                className="w-full sm:flex-1"
-              >
-                My Work
-              </CustomButton>
-              <CustomButton
-                href={"#contact"}
-                variant={"secondary"}
-                size="md"
-                className="w-full sm:flex-1"
-              >
-                Connect
-              </CustomButton>
-              <CustomButton
-                href={"/Himanshu_Pandey_Resume.pdf"}
-                variant={"outline"}
-                size="md"
-                icon={Download}
-                download={true}
-                className="w-full sm:flex-1"
-              >
-                Resume
-              </CustomButton>
-            </div>
+            <MainHeading />
+            <Description />
 
-            <div className="flex items-center gap-3 w-full pt-1">
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-teal-400/20 to-transparent" />
-              <SocialLinks variant="hero" />
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-teal-400/20 to-transparent" />
-            </div>
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-col gap-6 pt-2"
+            >
+              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <CustomButton
+                  href="#projects"
+                  variant="primary"
+                  size="md"
+                  className="w-full sm:w-auto sm:flex-1"
+                >
+                  My Work
+                </CustomButton>
+
+                <CustomButton
+                  href="#contact"
+                  variant="secondary"
+                  size="md"
+                  className="w-full sm:w-auto sm:flex-1"
+                >
+                  Connect
+                </CustomButton>
+
+                <CustomButton
+                  href="/Himanshu_Pandey_Resume.pdf"
+                  variant="outline"
+                  size="md"
+                  icon={Download}
+                  download
+                  className="w-full sm:w-auto sm:flex-1"
+                >
+                  Resume
+                </CustomButton>
+              </div>
+
+              <div className="flex items-center gap-4">
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-teal-400/20 to-transparent" />
+                <SocialLinks variant="hero" />
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-teal-400/20 to-transparent" />
+              </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
 
-        <div className="flex items-center justify-center lg:justify-end">
-          <RightAnimation />
+          <div className="flex items-center justify-center lg:justify-end lg:pr-6 mt-6 lg:mt-0 scale-[0.85] sm:scale-100">
+            <RightAnimation />
+          </div>
         </div>
       </div>
     </motion.section>
   );
 };
+
+Hero.displayName = "Hero";
+export default Hero;

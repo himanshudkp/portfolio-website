@@ -1,4 +1,4 @@
-import {
+import type {
   AboutContent,
   ButtonText,
   ContactInfo,
@@ -10,6 +10,7 @@ import {
   Project,
   Skill,
   Tab,
+  TechItem,
 } from "@/lib/types";
 import {
   AppWindow,
@@ -32,6 +33,23 @@ import {
   User,
   Wrench,
 } from "lucide-react";
+import {
+  SiPrisma,
+  SiAmazonwebservices,
+  SiDocker,
+  SiExpo,
+  SiGit,
+  SiMongodb,
+  SiOpenai,
+  SiPostgresql,
+  SiRedis,
+  SiVercel,
+  SiTailwindcss,
+  SiNodedotjs,
+  SiTypescript,
+  SiNextdotjs,
+  SiReact,
+} from "react-icons/si";
 
 export const NAV_LINKS: NavLink[] = [
   { name: "Home", href: "#home", icon: House },
@@ -540,3 +558,104 @@ export const SKILLS: Skill[] = [
   { category: ["tools", "all"], skill: "Vercel" },
   { category: ["tools", "all"], skill: "Performance Optimization" },
 ];
+
+export const OUTER_RING: readonly TechItem[] = [
+  {
+    icon: SiReact,
+    label: "React",
+    color: "text-sky-400",
+    glow: "group-hover:drop-shadow-[0_0_10px_rgba(56,189,248,0.9)]",
+  },
+  {
+    icon: SiNextdotjs,
+    label: "Next.js",
+    color: "text-white",
+    glow: "group-hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.9)]",
+  },
+  {
+    icon: SiTypescript,
+    label: "TypeScript",
+    color: "text-blue-500",
+    glow: "group-hover:drop-shadow-[0_0_10px_rgba(59,130,246,0.9)]",
+  },
+  {
+    icon: SiNodedotjs,
+    label: "Node.js",
+    color: "text-green-500",
+    glow: "group-hover:drop-shadow-[0_0_10px_rgba(34,197,94,0.9)]",
+  },
+  {
+    icon: SiTailwindcss,
+    label: "Tailwind",
+    color: "text-cyan-400",
+    glow: "group-hover:drop-shadow-[0_0_10px_rgba(34,211,238,0.9)]",
+  },
+  {
+    icon: SiPrisma,
+    label: "Prisma",
+    color: "text-violet-400",
+    glow: "group-hover:drop-shadow-[0_0_10px_rgba(167,139,250,0.9)]",
+  },
+] as const;
+
+export const INNER_RING: readonly TechItem[] = [
+  {
+    icon: SiPostgresql,
+    label: "PostgreSQL",
+    color: "text-blue-400",
+    glow: "group-hover:drop-shadow-[0_0_10px_rgba(74,144,217,0.9)]",
+  },
+  {
+    icon: SiMongodb,
+    label: "MongoDB",
+    color: "text-green-500",
+    glow: "group-hover:drop-shadow-[0_0_10px_rgba(34,197,94,0.9)]",
+  },
+  {
+    icon: SiRedis,
+    label: "Redis",
+    color: "text-red-500",
+    glow: "group-hover:drop-shadow-[0_0_10px_rgba(239,68,68,0.9)]",
+  },
+  {
+    icon: SiOpenai,
+    label: "OpenAI",
+    color: "text-emerald-400",
+    glow: "group-hover:drop-shadow-[0_0_10px_rgba(16,185,129,0.9)]",
+  },
+  {
+    icon: SiDocker,
+    label: "Docker",
+    color: "text-blue-500",
+    glow: "group-hover:drop-shadow-[0_0_10px_rgba(37,99,235,0.9)]",
+  },
+  {
+    icon: SiVercel,
+    label: "Vercel",
+    color: "text-white",
+    glow: "group-hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.9)]",
+  },
+  {
+    icon: SiAmazonwebservices,
+    label: "AWS",
+    color: "text-orange-400",
+    glow: "group-hover:drop-shadow-[0_0_10px_rgba(251,146,60,0.9)]",
+  },
+  {
+    icon: SiGit,
+    label: "Git",
+    color: "text-orange-500",
+    glow: "group-hover:drop-shadow-[0_0_10px_rgba(249,115,22,0.9)]",
+  },
+  {
+    icon: SiExpo,
+    label: "Expo",
+    color: "text-white",
+    glow: "group-hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.9)]",
+  },
+] as const;
+
+export const R1 = 120;
+export const R2 = 210;
+export const SIZE = R2 * 2 + 80;
+export const CENTER = SIZE / 2;

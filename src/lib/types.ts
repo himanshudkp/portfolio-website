@@ -1,4 +1,5 @@
 import type { LucideIcon } from "lucide-react";
+import type { IconType } from "react-icons";
 
 export interface NavLink {
   name: string;
@@ -131,4 +132,11 @@ export interface EmailResponse {
 export interface Skill {
   category: string[];
   skill: string;
+}
+
+export interface TechItem {
+  icon: IconType;
+  label: string;
+  color: string;
+  glow: string;
 }

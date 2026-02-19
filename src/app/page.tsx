@@ -1,7 +1,8 @@
 "use client";
 
-import { About, Contact, Footer, Hero, Projects, Skills } from "@/components";
+import { About, Contact, Footer, Projects, Skills } from "@/components";
 import Header from "@/components/header";
+import Hero from "@/components/hero";
 
 export default function Home() {
   return (
